@@ -12,12 +12,13 @@ public class GameManager : MonoBehaviour
         //fighter1.Create(new Vector3(2.6f, 0.0f, 7.7f));
 
         //fighter1.Create(gameData.displayFighterCenter);
-        NewGameBtn();
+        //NewGameAction();
     }
 
-    public void NewGameBtn()
+    public void NewGameAction()
     {
-       
+        Debug.Log("New Game Action ...");
+        EventManager.Instance.InvokeOnNewGameAction();
     }
 
     public void LoadGameBtn()
@@ -39,4 +40,21 @@ public class GameManager : MonoBehaviour
     {
 
     }
+
+    public class DisplayFighters
+    {
+        private FighterSO[] fighterList;
+
+        private int fighter;
+
+        public DisplayFighters(GameDataSO gameData)
+        {
+            this.fighterList = gameData.fighterList;
+            this.fighter = fighterList.Length - 1;
+
+            gameData.fighterList[fighter].Create(gameData.displayFighterCenter);
+        }
+    }
 }
+
+

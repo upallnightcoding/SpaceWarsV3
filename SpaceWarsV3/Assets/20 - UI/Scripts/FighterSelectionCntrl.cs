@@ -9,7 +9,7 @@ public class FighterSelectionCntrl : MonoBehaviour
     private int fighter = 0;
     private GameObject currentFighter;
 
-    public void NewGameBtn()
+    public void NewGameAction()
     {
         currentFighter = gameData.fighterList[fighter].Create(gameData.displayFighterCenter);
         currentFighter.GetComponent<FighterCntrl>().StartTurn(true);
