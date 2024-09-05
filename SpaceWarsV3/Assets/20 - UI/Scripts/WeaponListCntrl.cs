@@ -4,31 +4,36 @@ using UnityEngine;
 
 public class WeaponListCntrl : MonoBehaviour
 {
-    [SerializeField] private WeaponListItemCntrl[] weaponListIten;
-
-    [SerializeField] private WeaponSO[] ammo;
+    [SerializeField] private WeaponListItemCntrl[] weaponListItem;
 
     private int currentToggle = 0;
 
-    // Start is called before the first frame update
-    void Start()
+    private int nWeapons = 0;
+
+    public void SetItem(WeaponSO[] weaponList)
     {
-        foreach (WeaponListItemCntrl item in weaponListIten)
+        InitializeWeaponsDisplay();
+
+        foreach (WeaponSO weapon in weaponList)
         {
-            item.DeActivate();
+            weaponListItem[nWeapons++].SetItem(weapon);
         }
-
-        weaponListIten[currentToggle].ToggleSelection();
-
-        weaponListIten[0].SetItem(ammo[0]);
-        weaponListIten[1].SetItem(ammo[1]);
-        weaponListIten[2].SetItem(ammo[2]);
     }
 
     public void SelectedButton(int index)
     {
-        weaponListIten[currentToggle].ToggleSelection();
-        weaponListIten[index].ToggleSelection();
+        weaponListItem[currentToggle].ToggleSelection();
+        weaponListItem[index].ToggleSelection();
         currentToggle = index;
+    }
+
+    private void InitializeWeaponsDisplay()
+    {
+        foreach (WeaponListItemCntrl item in weaponListItem)
+        {
+            item.DeActivate();
+        }
+
+        weaponListItem[currentToggle].ToggleSelection();
     }
 }

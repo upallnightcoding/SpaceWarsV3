@@ -6,10 +6,33 @@ public class UICntrl : MonoBehaviour
 {
     [SerializeField] FighterSelectionCntrl fighterSelectionCntrl;
 
+    [Header("UI Panels ...")]
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject fighterSelectionPanel;
 
-   public void NewGameAction()
+    [Header("Inventory List ...")]
+    [SerializeField] private WeaponListCntrl ammoListCntrl;
+    [SerializeField] private WeaponListCntrl missileListCntrl;
+    [SerializeField] private WeaponListCntrl shieldListCntrl;
+
+    [Header("Weapon List ...")]
+    [SerializeField] private WeaponSO[] ammoList;
+    [SerializeField] private WeaponSO[] missileList;
+    [SerializeField] private WeaponSO[] shieldList;
+
+    public void Start()
+    {
+        SetWeaponItems();
+    }
+
+    public void SetWeaponItems()
+    {
+        ammoListCntrl.SetItem(ammoList);
+        missileListCntrl.SetItem(missileList);
+        shieldListCntrl.SetItem(shieldList);
+    }
+
+    public void NewGameAction()
     {
         CloseAllPanels();
         fighterSelectionPanel.SetActive(true);
