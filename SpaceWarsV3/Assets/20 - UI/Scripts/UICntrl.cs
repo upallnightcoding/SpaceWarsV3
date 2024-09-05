@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class UICntrl : MonoBehaviour
 {
-    [SerializeField] FighterSelectionCntrl fighterSelectionCntrl;
+    [SerializeField] private FighterSelectionCntrl fighterSelectionCntrl;
+
+    [SerializeField] private TMP_Text currentCoins;
 
     [Header("UI Panels ...")]
     [SerializeField] private GameObject mainMenuPanel;

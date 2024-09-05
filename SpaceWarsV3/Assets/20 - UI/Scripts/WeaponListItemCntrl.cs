@@ -9,9 +9,12 @@ public class WeaponListItemCntrl : MonoBehaviour, IPointerEnterHandler, IPointer
 {
     [SerializeField] GameObject highlight;
     [SerializeField] GameObject selected;
-    [SerializeField] TMP_Text cost;
+    [SerializeField] TMP_Text costText;
     [SerializeField] TMP_Text weaponName;
     [SerializeField] Image image;
+
+    // Properties ...
+    public int WeaponCost { get; set; } = 0;
 
     private bool selectedSw = false;
 
@@ -19,10 +22,12 @@ public class WeaponListItemCntrl : MonoBehaviour, IPointerEnterHandler, IPointer
 
     private void UnHightLightItem() => highlight.SetActive(false);
 
+
     public void SetItem(WeaponSO weapon)
     {
         Activate();
-        cost.text = weapon.cost.ToString();
+        WeaponCost = weapon.cost;
+        costText.text = weapon.cost.ToString();
         weaponName.text = weapon.weaponName;
         image.sprite = weapon.sprite;
     }

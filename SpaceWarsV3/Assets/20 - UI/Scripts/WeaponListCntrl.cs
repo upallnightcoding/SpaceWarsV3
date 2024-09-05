@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System;
 
 public class WeaponListCntrl : MonoBehaviour
 {
     [SerializeField] private WeaponListItemCntrl[] weaponListItem;
 
-    private int currentToggle = 0;
+    [SerializeField] private TMP_Text coinText;
+
+    private int currentToggle = -1;
 
     private int nWeapons = 0;
 
@@ -22,9 +26,24 @@ public class WeaponListCntrl : MonoBehaviour
 
     public void SelectedButton(int index)
     {
-        weaponListItem[currentToggle].ToggleSelection();
-        weaponListItem[index].ToggleSelection();
+        if (currentToggle != -1)
+        {
+            weaponListItem[currentToggle].ToggleSelection();
+        }
+
         currentToggle = index;
+        weaponListItem[currentToggle].ToggleSelection();
+        AddToCoins(weaponListItem[currentToggle].WeaponCost);
+    }
+
+    /**
+     * AddToCoins() - 
+     */
+    private void AddToCoins(int value)
+    {
+        int total = Int32.Parse(coinText.text);
+        total += value;
+        coinText.text = total.ToString();
     }
 
     private void InitializeWeaponsDisplay()
@@ -33,7 +52,5 @@ public class WeaponListCntrl : MonoBehaviour
         {
             item.DeActivate();
         }
-
-        weaponListItem[currentToggle].ToggleSelection();
     }
 }
