@@ -28,21 +28,22 @@ public class WeaponListCntrl : MonoBehaviour
     {
         if (currentToggle != -1)
         {
+            AddToCoins(weaponListItem[currentToggle].WeaponCost);
             weaponListItem[currentToggle].ToggleSelection();
         }
 
         currentToggle = index;
         weaponListItem[currentToggle].ToggleSelection();
-        AddToCoins(weaponListItem[currentToggle].WeaponCost);
+        AddToCoins(-weaponListItem[currentToggle].WeaponCost);
     }
 
     /**
-     * AddToCoins() - 
+     * AddToCoins() - Adds the value to the current coin value in the 
+     * UI display.
      */
     private void AddToCoins(int value)
     {
-        int total = Int32.Parse(coinText.text);
-        total += value;
+        int total = Int32.Parse(coinText.text) + value;
         coinText.text = total.ToString();
     }
 

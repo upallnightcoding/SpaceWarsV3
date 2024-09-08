@@ -12,7 +12,7 @@ public class FighterSelectionCntrl : MonoBehaviour
     public void NewGameAction()
     {
         currentFighter = gameData.fighterList[fighter].Create(gameData.displayFighterCenter);
-        currentFighter.GetComponent<FighterCntrl>().StartTurn(true);
+        currentFighter.GetComponent<FighterCntrl>().StartTurn();
     }
 
     public void FighterSelectionPrev()
@@ -22,7 +22,7 @@ public class FighterSelectionCntrl : MonoBehaviour
         fighter = (--fighter < 0) ? gameData.fighterList.Length - 1 : fighter;
 
         currentFighter = gameData.fighterList[fighter].Create(gameData.displayFighterCenter);
-        currentFighter.GetComponent<FighterCntrl>().StartTurn(true);
+        currentFighter.GetComponent<FighterCntrl>().StartTurn();
     }
 
     public void FighterSelectionNext()
@@ -32,11 +32,12 @@ public class FighterSelectionCntrl : MonoBehaviour
         fighter = ++fighter % gameData.fighterList.Length;
 
         currentFighter = gameData.fighterList[fighter].Create(gameData.displayFighterCenter);
-        currentFighter.GetComponent<FighterCntrl>().StartTurn(true);
+        currentFighter.GetComponent<FighterCntrl>().StartTurn();
     }
 
     public void FighterSelection()
     {
         Debug.Log("FighterSelection");
+        currentFighter.SetActive(false);
     }
 }

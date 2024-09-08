@@ -12,6 +12,8 @@ public class UICntrl : MonoBehaviour
     [Header("UI Panels ...")]
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject fighterSelectionPanel;
+    [SerializeField] private GameObject selectLevelPanel;
+    [SerializeField] private GameObject inventorySelectionPanel;
 
     [Header("Inventory List ...")]
     [SerializeField] private WeaponListCntrl ammoListCntrl;
@@ -37,30 +39,80 @@ public class UICntrl : MonoBehaviour
 
     public void NewGameAction()
     {
-        CloseAllPanels();
-        fighterSelectionPanel.SetActive(true);
-
-        fighterSelectionCntrl.NewGameAction();
+        RenderPanel(PanelType.SELECT_LEVEL_PANEL);
     }
 
-    private void FighterSelection()
+    public void SetLevelTutorial()
     {
-
+        Debug.Log("Set Level Tutorial ...");
+        RenderPanel(PanelType.FIGHTER_SELECTION_PANEL);
     }
 
-    private void CloseAllPanels()
+    public void SetLevelHavoc()
+    {
+        Debug.Log("Set Level Havoc ...");
+        RenderPanel(PanelType.FIGHTER_SELECTION_PANEL);
+    }
+
+    public void SetLevelTooEasy()
+    {
+        Debug.Log("Set Level Too Easy ...");
+        RenderPanel(PanelType.FIGHTER_SELECTION_PANEL);
+    }
+
+    public void SetLevelLevels()
+    {
+        Debug.Log("Set Level Levels ...");
+        RenderPanel(PanelType.FIGHTER_SELECTION_PANEL);
+    }
+
+    public void FighterSelection(GameObject fighter)
+    {
+        RenderPanel(PanelType.INVENTORY_SELECTION_PANEL);
+    }
+
+    private void RenderPanel(PanelType panel)
     {
         mainMenuPanel.SetActive(false);
         fighterSelectionPanel.SetActive(false);
-    }
+        selectLevelPanel.SetActive(false);
+        inventorySelectionPanel.SetActive(false);
 
-    private void OnDisable()
-    {
-        EventManager.Instance.OnNewGameAction -= NewGameAction;
+        switch (panel)
+        {
+            case PanelType.MAIN_MENU_PANEL:
+                mainMenuPanel.SetActive(true);
+                break;
+            case PanelType.FIGHTER_SELECTION_PANEL:
+                fighterSelectionPanel.SetActive(true);
+                fighterSelectionCntrl.NewGameAction();
+                break;
+            case PanelType.SELECT_LEVEL_PANEL:
+                selectLevelPanel.SetActive(true);
+                break;
+            case PanelType.INVENTORY_SELECTION_PANEL:
+                inventorySelectionPanel.SetActive(true);
+                break;
+        }
     }
 
     private void OnEnable()
     {
         EventManager.Instance.OnNewGameAction += NewGameAction;
+        EventManager.Instance.OnFighterSelection += FighterSelection;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnNewGameAction -= NewGameAction;
+        EventManager.Instance.OnFighterSelection -= FighterSelection;
+    }
+
+    private enum PanelType
+    {
+        MAIN_MENU_PANEL,
+        FIGHTER_SELECTION_PANEL,
+        SELECT_LEVEL_PANEL,
+        INVENTORY_SELECTION_PANEL
     }
 }
