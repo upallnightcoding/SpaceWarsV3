@@ -37,7 +37,7 @@ public class FighterSelectionCntrl : MonoBehaviour
 
     public void FighterSelection()
     {
-        Debug.Log("FighterSelection");
         currentFighter.SetActive(false);
+        EventManager.Instance.InvokeOnFighterSelection(currentFighter);
     }
 }
