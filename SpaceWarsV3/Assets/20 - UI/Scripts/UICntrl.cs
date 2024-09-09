@@ -6,6 +6,7 @@ using TMPro;
 public class UICntrl : MonoBehaviour
 {
     [SerializeField] private FighterSelectionCntrl fighterSelectionCntrl;
+    [SerializeField] private UIAnimationCntrl uIAnimationCntrl;
 
     [SerializeField] private TMP_Text currentCoins;
 
@@ -14,6 +15,7 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private GameObject fighterSelectionPanel;
     [SerializeField] private GameObject selectLevelPanel;
     [SerializeField] private GameObject inventorySelectionPanel;
+    [SerializeField] private GameObject engagementPanel;
 
     [Header("Inventory List ...")]
     [SerializeField] private WeaponListCntrl ammoListCntrl;
@@ -28,6 +30,11 @@ public class UICntrl : MonoBehaviour
     public void Start()
     {
         SetWeaponItems();
+    }
+
+    public void DoneInventorySelection()
+    {
+        RenderPanel(PanelType.ENGAGEMENT_PANEL);
     }
 
     public void SetWeaponItems()
@@ -77,12 +84,10 @@ public class UICntrl : MonoBehaviour
         fighterSelectionPanel.SetActive(false);
         selectLevelPanel.SetActive(false);
         inventorySelectionPanel.SetActive(false);
+        engagementPanel.SetActive(false);
 
         switch (panel)
         {
-            case PanelType.MAIN_MENU_PANEL:
-                mainMenuPanel.SetActive(true);
-                break;
             case PanelType.FIGHTER_SELECTION_PANEL:
                 fighterSelectionPanel.SetActive(true);
                 fighterSelectionCntrl.NewGameAction();
@@ -92,6 +97,9 @@ public class UICntrl : MonoBehaviour
                 break;
             case PanelType.INVENTORY_SELECTION_PANEL:
                 inventorySelectionPanel.SetActive(true);
+                break;
+            case PanelType.ENGAGEMENT_PANEL:
+                engagementPanel.SetActive(true);
                 break;
         }
     }
@@ -113,6 +121,7 @@ public class UICntrl : MonoBehaviour
         MAIN_MENU_PANEL,
         FIGHTER_SELECTION_PANEL,
         SELECT_LEVEL_PANEL,
-        INVENTORY_SELECTION_PANEL
+        INVENTORY_SELECTION_PANEL,
+        ENGAGEMENT_PANEL
     }
 }
