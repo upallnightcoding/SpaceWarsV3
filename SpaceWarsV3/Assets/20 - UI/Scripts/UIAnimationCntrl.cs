@@ -10,12 +10,6 @@ public class UIAnimationCntrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LeanTween.rotateAround(hud_Crosshair, Vector3.forward, 360.0f, 2.0f).setLoopClamp();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //LeanTween.rotateAround(hud_Crosshair, Vector3.forward, 360.0f, 2.0f).setLoopClamp();
     }
 }

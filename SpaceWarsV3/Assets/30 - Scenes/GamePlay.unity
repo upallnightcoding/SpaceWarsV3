@@ -235,6 +235,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD_SciFi_Reticle_RocketLauncher
       objectReference: {fileID: 0}
+    - target: {fileID: 2116630759849371371, guid: 32bacdf83c0fb7c4781c82d6964f4304,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -810,7 +815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 292, y: -884}
+  m_AnchoredPosition: {x: 319, y: -854}
   m_SizeDelta: {x: 622.6633, y: 218.57129}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &217063425
@@ -2244,6 +2249,7 @@ GameObject:
   - component: {fileID: 504630906}
   - component: {fileID: 504630907}
   - component: {fileID: 504630908}
+  - component: {fileID: 504630909}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -2330,6 +2336,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countDownText: {fileID: 6097949098953022066}
+--- !u!114 &504630909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504630904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5167c8f8b15177f4dbf18b55ae220689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: fa3e569a7ff8ee8488b0e097dae41cd2, type: 2}
 --- !u!1 &560569114
 GameObject:
   m_ObjectHideFlags: 0
@@ -2852,8 +2871,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 176, y: -25}
-  m_SizeDelta: {x: 256.4523, y: 108.8618}
+  m_AnchoredPosition: {x: 98, y: -65}
+  m_SizeDelta: {x: 457.4803, y: 108.8618}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &706090381
 MonoBehaviour:
@@ -2875,7 +2894,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: War
+  m_text: Fighter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c6aeca68248146a4197e5414a433cd11, type: 2}
   m_sharedMaterial: {fileID: -799478276824298818, guid: c6aeca68248146a4197e5414a433cd11,
@@ -4199,12 +4218,12 @@ PrefabInstance:
     - target: {fileID: 320613928736528264, guid: cdbba9bbf7f0c10458d518387756f356,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 124.3794
       objectReference: {fileID: 0}
     - target: {fileID: 320613928736528264, guid: cdbba9bbf7f0c10458d518387756f356,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 40.755
       objectReference: {fileID: 0}
     - target: {fileID: 320613928736528264, guid: cdbba9bbf7f0c10458d518387756f356,
         type: 3}
@@ -4244,12 +4263,12 @@ PrefabInstance:
     - target: {fileID: 320613928736528264, guid: cdbba9bbf7f0c10458d518387756f356,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -10
+      value: -0.000015259
       objectReference: {fileID: 0}
     - target: {fileID: 320613928736528264, guid: cdbba9bbf7f0c10458d518387756f356,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -336
+      value: -314
       objectReference: {fileID: 0}
     - target: {fileID: 320613928736528264, guid: cdbba9bbf7f0c10458d518387756f356,
         type: 3}
@@ -4299,27 +4318,37 @@ PrefabInstance:
     - target: {fileID: 1275887566106218598, guid: cdbba9bbf7f0c10458d518387756f356,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 90.63
+      value: 66.78
       objectReference: {fileID: 0}
     - target: {fileID: 1275887566106218598, guid: cdbba9bbf7f0c10458d518387756f356,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 45.61
+      value: 16.755001
       objectReference: {fileID: 0}
     - target: {fileID: 1275887566106218598, guid: cdbba9bbf7f0c10458d518387756f356,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 100
+      value: 62.1897
       objectReference: {fileID: 0}
     - target: {fileID: 1275887566106218598, guid: cdbba9bbf7f0c10458d518387756f356,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -40
+      value: -20.3775
       objectReference: {fileID: 0}
     - target: {fileID: 1793682015428254394, guid: cdbba9bbf7f0c10458d518387756f356,
         type: 3}
       propertyPath: m_text
       value: Done
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793682015428254394, guid: cdbba9bbf7f0c10458d518387756f356,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793682015428254394, guid: cdbba9bbf7f0c10458d518387756f356,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 3635531603855644365, guid: cdbba9bbf7f0c10458d518387756f356,
         type: 3}

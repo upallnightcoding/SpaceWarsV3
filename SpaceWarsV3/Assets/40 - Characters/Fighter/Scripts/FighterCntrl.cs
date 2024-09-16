@@ -7,17 +7,16 @@ public class FighterCntrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartTurn();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
     }
 
     public void StartTurn()
     {
         LeanTween.rotateAroundLocal(gameObject, Vector3.up, -360.0f, 10.0f).setLoopClamp();
+    }
+
+    public void FadeOut()
+    {
+        LeanTween.alpha(gameObject, 0.0f, 2.0f);
     }
 }

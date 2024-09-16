@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38012168abdb83d46b51e31fe931fb40, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  displayFighterCenter: {x: 0, y: 0, z: 6}
+  displayFighterCenter: {x: 3, y: 0, z: 10}
   fighterList:
   - {fileID: 11400000, guid: 958d3394fbc1f3e40943002809e81cae, type: 2}
   - {fileID: 11400000, guid: 9c0503cb232ef8142ba211ea6e756596, type: 2}

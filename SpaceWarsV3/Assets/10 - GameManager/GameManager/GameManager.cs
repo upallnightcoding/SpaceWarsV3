@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
 
     public void NewGameAction()
     {
-        Debug.Log("New Game Action ...");
         EventManager.Instance.InvokeOnNewGameAction();
     }
 
