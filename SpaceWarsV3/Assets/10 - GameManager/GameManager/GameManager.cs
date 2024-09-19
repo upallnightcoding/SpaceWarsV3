@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameDataSO gameData;
     [SerializeField] private FighterSO fighter1;
 
+    private LevelData levelData = null;
+
     public void Start()
     {
         //fighter1.Create(new Vector3(2.6f, 0.0f, 7.7f));
@@ -14,6 +16,10 @@ public class GameManager : MonoBehaviour
         //fighter1.Create(gameData.displayFighterCenter);
         //NewGameAction();
     }
+
+    /***********************************/
+    /*** Main Menu Selection Options ***/
+    /***********************************/
 
     public void NewGameAction()
     {
@@ -40,20 +46,36 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public class DisplayFighters
+    /*********************************/
+    /*** Select Level Menu Options ***/
+    /*********************************/
+
+    public void StartEngagement()
     {
-        private FighterSO[] fighterList;
+        Debug.Log("Start Engagement ...");
+    }
 
-        private int fighter;
+    public void SetLevelTutorial()
+    {
+        levelData = new LevelData(LevelType.TUTORIAL);
+    }
 
-        public DisplayFighters(GameDataSO gameData)
-        {
-            this.fighterList = gameData.fighterList;
-            this.fighter = fighterList.Length - 1;
+    public void FighterSelection(GameObject selectedFighter)
+    {
+        levelData.Fighter = selectedFighter;
+    }
 
-            gameData.fighterList[fighter].Create(gameData.displayFighterCenter);
-        }
+    private void OnEnable()
+    {
+        EventManager.Instance.OnFighterSelection += FighterSelection;
+        EventManager.Instance.OnSetLevelTutorial += SetLevelTutorial;
+        EventManager.Instance.OnStartEngagement += StartEngagement;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnFighterSelection -= FighterSelection;
+        EventManager.Instance.OnSetLevelTutorial -= SetLevelTutorial;
+        EventManager.Instance.OnStartEngagement -= StartEngagement;
     }
 }
-
-

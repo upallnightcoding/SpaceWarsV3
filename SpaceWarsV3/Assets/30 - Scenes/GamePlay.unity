@@ -2288,6 +2288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fighterSelectionCntrl: {fileID: 504630907}
   uIAnimationCntrl: {fileID: 129994710}
+  mainMenuCntrl: {fileID: 504630909}
   currentCoins: {fileID: 641148031}
   mainMenuPanel: {fileID: 1777347122}
   fighterSelectionPanel: {fileID: 633744421}
@@ -2474,7 +2475,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 504630906}
         m_TargetAssemblyTypeName: UICntrl, Assembly-CSharp
-        m_MethodName: SetLevelTooEasy
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3286,7 +3287,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 504630906}
         m_TargetAssemblyTypeName: UICntrl, Assembly-CSharp
-        m_MethodName: SetLevelHavoc
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5392,9 +5393,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 504630906}
-        m_TargetAssemblyTypeName: UICntrl, Assembly-CSharp
-        m_MethodName: SetLevelTutorial
+      - m_Target: {fileID: 127738522}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: SetLevelTutorialMenuOption
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10171,7 +10172,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 504630906}
         m_TargetAssemblyTypeName: UICntrl, Assembly-CSharp
-        m_MethodName: SetLevelLevels
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

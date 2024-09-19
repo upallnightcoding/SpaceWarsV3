@@ -39,7 +39,8 @@ public class WeaponListCntrl : MonoBehaviour
 
     /**
      * AddToCoins() - Adds the value to the current coin value in the 
-     * UI display.
+     * UI display.  The current coin value must be converted from 
+     * text before the value can be added.
      */
     private void AddToCoins(int value)
     {

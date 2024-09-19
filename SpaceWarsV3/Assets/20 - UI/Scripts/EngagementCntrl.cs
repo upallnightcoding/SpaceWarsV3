@@ -27,6 +27,8 @@ public class EngagementCntrl : MonoBehaviour
             transitionTime -= Time.deltaTime;
         }
 
+        EventManager.Instance.InvokeOnStartEngagement();
+
     }
 
     private void DisplayEngageCountDown(int count)

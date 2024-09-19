@@ -7,6 +7,7 @@ public class UICntrl : MonoBehaviour
 {
     [SerializeField] private FighterSelectionCntrl fighterSelectionCntrl;
     [SerializeField] private UIAnimationCntrl uIAnimationCntrl;
+    [SerializeField] private MainMenuCntrl mainMenuCntrl;
 
     [SerializeField] private TMP_Text currentCoins;
 
@@ -32,32 +33,31 @@ public class UICntrl : MonoBehaviour
         SetWeaponItems();
     }
 
-    public void DoneInventorySelection()
-    {
-        RenderPanel(PanelType.ENGAGEMENT_PANEL);
-    }
+    /****************************/
+    /*** Main Menu Selections ***/
+    /****************************/
 
-    public void SetWeaponItems()
-    {
-        ammoListCntrl.SetItem(ammoList);
-        missileListCntrl.SetItem(missileList);
-        shieldListCntrl.SetItem(shieldList);
-    }
-
+    /**
+     * NewGameAction() - When the user selects "New Game" from the main menu.
+     */
     public void NewGameAction()
     {
         RenderPanel(PanelType.SELECT_LEVEL_PANEL);
     }
 
+    /************************************/
+    /*** Fighter Level Menu Selection ***/
+    /************************************/
+
     public void SetLevelTutorial()
     {
-        Debug.Log("Set Level Tutorial ...");
         RenderPanel(PanelType.FIGHTER_SELECTION_PANEL);
+
+        EventManager.Instance.InvokeOnSetLevelTutorial();
     }
 
     public void SetLevelHavoc()
     {
-        Debug.Log("Set Level Havoc ...");
         RenderPanel(PanelType.FIGHTER_SELECTION_PANEL);
     }
 
@@ -73,9 +73,25 @@ public class UICntrl : MonoBehaviour
         RenderPanel(PanelType.FIGHTER_SELECTION_PANEL);
     }
 
-    public void FighterSelection(GameObject fighter)
+    public void FighterSelection(GameObject selectedFighter)
     {
         RenderPanel(PanelType.INVENTORY_SELECTION_PANEL);
+    }
+
+    /**
+     * DoneInventorySelection() - When the inventory selection is done.  This
+     * function will switch over the display to the Engagement Panel.
+     */
+    public void DoneInventorySelection()
+    {
+        RenderPanel(PanelType.ENGAGEMENT_PANEL);
+    }
+
+    public void SetWeaponItems()
+    {
+        ammoListCntrl.SetItem(ammoList);
+        missileListCntrl.SetItem(missileList);
+        shieldListCntrl.SetItem(shieldList);
     }
 
     private void RenderPanel(PanelType panel)
@@ -93,6 +109,7 @@ public class UICntrl : MonoBehaviour
                 fighterSelectionCntrl.NewGameAction();
                 break;
             case PanelType.SELECT_LEVEL_PANEL:
+                mainMenuCntrl.StopFighterDisplay();
                 selectLevelPanel.SetActive(true);
                 break;
             case PanelType.INVENTORY_SELECTION_PANEL:
