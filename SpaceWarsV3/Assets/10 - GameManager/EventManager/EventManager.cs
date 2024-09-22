@@ -17,6 +17,12 @@ public class EventManager
     public event Action OnStartEngagement = delegate { };
     public void InvokeOnStartEngagement() => OnStartEngagement.Invoke();
 
+    public event Action<Vector2> OnInputMove = delegate { };
+    public void InvokeOnInputMove(Vector2 context) => OnInputMove.Invoke(context);
+
+    public event Action<Vector2> OnInputLook = delegate { };
+    public void InvokeOnInputLook(Vector2 context) => OnInputLook.Invoke(context);
+
     // Event Manager Singleton
     //========================
     public static EventManager Instance

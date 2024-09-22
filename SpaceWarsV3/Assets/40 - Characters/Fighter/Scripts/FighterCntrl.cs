@@ -4,10 +4,50 @@ using UnityEngine;
 
 public class FighterCntrl : MonoBehaviour
 {
+    private Vector2 move = new Vector2();
+    private Vector2 look = new Vector2();
+
+    private void OnMove(Vector2 move) => this.move = move;
+    private void OnLook(Vector2 look) => this.look = look;
+
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    void Update()
+    {
+        MoveFighterKeyBoard(move, look, Time.deltaTime);
+    }
+
+    private void MoveFighterKeyBoard(Vector2 move, Vector2 look, float dt)
+    {
+
+        float throttle = move.y;
+        float speed = 50.0f;
+        Vector3 direction = Vector3.zero;
+
+        if (look != Vector2.zero)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(look);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Vector3 target = new Vector3(hit.point.x, 0.0f, hit.point.z);
+                direction = (target - transform.position).normalized;
+
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 10.0f * dt);
+                transform.localRotation = playerRotation;
+
+                look = Vector2.zero;
+            }
+        }
+
+        if (throttle > 0.0f)
+        {
+            transform.Translate(direction * speed * throttle * dt, Space.World);
+        }
     }
 
     public void StartTurn()
@@ -18,5 +58,17 @@ public class FighterCntrl : MonoBehaviour
     public void FadeOut()
     {
         LeanTween.alpha(gameObject, 0.0f, 2.0f);
+    }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.OnInputLook += OnLook;
+        EventManager.Instance.OnInputMove += OnMove;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnInputLook -= OnLook;
+        EventManager.Instance.OnInputMove -= OnMove;
     }
 }

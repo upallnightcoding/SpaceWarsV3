@@ -45,6 +45,15 @@ public class UICntrl : MonoBehaviour
         RenderPanel(PanelType.SELECT_LEVEL_PANEL);
     }
 
+    /**
+     * StartEngagement() - Update the UI when it is time for an engagement
+     * to begin.  
+     */
+    public void StartEngagement()
+    {
+        engagementPanel.SetActive(false);
+    }
+
     /************************************/
     /*** Fighter Level Menu Selection ***/
     /************************************/
@@ -125,12 +134,14 @@ public class UICntrl : MonoBehaviour
     {
         EventManager.Instance.OnNewGameAction += NewGameAction;
         EventManager.Instance.OnFighterSelection += FighterSelection;
+        EventManager.Instance.OnStartEngagement += StartEngagement;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnNewGameAction -= NewGameAction;
         EventManager.Instance.OnFighterSelection -= FighterSelection;
+        EventManager.Instance.OnStartEngagement -= StartEngagement;
     }
 
     private enum PanelType

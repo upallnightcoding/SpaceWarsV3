@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameDataSO gameData;
     [SerializeField] private FighterSO fighter1;
 
+    [SerializeField] private GameObject gameCamera;
+
     private LevelData levelData = null;
 
     public void Start()
@@ -53,6 +55,12 @@ public class GameManager : MonoBehaviour
     public void StartEngagement()
     {
         Debug.Log("Start Engagement ...");
+
+        GameObject go = Instantiate(levelData.Fighter, new Vector3(), Quaternion.identity);
+        go.SetActive(true);
+
+        LeanTween.moveLocal(gameCamera, new Vector3(0.0f, 150.0f, 0.0f), 2.0f);
+        LeanTween.rotateLocal(gameCamera, new Vector3(90.0f, 0.0f, 0.0f), 2.0f);
     }
 
     public void SetLevelTutorial()
