@@ -532,7 +532,19 @@ MonoBehaviour:
     m_ActionId: 9942f447-da0c-44fe-a5d7-f2f2364ba072
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 127738525}
+        m_TargetAssemblyTypeName: InputCntrl, Assembly-CSharp
+        m_MethodName: OnFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 38d2171e-d1c8-4403-aae6-59892ff8ba43
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:

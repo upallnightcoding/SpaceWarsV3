@@ -28,4 +28,12 @@ public class InputCntrl : MonoBehaviour
             EventManager.Instance.InvokeOnInputLook(look);
         }
     }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Debug.Log("On Fire ...");
+        }
+    }
 }

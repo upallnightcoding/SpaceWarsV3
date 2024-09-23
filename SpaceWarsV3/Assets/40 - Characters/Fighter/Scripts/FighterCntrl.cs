@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class FighterCntrl : MonoBehaviour
 {
+    [SerializeField] private GameObject firePoint;
+
     private Vector2 move = new Vector2();
     private Vector2 look = new Vector2();
 
     private void OnMove(Vector2 move) => this.move = move;
     private void OnLook(Vector2 look) => this.look = look;
+
+    private bool readyToFire = true;
+
+    // Gun Shooting Attributes
+    //========================
+    private int ammoCount = 0;
+    private int maxAmmoCount = 0;
+    private float reloadTime = 3.0f;
+
+    private WeaponSO ammo;
+
+    public void SetWeapon(WeaponSO ammo) => this.ammo = ammo;
 
     // Start is called before the first frame update
     void Start()
@@ -21,9 +35,43 @@ public class FighterCntrl : MonoBehaviour
         MoveFighterKeyBoard(move, look, Time.deltaTime);
     }
 
+    private IEnumerator ReLoad()
+    {
+        float timing = 0.0f;
+
+        readyToFire = false;
+
+        while (timing < reloadTime)
+        {
+            //EventManager.Instance.InvokeOnReloadAmmo(timing / reloadTime);
+
+            timing += Time.deltaTime;
+            yield return null;
+        }
+
+        ammoCount = maxAmmoCount;
+        readyToFire = true;
+        //EventManager.Instance.InvokeOnUpdateAmmo(1.0f);
+    }
+
+    private IEnumerator FireMissle()
+    {
+        readyToFire = false;
+
+        GameObject go = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
+        //go.
+        Destroy(go, ammo.range);
+
+        ammoCount -= 2;
+
+        //EventManager.Instance.InvokeOnUpdateAmmo((float)ammoCount / maxAmmoCount);
+
+        yield return new WaitForSeconds(0.1f);
+        readyToFire = true;
+    }
+
     private void MoveFighterKeyBoard(Vector2 move, Vector2 look, float dt)
     {
-
         float throttle = move.y;
         float speed = 50.0f;
         Vector3 direction = Vector3.zero;
