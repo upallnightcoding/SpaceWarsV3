@@ -22,18 +22,21 @@ public class InputCntrl : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        Vector2 look = Vector2.zero;
+
         if (context.performed)
         {
-            Vector2 look = Mouse.current.position.ReadValue();
-            EventManager.Instance.InvokeOnInputLook(look);
-        }
+            look = Mouse.current.position.ReadValue();
+        } 
+
+        EventManager.Instance.InvokeOnInputLook(look);
     }
 
     public void OnFire(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            Debug.Log("On Fire ...");
+            EventManager.Instance.InvokeOnFire();
         }
     }
 }

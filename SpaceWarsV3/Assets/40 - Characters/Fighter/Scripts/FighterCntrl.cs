@@ -5,6 +5,7 @@ using UnityEngine;
 public class FighterCntrl : MonoBehaviour
 {
     [SerializeField] private GameObject firePoint;
+    [SerializeField] private WeaponSO ammo;
 
     private Vector2 move = new Vector2();
     private Vector2 look = new Vector2();
@@ -20,7 +21,7 @@ public class FighterCntrl : MonoBehaviour
     private int maxAmmoCount = 0;
     private float reloadTime = 3.0f;
 
-    private WeaponSO ammo;
+    //private WeaponSO ammo;
 
     public void SetWeapon(WeaponSO ammo) => this.ammo = ammo;
 
@@ -33,6 +34,11 @@ public class FighterCntrl : MonoBehaviour
     void Update()
     {
         MoveFighterKeyBoard(move, look, Time.deltaTime);
+    }
+
+    private void OnFire()
+    {
+        StartCoroutine(FireMissle());
     }
 
     private IEnumerator ReLoad()
@@ -59,10 +65,10 @@ public class FighterCntrl : MonoBehaviour
         readyToFire = false;
 
         GameObject go = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
-        //go.
+        go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
         Destroy(go, ammo.range);
 
-        ammoCount -= 2;
+        ammoCount -= 1;
 
         //EventManager.Instance.InvokeOnUpdateAmmo((float)ammoCount / maxAmmoCount);
 
@@ -76,6 +82,8 @@ public class FighterCntrl : MonoBehaviour
         float speed = 50.0f;
         Vector3 direction = Vector3.zero;
 
+        Debug.Log($"Move/Look: {move}/{look}");
+
         if (look != Vector2.zero)
         {
             Ray ray = Camera.main.ScreenPointToRay(look);
@@ -85,7 +93,7 @@ public class FighterCntrl : MonoBehaviour
                 direction = (target - transform.position).normalized;
 
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
-                Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 10.0f * dt);
+                Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 25.0f * dt);
                 transform.localRotation = playerRotation;
 
                 look = Vector2.zero;
@@ -94,7 +102,7 @@ public class FighterCntrl : MonoBehaviour
 
         if (throttle > 0.0f)
         {
-            transform.Translate(direction * speed * throttle * dt, Space.World);
+            transform.Translate(transform.forward * speed * throttle * dt, Space.World);
         }
     }
 
@@ -112,11 +120,13 @@ public class FighterCntrl : MonoBehaviour
     {
         EventManager.Instance.OnInputLook += OnLook;
         EventManager.Instance.OnInputMove += OnMove;
+        EventManager.Instance.OnFire += OnFire;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnInputLook -= OnLook;
         EventManager.Instance.OnInputMove -= OnMove;
+        EventManager.Instance.OnFire -= OnFire;
     }
 }

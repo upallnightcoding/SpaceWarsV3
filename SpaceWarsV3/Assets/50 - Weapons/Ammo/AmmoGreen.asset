@@ -20,9 +20,10 @@ MonoBehaviour:
   rangeSec: 0
   ammoPrefab: {fileID: 682657527431606495, guid: d733e52130256a7438af6320712be001,
     type: 3}
-  rounds: 30
+  maxRounds: 20
   reloadSec: 1
   range: 2
+  force: 200
   payload: 0
   damageRange: 0
   missileExplosion: {fileID: 0}

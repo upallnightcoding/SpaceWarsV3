@@ -23,6 +23,9 @@ public class EventManager
     public event Action<Vector2> OnInputLook = delegate { };
     public void InvokeOnInputLook(Vector2 context) => OnInputLook.Invoke(context);
 
+    public event Action OnFire = delegate { };
+    public void InvokeOnFire() => OnFire.Invoke();
+
     // Event Manager Singleton
     //========================
     public static EventManager Instance

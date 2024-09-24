@@ -20,9 +20,10 @@ public class WeaponSO : ScriptableObject
 
     [Header("Ammo Attributes ...")]
     public GameObject ammoPrefab;
-    public int rounds;
+    public int maxRounds;
     public float reloadSec;
     public float range;
+    public float force;
 
     [Header("Missiles Attributes ...")]
     public int payload;

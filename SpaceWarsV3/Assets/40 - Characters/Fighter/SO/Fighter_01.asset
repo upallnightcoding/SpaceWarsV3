@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Fighter_01
   m_EditorClassIdentifier: 
   fighterName: F 01
-  prefab: {fileID: 1340255076175430690, guid: de4319a5c115db4419b96096bc1ff762, type: 3}
+  fighterPrefab: {fileID: 1340255076175430690, guid: de4319a5c115db4419b96096bc1ff762,
+    type: 3}
