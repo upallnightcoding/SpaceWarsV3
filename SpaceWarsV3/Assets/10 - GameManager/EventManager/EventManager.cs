@@ -26,6 +26,9 @@ public class EventManager
     public event Action OnFire = delegate { };
     public void InvokeOnFire() => OnFire.Invoke();
 
+    public event Action<float> OnUpdateAmmoBar = delegate { };
+    public void InvokeOnUpdateAmmoBar(float value) => OnUpdateAmmoBar.Invoke(value);
+
     // Event Manager Singleton
     //========================
     public static EventManager Instance

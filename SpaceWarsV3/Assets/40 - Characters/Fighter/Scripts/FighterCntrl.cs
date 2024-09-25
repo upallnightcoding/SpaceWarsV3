@@ -21,6 +21,11 @@ public class FighterCntrl : MonoBehaviour
     private int maxAmmoCount = 0;
     private float reloadTime = 3.0f;
 
+    // Health Attributes
+    //==================
+    private int health = 100;
+    private int maxHealth = 100;
+
     //private WeaponSO ammo;
 
     public void SetWeapon(WeaponSO ammo) => this.ammo = ammo;
@@ -28,7 +33,10 @@ public class FighterCntrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        EventManager.Instance.InvokeOnUpdateAmmoBar(1.0f);
+
+        ammoCount = ammo.maxRounds;
+        maxAmmoCount = ammo.maxRounds;
     }
 
     void Update()
@@ -70,7 +78,7 @@ public class FighterCntrl : MonoBehaviour
 
         ammoCount -= 1;
 
-        //EventManager.Instance.InvokeOnUpdateAmmo((float)ammoCount / maxAmmoCount);
+        EventManager.Instance.InvokeOnUpdateAmmoBar((float)ammoCount / maxAmmoCount);
 
         yield return new WaitForSeconds(0.1f);
         readyToFire = true;
@@ -81,8 +89,6 @@ public class FighterCntrl : MonoBehaviour
         float throttle = move.y;
         float speed = 50.0f;
         Vector3 direction = Vector3.zero;
-
-        Debug.Log($"Move/Look: {move}/{look}");
 
         if (look != Vector2.zero)
         {

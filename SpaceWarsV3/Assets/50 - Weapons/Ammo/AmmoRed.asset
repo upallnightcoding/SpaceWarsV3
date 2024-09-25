@@ -16,3 +16,14 @@ MonoBehaviour:
   weaponName: Ammo Red
   sprite: {fileID: 21300000, guid: 2181afacf7214ce4292f1bf94c04e699, type: 3}
   cost: 30
+  damage: 12
+  rangeSec: 0
+  ammoPrefab: {fileID: 0}
+  maxRounds: 20
+  reloadSec: 3
+  range: 3
+  force: 150
+  payload: 0
+  damageRange: 0
+  missileExplosion: {fileID: 0}
+  defectionPercent: 0

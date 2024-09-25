@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UICntrl : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private MainMenuCntrl mainMenuCntrl;
 
     [SerializeField] private TMP_Text currentCoins;
+
+    [Header("Health & Status Bar ...")]
+    [SerializeField] private Slider healthBar;
+    [SerializeField] private Slider ammoBar;
 
     [Header("UI Panels ...")]
     [SerializeField] private GameObject mainMenuPanel;
@@ -31,6 +36,8 @@ public class UICntrl : MonoBehaviour
     public void Start()
     {
         SetWeaponItems();
+        UpdateHealthBar(1.0f);
+        UpdateAmmoBar(0.0f);
     }
 
     /****************************/
@@ -52,6 +59,20 @@ public class UICntrl : MonoBehaviour
     public void StartEngagement()
     {
         engagementPanel.SetActive(false);
+    }
+
+    /****************************/
+    /*** Health & Status Bars ***/
+    /****************************/
+
+    public void UpdateHealthBar(float value)
+    {
+        healthBar.value = value;
+    }
+
+    public void UpdateAmmoBar(float value)
+    {
+        ammoBar.value = value;
     }
 
     /************************************/
@@ -135,6 +156,7 @@ public class UICntrl : MonoBehaviour
         EventManager.Instance.OnNewGameAction += NewGameAction;
         EventManager.Instance.OnFighterSelection += FighterSelection;
         EventManager.Instance.OnStartEngagement += StartEngagement;
+        EventManager.Instance.OnUpdateAmmoBar += UpdateAmmoBar;
     }
 
     private void OnDisable()
@@ -142,6 +164,7 @@ public class UICntrl : MonoBehaviour
         EventManager.Instance.OnNewGameAction -= NewGameAction;
         EventManager.Instance.OnFighterSelection -= FighterSelection;
         EventManager.Instance.OnStartEngagement -= StartEngagement;
+        EventManager.Instance.OnUpdateAmmoBar -= UpdateAmmoBar;
     }
 
     private enum PanelType
