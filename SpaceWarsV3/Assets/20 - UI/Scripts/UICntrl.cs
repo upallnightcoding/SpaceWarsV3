@@ -14,7 +14,9 @@ public class UICntrl : MonoBehaviour
 
     [Header("Health & Status Bar ...")]
     [SerializeField] private Slider healthBar;
+    [SerializeField] private TMP_Text healthBarText;
     [SerializeField] private Slider ammoBar;
+    [SerializeField] private TMP_Text ammoBarText;
 
     [Header("UI Panels ...")]
     [SerializeField] private GameObject mainMenuPanel;
@@ -22,6 +24,7 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private GameObject selectLevelPanel;
     [SerializeField] private GameObject inventorySelectionPanel;
     [SerializeField] private GameObject engagementPanel;
+    [SerializeField] private GameObject battlePanel;
 
     [Header("Inventory List ...")]
     [SerializeField] private WeaponListCntrl ammoListCntrl;
@@ -37,7 +40,7 @@ public class UICntrl : MonoBehaviour
     {
         SetWeaponItems();
         UpdateHealthBar(1.0f);
-        UpdateAmmoBar(0.0f);
+        UpdateAmmoBar(0, 1);
     }
 
     /****************************/
@@ -70,9 +73,16 @@ public class UICntrl : MonoBehaviour
         healthBar.value = value;
     }
 
-    public void UpdateAmmoBar(float value)
+    public void UpdateAmmoBar(int ammoCount, int maxAmmoCount)
     {
-        ammoBar.value = value;
+        ammoBar.value = (float)ammoCount / (float)maxAmmoCount;
+        ammoBarText.text = $"{ammoCount}/{maxAmmoCount}";
+    }
+
+    public void UpdateReload(float timing, float reloadTime)
+    {
+        ammoBar.value = timing / reloadTime;
+        ammoBarText.text = "";
     }
 
     /************************************/
@@ -106,6 +116,11 @@ public class UICntrl : MonoBehaviour
     public void FighterSelection(GameObject selectedFighter)
     {
         RenderPanel(PanelType.INVENTORY_SELECTION_PANEL);
+    }
+
+    public void BattlePanel()
+    {
+        RenderPanel(PanelType.BATTLE_PANEL);
     }
 
     /**
@@ -148,6 +163,9 @@ public class UICntrl : MonoBehaviour
             case PanelType.ENGAGEMENT_PANEL:
                 engagementPanel.SetActive(true);
                 break;
+            case PanelType.BATTLE_PANEL:
+                battlePanel.SetActive(true);
+                break;
         }
     }
 
@@ -157,6 +175,7 @@ public class UICntrl : MonoBehaviour
         EventManager.Instance.OnFighterSelection += FighterSelection;
         EventManager.Instance.OnStartEngagement += StartEngagement;
         EventManager.Instance.OnUpdateAmmoBar += UpdateAmmoBar;
+        EventManager.Instance.OnUpdateReload += UpdateReload;
     }
 
     private void OnDisable()
@@ -165,6 +184,7 @@ public class UICntrl : MonoBehaviour
         EventManager.Instance.OnFighterSelection -= FighterSelection;
         EventManager.Instance.OnStartEngagement -= StartEngagement;
         EventManager.Instance.OnUpdateAmmoBar -= UpdateAmmoBar;
+        EventManager.Instance.OnUpdateReload -= UpdateReload;
     }
 
     private enum PanelType
@@ -173,6 +193,7 @@ public class UICntrl : MonoBehaviour
         FIGHTER_SELECTION_PANEL,
         SELECT_LEVEL_PANEL,
         INVENTORY_SELECTION_PANEL,
-        ENGAGEMENT_PANEL
+        ENGAGEMENT_PANEL,
+        BATTLE_PANEL
     }
 }

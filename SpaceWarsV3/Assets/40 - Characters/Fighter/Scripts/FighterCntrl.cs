@@ -13,13 +13,12 @@ public class FighterCntrl : MonoBehaviour
     private void OnMove(Vector2 move) => this.move = move;
     private void OnLook(Vector2 look) => this.look = look;
 
-    private bool readyToFire = true;
-
     // Gun Shooting Attributes
     //========================
     private int ammoCount = 0;
     private int maxAmmoCount = 0;
     private float reloadTime = 3.0f;
+    private bool isReloading = false;
 
     // Health Attributes
     //==================
@@ -33,10 +32,10 @@ public class FighterCntrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventManager.Instance.InvokeOnUpdateAmmoBar(1.0f);
-
         ammoCount = ammo.maxRounds;
         maxAmmoCount = ammo.maxRounds;
+
+        EventManager.Instance.InvokeOnUpdateAmmoBar(ammoCount, maxAmmoCount);
     }
 
     void Update()
@@ -46,42 +45,51 @@ public class FighterCntrl : MonoBehaviour
 
     private void OnFire()
     {
-        StartCoroutine(FireMissle());
+        if (!isReloading)
+        {
+            StartCoroutine(FireMissle());
+        }
     }
 
+    /**
+     * ReLoad() -
+     */
     private IEnumerator ReLoad()
     {
-        float timing = 0.0f;
+        isReloading = true;
 
-        readyToFire = false;
+        float timing = 0.0f;
 
         while (timing < reloadTime)
         {
-            //EventManager.Instance.InvokeOnReloadAmmo(timing / reloadTime);
+            EventManager.Instance.InvokeOnUpdateReload(timing, reloadTime);
 
             timing += Time.deltaTime;
             yield return null;
         }
 
         ammoCount = maxAmmoCount;
-        readyToFire = true;
-        //EventManager.Instance.InvokeOnUpdateAmmo(1.0f);
+        EventManager.Instance.InvokeOnUpdateAmmoBar(ammoCount, maxAmmoCount);
+
+        isReloading = false;
     }
 
     private IEnumerator FireMissle()
     {
-        readyToFire = false;
-
         GameObject go = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
         go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
         Destroy(go, ammo.range);
 
         ammoCount -= 1;
 
-        EventManager.Instance.InvokeOnUpdateAmmoBar((float)ammoCount / maxAmmoCount);
+        EventManager.Instance.InvokeOnUpdateAmmoBar(ammoCount, maxAmmoCount);
+
+        if (ammoCount == 0)
+        {
+            StartCoroutine(ReLoad());
+        }
 
         yield return new WaitForSeconds(0.1f);
-        readyToFire = true;
     }
 
     private void MoveFighterKeyBoard(Vector2 move, Vector2 look, float dt)
