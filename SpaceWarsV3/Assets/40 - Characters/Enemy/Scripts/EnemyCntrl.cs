@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyCntrl : MonoBehaviour
 {
+    [SerializeField] private WeaponSO ammo;
     [SerializeField] private GameObject firePoint;
 
     // Start is called before the first frame update
@@ -16,5 +17,10 @@ public class EnemyCntrl : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void Fire()
+    {
+
     }
 }
