@@ -458,6 +458,7 @@ GameObject:
   - component: {fileID: 127738522}
   - component: {fileID: 127738524}
   - component: {fileID: 127738525}
+  - component: {fileID: 127738526}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -479,6 +480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: fa3e569a7ff8ee8488b0e097dae41cd2, type: 2}
   fighter1: {fileID: 11400000, guid: 958d3394fbc1f3e40943002809e81cae, type: 2}
+  uiCntrl: {fileID: 504630906}
   gameCamera: {fileID: 961739749}
 --- !u!4 &127738523
 Transform:
@@ -626,6 +628,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae2985cefb3098e4db3475cc88e6e1b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &127738526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127738521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1da7c44c5e2e3a489c32a94e03861bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyList:
+  - {fileID: 6111658333703604293, guid: 11843eff24545ec43ae87808caa1dc1d, type: 3}
+  - {fileID: 2525348892844732067, guid: 94d2b38109d731b448a0f395e4976720, type: 3}
+  - {fileID: 2595473505213143954, guid: 8aebebeb326eacb4ca0277d499ee3a81, type: 3}
+  - {fileID: 1452266909387775665, guid: a3c1dab017c45a04985adbfc41ad98e3, type: 3}
+  - {fileID: 4355817441026243369, guid: 42e9accbdef862f4db7cbc8d60abf467, type: 3}
 --- !u!1 &129994708
 GameObject:
   m_ObjectHideFlags: 0

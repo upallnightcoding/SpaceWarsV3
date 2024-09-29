@@ -27,9 +27,9 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private GameObject battlePanel;
 
     [Header("Inventory List ...")]
-    [SerializeField] private WeaponListCntrl ammoListCntrl;
-    [SerializeField] private WeaponListCntrl missileListCntrl;
-    [SerializeField] private WeaponListCntrl shieldListCntrl;
+    [SerializeField] public WeaponListCntrl ammoListCntrl;
+    [SerializeField] public WeaponListCntrl missileListCntrl;
+    [SerializeField] public WeaponListCntrl shieldListCntrl;
 
     [Header("Weapon List ...")]
     [SerializeField] private WeaponSO[] ammoList;
@@ -61,7 +61,7 @@ public class UICntrl : MonoBehaviour
      */
     public void StartEngagement()
     {
-        engagementPanel.SetActive(false);
+        RenderPanel(PanelType.BATTLE_PANEL);
     }
 
     /****************************/

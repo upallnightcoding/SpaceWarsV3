@@ -5,7 +5,6 @@ using UnityEngine;
 public class FighterCntrl : MonoBehaviour
 {
     [SerializeField] private GameObject firePoint;
-    [SerializeField] private WeaponSO ammo;
 
     private Vector2 move = new Vector2();
     private Vector2 look = new Vector2();
@@ -25,15 +24,12 @@ public class FighterCntrl : MonoBehaviour
     private int health = 100;
     private int maxHealth = 100;
 
-    //private WeaponSO ammo;
-
-    public void SetWeapon(WeaponSO ammo) => this.ammo = ammo;
+    private WeaponSO ammo;
 
     // Start is called before the first frame update
     void Start()
     {
-        ammoCount = ammo.maxRounds;
-        maxAmmoCount = ammo.maxRounds;
+        
 
         EventManager.Instance.InvokeOnUpdateAmmoBar(ammoCount, maxAmmoCount);
     }
@@ -41,6 +37,14 @@ public class FighterCntrl : MonoBehaviour
     void Update()
     {
         MoveFighterKeyBoard(move, look, Time.deltaTime);
+    }
+
+    public void SetLevel(LevelData levelData)
+    {
+        this.ammo = levelData.Ammo;
+
+        ammoCount = ammo.maxRounds;
+        maxAmmoCount = ammo.maxRounds;
     }
 
     private void OnFire()
@@ -120,14 +124,15 @@ public class FighterCntrl : MonoBehaviour
         }
     }
 
+    /**
+     * StartTurn() - Turns the fighter, 360 degrees.  The fighter continues
+     * to turn until the fighter is destroyed.  There is no function to stop
+     * the fighter from turning.  This is used mainly to display the
+     * fighter to the player.
+     */
     public void StartTurn()
     {
         LeanTween.rotateAroundLocal(gameObject, Vector3.up, -360.0f, 10.0f).setLoopClamp();
-    }
-
-    public void FadeOut()
-    {
-        LeanTween.alpha(gameObject, 0.0f, 2.0f);
     }
 
     private void OnEnable()

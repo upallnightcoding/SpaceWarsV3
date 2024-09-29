@@ -10,31 +10,37 @@ public class WeaponListCntrl : MonoBehaviour
 
     [SerializeField] private TMP_Text coinText;
 
-    private int currentToggle = -1;
+    private int currentWeapon = -1;
 
     private int nWeapons = 0;
 
+    /**
+     * SetItem() - 
+     */
     public void SetItem(WeaponSO[] weaponList)
     {
         InitializeWeaponsDisplay();
 
         foreach (WeaponSO weapon in weaponList)
         {
-            weaponListItem[nWeapons++].SetItem(weapon);
+            weaponListItem[nWeapons++].Set(weapon);
         }
     }
 
+    /**
+     * SelectedButton() - 
+     */
     public void SelectedButton(int index)
     {
-        if (currentToggle != -1)
+        if (currentWeapon != -1)
         {
-            AddToCoins(weaponListItem[currentToggle].WeaponCost);
-            weaponListItem[currentToggle].ToggleSelection();
+            AddToCoins(weaponListItem[currentWeapon].WeaponCost);
+            weaponListItem[currentWeapon].ToggleSelection();
         }
 
-        currentToggle = index;
-        weaponListItem[currentToggle].ToggleSelection();
-        AddToCoins(-weaponListItem[currentToggle].WeaponCost);
+        currentWeapon = index;
+        weaponListItem[currentWeapon].ToggleSelection();
+        AddToCoins(-weaponListItem[currentWeapon].WeaponCost);
     }
 
     /**
@@ -48,6 +54,9 @@ public class WeaponListCntrl : MonoBehaviour
         coinText.text = total.ToString();
     }
 
+    /**
+     * InitializeWeaponsDisplay() - 
+     */
     private void InitializeWeaponsDisplay()
     {
         foreach (WeaponListItemCntrl item in weaponListItem)
@@ -55,4 +64,6 @@ public class WeaponListCntrl : MonoBehaviour
             item.DeActivate();
         }
     }
+
+    public WeaponSO Get() => weaponListItem[currentWeapon].Get();
 }

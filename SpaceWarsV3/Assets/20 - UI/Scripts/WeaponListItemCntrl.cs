@@ -18,31 +18,46 @@ public class WeaponListItemCntrl : MonoBehaviour, IPointerEnterHandler, IPointer
 
     private bool selectedSw = false;
 
+    private WeaponSO weapon = null;
+
     public void HightLightItem() => highlight.SetActive(true);
 
     private void UnHightLightItem() => highlight.SetActive(false);
 
-
-    public void SetItem(WeaponSO weapon)
+    /**
+     * Set() - 
+     */
+    public void Set(WeaponSO weapon)
     {
         Activate();
+
+        this.weapon = weapon;
+
         WeaponCost = weapon.cost;
         costText.text = weapon.cost.ToString();
         weaponName.text = weapon.weaponName;
         image.sprite = weapon.sprite;
     }
 
+    /**
+     * ToggleSelection() - Toggle the current selected gameobject.
+     */
     public void ToggleSelection()
     {
         selectedSw = !selectedSw;
         selected.SetActive(selectedSw);
     }
 
+    // Return the selected weapon
+    public WeaponSO Get() => weapon;
+
+    // Highlight the weapon when the mouse is over the weapon.
     public void OnPointerEnter(PointerEventData eventData) => HightLightItem();
 
+    // Un-Highlight the weapon when the mouse is over the weapon.
     public void OnPointerExit(PointerEventData eventData) => UnHightLightItem();
 
-    public void Activate() => gameObject.SetActive(true);
+    private void Activate() => gameObject.SetActive(true);
 
     public void DeActivate() => gameObject.SetActive(false);
 }

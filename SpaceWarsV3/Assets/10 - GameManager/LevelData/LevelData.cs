@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelData 
 {
     public GameObject Fighter { get; set; }
+    public WeaponSO Ammo { get; set; }
 
     private LevelType type = LevelType.TUTORIAL;
 

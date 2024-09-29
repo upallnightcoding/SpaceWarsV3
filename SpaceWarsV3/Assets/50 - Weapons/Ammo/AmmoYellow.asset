@@ -18,7 +18,8 @@ MonoBehaviour:
   cost: 20
   damage: 17
   rangeSec: 0
-  ammoPrefab: {fileID: 0}
+  ammoPrefab: {fileID: 682657527431606495, guid: 47e448861dedb9644bb997c4252182aa,
+    type: 3}
   maxRounds: 40
   reloadSec: 2
   range: 2
