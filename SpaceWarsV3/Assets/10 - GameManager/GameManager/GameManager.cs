@@ -66,8 +66,21 @@ public class GameManager : MonoBehaviour
         go.GetComponent<FighterCntrl>().SetLevel(levelData);
         go.SetActive(true);
 
+        StartCoroutine(WaitBeforeStarting(go));
+
         LeanTween.moveLocal(gameCamera, new Vector3(0.0f, 150.0f, 0.0f), 2.0f);
         LeanTween.rotateLocal(gameCamera, new Vector3(90.0f, 0.0f, 0.0f), 2.0f);
+    }
+
+    /**
+     * WaitBeforeStarting() - This is an additional wait period before an
+     * engagement starts.  This allows the figther to sit in the middle of
+     * the screen before the first enemy emerges.
+     */
+    private IEnumerator WaitBeforeStarting(GameObject go)
+    {
+        yield return new WaitForSeconds(4.0f);
+        go.GetComponent<FighterCntrl>().StartEngage();
     }
 
     /**

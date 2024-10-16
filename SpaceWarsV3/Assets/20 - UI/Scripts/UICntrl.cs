@@ -118,10 +118,10 @@ public class UICntrl : MonoBehaviour
         RenderPanel(PanelType.INVENTORY_SELECTION_PANEL);
     }
 
-    public void BattlePanel()
-    {
-        RenderPanel(PanelType.BATTLE_PANEL);
-    }
+    //public void BattlePanel()
+    //{
+      //  RenderPanel(PanelType.BATTLE_PANEL);
+    //}
 
     /**
      * DoneInventorySelection() - When the inventory selection is done.  This

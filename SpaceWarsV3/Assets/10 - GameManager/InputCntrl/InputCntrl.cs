@@ -29,7 +29,7 @@ public class InputCntrl : MonoBehaviour
             look = Mouse.current.position.ReadValue();
         } 
 
-        EventManager.Instance.InvokeOnInputLook(look);
+        //EventManager.Instance.InvokeOnInputLook(look);
     }
 
     public void OnFire(InputAction.CallbackContext context)

@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FighterCntrl : MonoBehaviour
 {
     [SerializeField] private GameObject firePoint;
+
+    public void EngageEnemy() => engage = true;
 
     private Vector2 move = new Vector2();
     private Vector2 look = new Vector2();
@@ -26,17 +29,22 @@ public class FighterCntrl : MonoBehaviour
 
     private WeaponSO ammo;
 
+    private bool engage = false;
+
+    public void StartEngage() => engage = true;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-
         EventManager.Instance.InvokeOnUpdateAmmoBar(ammoCount, maxAmmoCount);
     }
 
     void Update()
     {
-        MoveFighterKeyBoard(move, look, Time.deltaTime);
+        if (engage)
+        {
+            MoveFighterKeyBoard(Time.deltaTime);
+        }
     }
 
     public void SetLevel(LevelData levelData)
@@ -96,15 +104,15 @@ public class FighterCntrl : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
 
-    private void MoveFighterKeyBoard(Vector2 move, Vector2 look, float dt)
+    private void MoveFighterKeyBoard(float dt)
     {
-        float throttle = move.y;
+        float throttle = 1.0f;
         float speed = 50.0f;
         Vector3 direction = Vector3.zero;
 
-        if (look != Vector2.zero)
+        if (Mouse.current.leftButton.isPressed)
         {
-            Ray ray = Camera.main.ScreenPointToRay(look);
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 Vector3 target = new Vector3(hit.point.x, 0.0f, hit.point.z);
@@ -113,15 +121,10 @@ public class FighterCntrl : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 25.0f * dt);
                 transform.localRotation = playerRotation;
-
-                look = Vector2.zero;
             }
         }
 
-        if (throttle > 0.0f)
-        {
-            transform.Translate(transform.forward * speed * throttle * dt, Space.World);
-        }
+        transform.Translate(transform.forward * speed * throttle * dt, Space.World);
     }
 
     /**
