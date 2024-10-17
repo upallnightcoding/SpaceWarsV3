@@ -23,7 +23,7 @@ MonoBehaviour:
   maxRounds: 60
   reloadSec: 1
   range: 1
-  force: 250
+  force: 100
   payload: 0
   damageRange: 0
   missileExplosion: {fileID: 0}

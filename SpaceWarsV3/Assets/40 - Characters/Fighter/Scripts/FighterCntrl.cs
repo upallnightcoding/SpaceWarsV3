@@ -63,6 +63,11 @@ public class FighterCntrl : MonoBehaviour
         }
     }
 
+    private void OnFireKey(int key)
+    {
+        Debug.Log($"Fighter Cntrl Key: {key}");
+    }
+
     /**
      * ReLoad() -
      */
@@ -143,6 +148,7 @@ public class FighterCntrl : MonoBehaviour
         EventManager.Instance.OnInputLook += OnLook;
         EventManager.Instance.OnInputMove += OnMove;
         EventManager.Instance.OnFire += OnFire;
+        EventManager.Instance.OnFireKey += OnFireKey;
     }
 
     private void OnDisable()
@@ -150,5 +156,6 @@ public class FighterCntrl : MonoBehaviour
         EventManager.Instance.OnInputLook -= OnLook;
         EventManager.Instance.OnInputMove -= OnMove;
         EventManager.Instance.OnFire -= OnFire;
+        EventManager.Instance.OnFireKey -= OnFireKey;
     }
 }

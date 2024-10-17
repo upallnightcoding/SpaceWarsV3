@@ -6,6 +6,14 @@ public class AmmoCntrl : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Ammo has been triggered ...");
+        if (other.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc)) 
+        {
+            if (tdc.TakeDamage(10.0f))
+            {
+                Destroy(other.transform.gameObject);
+            }
+
+            Destroy(gameObject);
+        }
     }
 }

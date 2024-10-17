@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2218133180863287602}
   m_Layer: 0
   m_Name: Enemy_03
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d428c9fb1225c04abfc9494ee6b5077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammo: {fileID: 0}
   firePoint: {fileID: 5357306939055982076}
 --- !u!1 &5357306939055982076
 GameObject:

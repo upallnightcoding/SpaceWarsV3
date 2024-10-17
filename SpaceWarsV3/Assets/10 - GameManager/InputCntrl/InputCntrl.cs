@@ -39,4 +39,43 @@ public class InputCntrl : MonoBehaviour
             EventManager.Instance.InvokeOnFire();
         }
     }
+
+    public void OnFire1(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            EventManager.Instance.InvokeOnFireKey(1);
+        }
+
+        if (context.canceled)
+        {
+            EventManager.Instance.InvokeOnFireKey(-1);
+        }
+    }
+
+    public void OnFire2(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            EventManager.Instance.InvokeOnFireKey(2);
+        }
+
+        if (context.canceled)
+        {
+            EventManager.Instance.InvokeOnFireKey(-2);
+        }
+    }
+
+    public void OnFire3(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            EventManager.Instance.InvokeOnFireKey(3);
+        }
+
+        if (context.canceled)
+        {
+            EventManager.Instance.InvokeOnFireKey(-3);
+        }
+    }
 }

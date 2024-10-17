@@ -39,8 +39,4 @@ public class EnemyCntrl : MonoBehaviour
         //yield return new WaitForSeconds(0.1f);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("Enemy has been hit ...");
-    }
 }

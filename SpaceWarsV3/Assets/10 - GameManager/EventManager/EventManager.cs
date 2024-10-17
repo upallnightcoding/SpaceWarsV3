@@ -26,6 +26,9 @@ public class EventManager
     public event Action OnFire = delegate { };
     public void InvokeOnFire() => OnFire.Invoke();
 
+    public event Action<int> OnFireKey = delegate { };
+    public void InvokeOnFireKey(int key) => OnFireKey.Invoke(key);
+
     public event Action<int, int> OnUpdateAmmoBar = delegate { };
     public void InvokeOnUpdateAmmoBar(int ammoCount, int maxAmmoCount) => OnUpdateAmmoBar.Invoke(ammoCount, maxAmmoCount);
 
