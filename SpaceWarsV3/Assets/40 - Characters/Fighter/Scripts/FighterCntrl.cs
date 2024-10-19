@@ -65,7 +65,10 @@ public class FighterCntrl : MonoBehaviour
 
     private void OnFireKey(int key)
     {
-        Debug.Log($"Fighter Cntrl Key: {key}");
+        if (!isReloading)
+        {
+            StartCoroutine(FireMissle());
+        }
     }
 
     /**
