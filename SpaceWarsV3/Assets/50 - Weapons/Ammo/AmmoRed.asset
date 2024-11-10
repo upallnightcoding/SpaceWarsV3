@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   weaponName: Ammo Red
+  description: Ammo Red
   sprite: {fileID: 21300000, guid: 2181afacf7214ce4292f1bf94c04e699, type: 3}
   cost: 30
-  damage: 12
+  damage: 15
   rangeSec: 0
   ammoPrefab: {fileID: 682657527431606495, guid: e3e07abae6cc0ca4682d3891f4dd50dd,
     type: 3}

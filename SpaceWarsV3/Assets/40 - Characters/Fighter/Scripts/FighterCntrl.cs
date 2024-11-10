@@ -31,7 +31,11 @@ public class FighterCntrl : MonoBehaviour
 
     private bool engage = false;
 
+    private Color newColor;
+    private Renderer meshRenderer;
+
     public void StartEngage() => engage = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -144,6 +148,22 @@ public class FighterCntrl : MonoBehaviour
     public void StartTurn()
     {
         LeanTween.rotateAroundLocal(gameObject, Vector3.up, -360.0f, 10.0f).setLoopClamp();
+
+        meshRenderer = GetComponentInChildren<Renderer>();
+        newColor = meshRenderer.material.color;
+        StartCoroutine(FadeObject(1.0f, 0.0f, 2.0f));
+    }
+
+    private IEnumerator FadeObject(float current, float required, float fadeTime)
+    {
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / fadeTime)
+        {
+            newColor.a = Mathf.Lerp(current, required, t);
+
+            meshRenderer.material.color = newColor;
+
+            yield return null;
+        }
     }
 
     private void OnEnable()

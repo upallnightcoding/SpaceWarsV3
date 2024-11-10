@@ -125,7 +125,8 @@ public class UICntrl : MonoBehaviour
 
     /**
      * DoneInventorySelection() - When the inventory selection is done.  This
-     * function will switch over the display to the Engagement Panel.
+     * function will switch over the display to the Engagement Panel and 
+     * capture the selected inventory.
      */
     public void DoneInventorySelection()
     {

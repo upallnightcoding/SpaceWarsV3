@@ -10,6 +10,9 @@ public class WeaponSO : ScriptableObject
 
     public string weaponName;
 
+    [TextArea(5, 5)]
+    public string description;
+
     public Sprite sprite;
 
     public int cost;
@@ -32,7 +35,6 @@ public class WeaponSO : ScriptableObject
 
     [Header("Shield Attributes ...")]
     public int defectionPercent;
-
 }
 
 public enum WeaponType

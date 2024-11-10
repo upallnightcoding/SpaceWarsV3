@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   weaponName: Ammo Green
+  description: 'Ammo Green
+
+
+    <color="red">Red <color=yellow>Dark Green '
   sprite: {fileID: 21300000, guid: 4146e39355ccb734a81c6fcf9df339fd, type: 3}
   cost: 10
-  damage: 3
+  damage: 9
   rangeSec: 0
   ammoPrefab: {fileID: 682657527431606495, guid: 81beef59dfdda4d41b4c105ab0d0f4c2,
     type: 3}

@@ -60,7 +60,11 @@ public class GameManager : MonoBehaviour
      */
     public void StartEngagement()
     {
-        levelData.Ammo = uiCntrl.ammoListCntrl.Get();
+        // Return the current weapons selected during inventory
+        //-----------------------------------------------------
+        levelData.Ammo = uiCntrl.ammoListCntrl.GetCurrentWeapon();
+        levelData.Missile = uiCntrl.missileListCntrl.GetCurrentWeapon();
+        levelData.Shild = uiCntrl.shieldListCntrl.GetCurrentWeapon();
 
         GameObject go = Instantiate(levelData.Fighter, new Vector3(), Quaternion.identity);
         go.GetComponent<FighterCntrl>().SetLevel(levelData);

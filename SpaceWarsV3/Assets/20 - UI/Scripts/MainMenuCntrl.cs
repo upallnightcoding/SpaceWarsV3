@@ -33,10 +33,12 @@ public class MainMenuCntrl : MonoBehaviour
         while(displayFighters)
         {
             int fighter = Random.Range(0, gameData.fighterList.Length);
-            GameObject go = gameData.fighterList[fighter].Create(gameData.displayFighterCenter);
+            GameObject go = gameData.fighterList[fighter].Create(gameData.mainMenuFighterCenter);
             go.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             go.GetComponent<FighterCntrl>().StartTurn();
+
             yield return new WaitForSeconds(3.0f);
+
             rotation = go.transform.rotation.eulerAngles.y;
 
             Destroy(go);

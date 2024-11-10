@@ -11,7 +11,7 @@ public class FighterSelectionCntrl : MonoBehaviour
 
     public void NewGameAction()
     {
-        currentFighter = gameData.fighterList[fighter].Create(gameData.displayFighterCenter);
+        currentFighter = gameData.fighterList[fighter].Create(gameData.mainMenuFighterCenter);
         currentFighter.GetComponent<FighterCntrl>().StartTurn();
     }
 
@@ -21,7 +21,7 @@ public class FighterSelectionCntrl : MonoBehaviour
 
         fighter = (--fighter < 0) ? gameData.fighterList.Length - 1 : fighter;
 
-        currentFighter = gameData.fighterList[fighter].Create(gameData.displayFighterCenter);
+        currentFighter = gameData.fighterList[fighter].Create(gameData.fighterSelectionCenter);
         currentFighter.GetComponent<FighterCntrl>().StartTurn();
     }
 
@@ -31,7 +31,7 @@ public class FighterSelectionCntrl : MonoBehaviour
 
         fighter = ++fighter % gameData.fighterList.Length;
 
-        currentFighter = gameData.fighterList[fighter].Create(gameData.displayFighterCenter);
+        currentFighter = gameData.fighterList[fighter].Create(gameData.fighterSelectionCenter);
         currentFighter.GetComponent<FighterCntrl>().StartTurn();
     }
 

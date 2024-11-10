@@ -8,11 +8,16 @@ public class WeaponListCntrl : MonoBehaviour
 {
     [SerializeField] private WeaponListItemCntrl[] weaponListItem;
 
+    [SerializeField] private InventorySelectionCntrl inventorySelectionCntrl;
+
     [SerializeField] private TMP_Text coinText;
 
     private int currentWeapon = -1;
 
     private int nWeapons = 0;
+
+    // Return the current selected weapon
+    public WeaponSO GetCurrentWeapon() => weaponListItem[currentWeapon].GetWeapon();
 
     /**
      * SetItem() - 
@@ -32,6 +37,7 @@ public class WeaponListCntrl : MonoBehaviour
      */
     public void SelectedButton(int index)
     {
+       
         if (currentWeapon != -1)
         {
             AddToCoins(weaponListItem[currentWeapon].WeaponCost);
@@ -41,6 +47,8 @@ public class WeaponListCntrl : MonoBehaviour
         currentWeapon = index;
         weaponListItem[currentWeapon].ToggleSelection();
         AddToCoins(-weaponListItem[currentWeapon].WeaponCost);
+
+        inventorySelectionCntrl.SetDescription(weaponListItem[currentWeapon].GetWeapon().description);
     }
 
     /**
@@ -55,7 +63,10 @@ public class WeaponListCntrl : MonoBehaviour
     }
 
     /**
-     * InitializeWeaponsDisplay() - 
+     * InitializeWeaponsDisplay() - Initized all of the weapon windows by 
+     * deactiviting the window.  The window is only activiated if it is
+     * required to be seen.  This means that a weapon must be available
+     * to be displayed.
      */
     private void InitializeWeaponsDisplay()
     {
@@ -65,5 +76,5 @@ public class WeaponListCntrl : MonoBehaviour
         }
     }
 
-    public WeaponSO Get() => weaponListItem[currentWeapon].Get();
+    
 }

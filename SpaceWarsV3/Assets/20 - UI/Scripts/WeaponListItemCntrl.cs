@@ -12,6 +12,8 @@ public class WeaponListItemCntrl : MonoBehaviour, IPointerEnterHandler, IPointer
     [SerializeField] TMP_Text costText;
     [SerializeField] TMP_Text weaponName;
     [SerializeField] Image image;
+    [SerializeField] TMP_Text damageText;
+    //[SerializeField] TMP_Text descriptionText;
 
     // Properties ...
     public int WeaponCost { get; set; } = 0;
@@ -23,6 +25,9 @@ public class WeaponListItemCntrl : MonoBehaviour, IPointerEnterHandler, IPointer
     public void HightLightItem() => highlight.SetActive(true);
 
     private void UnHightLightItem() => highlight.SetActive(false);
+
+    // Return the active weapon
+    public WeaponSO GetWeapon() => weapon;
 
     /**
      * Set() - 
@@ -37,6 +42,7 @@ public class WeaponListItemCntrl : MonoBehaviour, IPointerEnterHandler, IPointer
         costText.text = weapon.cost.ToString();
         weaponName.text = weapon.weaponName;
         image.sprite = weapon.sprite;
+        damageText.text = weapon.damage.ToString();
     }
 
     /**
