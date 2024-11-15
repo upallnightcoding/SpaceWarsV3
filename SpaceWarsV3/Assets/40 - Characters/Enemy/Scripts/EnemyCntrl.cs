@@ -7,18 +7,150 @@ public class EnemyCntrl : MonoBehaviour
     [SerializeField] private WeaponSO ammo;
     [SerializeField] private GameObject firePoint;
 
+    // Get the player reference from the hierarchy
+    private GameObject fighter = null;
+
     private int ammoCount = 0;
+
+    private float speed = 0.0f;
+    private float minDistance = 50.0f;
+    private EnemyState currentState = EnemyState.IDLE;
+    private Vector3 avoidDirection;
+    private float disengageTimer;
+    private EnemyState oldState = EnemyState.COMBAT;
 
     // Start is called before the first frame update
     void Start()
     {
+        speed = 25.0f;
+
         ammoCount = ammo.maxRounds;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Set(GameObject fighter)
     {
-        
+        this.fighter = fighter;
+    }
+
+    private void Update()
+    {
+        if (oldState != currentState)
+        {
+            Debug.Log($"Current State: {currentState}");
+            oldState = currentState;
+        }
+        switch(currentState)
+        {
+            case EnemyState.IDLE:
+                currentState = State_Idle();
+                break;
+            case EnemyState.COMBAT:
+                currentState = State_Combat();                      
+                break;
+            case EnemyState.AVOID:
+                currentState = State_Avoid();
+                break;
+            case EnemyState.DISENGAGE:
+                currentState = State_Disengage();
+                break;
+        }
+    }
+
+    private EnemyState State_Idle()
+    {
+        EnemyState state = EnemyState.IDLE;
+
+        if (fighter != null)
+        {
+            state = EnemyState.COMBAT;
+        }
+
+        return (state);
+    }
+
+    private EnemyState State_Combat()
+    {
+        EnemyState state = EnemyState.COMBAT;
+
+        Vector3 playerPos = fighter.transform.position;
+        Vector3 target = new Vector3(playerPos.x, 0.0f, playerPos.z);
+
+        if (Vector3.Distance(target, transform.position) > minDistance)
+        {
+            Vector3 direction = (target - transform.position).normalized;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            //Quaternion playerRotation = targetRotation;
+            Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 2.0f * Time.deltaTime);
+
+            transform.localRotation = playerRotation;
+            transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
+        } else
+        {
+            state = EnemyState.AVOID;
+        }
+
+        return (state);
+    }
+
+    private EnemyState State_Avoid()
+    {
+        Vector3 playerPos = fighter.transform.position;
+        Vector3 target = new Vector3(playerPos.x, 0.0f, playerPos.z);
+
+        avoidDirection = -(transform.forward + fighter.transform.forward).normalized;
+
+        StartCoroutine(DisengageTimer());
+
+        return (EnemyState.DISENGAGE);
+    }
+
+    private EnemyState State_Disengage()
+    {
+        EnemyState state = EnemyState.DISENGAGE;
+
+            disengageTimer -= Time.deltaTime;
+
+        Quaternion targetRotation = Quaternion.LookRotation(avoidDirection);
+        //Quaternion playerRotation = targetRotation;
+        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 2.0f * Time.deltaTime);
+
+        transform.localRotation = playerRotation;
+        transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
+
+        return (state);
+    }
+
+    private IEnumerator DisengageTimer()
+    {
+        yield return new WaitForSeconds(2.0f);
+        currentState = EnemyState.COMBAT;
+    }
+
+    // Update is called once per frame
+    void xxxUpdate()
+    {
+        if (fighter != null)
+        {
+            Vector3 playerPos = fighter.transform.position;
+
+            Vector3 target = new Vector3(playerPos.x, 0.0f, playerPos.z);
+
+            if (Vector3.Distance(target, transform.position) > minDistance)
+            {
+                Vector3 direction = (target - transform.position).normalized;
+
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                //Quaternion playerRotation = targetRotation;
+                Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 25.0f * Time.deltaTime);
+
+                transform.localRotation = playerRotation;
+                transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
+            } else
+            {
+                Vector3 direction = (transform.forward + fighter.transform.forward).normalized;
+            }
+        }
     }
 
     private void FireMissle()
@@ -37,6 +169,14 @@ public class EnemyCntrl : MonoBehaviour
         //}
 
         //yield return new WaitForSeconds(0.1f);
+    }
+
+    private enum EnemyState
+    {
+        IDLE,
+        COMBAT,
+        AVOID,
+        DISENGAGE
     }
 
 }

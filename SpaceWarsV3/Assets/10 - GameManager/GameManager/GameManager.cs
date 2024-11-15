@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject gameCamera;
 
+    [SerializeField] private EnemyManager enemyManager;
+
     private LevelData levelData = null;
 
     public void Start()
@@ -66,14 +68,16 @@ public class GameManager : MonoBehaviour
         levelData.Missile = uiCntrl.missileListCntrl.GetCurrentWeapon();
         levelData.Shild = uiCntrl.shieldListCntrl.GetCurrentWeapon();
 
-        GameObject go = Instantiate(levelData.Fighter, new Vector3(), Quaternion.identity);
-        go.GetComponent<FighterCntrl>().SetLevel(levelData);
-        go.SetActive(true);
+        GameObject fighter = Instantiate(levelData.Fighter, new Vector3(), Quaternion.identity);
+        fighter.GetComponent<FighterCntrl>().SetLevel(levelData);
+        fighter.SetActive(true);
 
-        StartCoroutine(WaitBeforeStarting(go));
+        StartCoroutine(WaitBeforeStarting(fighter));
 
         LeanTween.moveLocal(gameCamera, new Vector3(0.0f, 150.0f, 0.0f), 2.0f);
         LeanTween.rotateLocal(gameCamera, new Vector3(90.0f, 0.0f, 0.0f), 2.0f);
+
+        enemyManager.StartEngagement(fighter, levelData);
     }
 
     /**

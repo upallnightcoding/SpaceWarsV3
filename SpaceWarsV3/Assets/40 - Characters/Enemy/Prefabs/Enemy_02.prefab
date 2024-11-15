@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d428c9fb1225c04abfc9494ee6b5077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammo: {fileID: 0}
+  ammo: {fileID: 11400000, guid: 51bc2d247fbf2b143b14a7f814189fcd, type: 2}
   firePoint: {fileID: 2766101314566079939}
 --- !u!1 &2766101314566079939
 GameObject:

@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d428c9fb1225c04abfc9494ee6b5077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammo: {fileID: 0}
+  ammo: {fileID: 11400000, guid: 760ca477d28b0c241952a77d61b8d76f, type: 2}
   firePoint: {fileID: 716440033603538555}
 --- !u!1001 &7102498789628547643
 PrefabInstance:
