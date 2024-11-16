@@ -34,11 +34,6 @@ public class EnemyCntrl : MonoBehaviour
 
     private void Update()
     {
-        if (oldState != currentState)
-        {
-            Debug.Log($"Current State: {currentState}");
-            oldState = currentState;
-        }
         switch(currentState)
         {
             case EnemyState.IDLE:
@@ -56,6 +51,11 @@ public class EnemyCntrl : MonoBehaviour
         }
     }
 
+    /**
+     * State_Idle() - In this state the enemy will remain in an idle state
+     * until a fighter has been introduced.  At this point, the enemy will
+     * move into the combat state.
+     */
     private EnemyState State_Idle()
     {
         EnemyState state = EnemyState.IDLE;
@@ -68,6 +68,9 @@ public class EnemyCntrl : MonoBehaviour
         return (state);
     }
 
+    /**
+     * State_Combat() - 
+     */
     private EnemyState State_Combat()
     {
         EnemyState state = EnemyState.COMBAT;
@@ -80,7 +83,6 @@ public class EnemyCntrl : MonoBehaviour
             Vector3 direction = (target - transform.position).normalized;
 
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            //Quaternion playerRotation = targetRotation;
             Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 2.0f * Time.deltaTime);
 
             transform.localRotation = playerRotation;

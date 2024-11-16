@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour
         LeanTween.moveLocal(gameCamera, new Vector3(0.0f, 150.0f, 0.0f), 2.0f);
         LeanTween.rotateLocal(gameCamera, new Vector3(90.0f, 0.0f, 0.0f), 2.0f);
 
+        gameCamera.GetComponent<CameraCntrl>().StartEngagement(fighter.transform);
+
         enemyManager.StartEngagement(fighter, levelData);
     }
 
@@ -87,7 +89,7 @@ public class GameManager : MonoBehaviour
      */
     private IEnumerator WaitBeforeStarting(GameObject go)
     {
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(3.0f);
         go.GetComponent<FighterCntrl>().StartEngage();
     }
 

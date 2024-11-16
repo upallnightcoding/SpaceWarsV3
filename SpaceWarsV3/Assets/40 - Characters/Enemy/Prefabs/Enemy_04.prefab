@@ -41,6 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 112583989687149916}
   - component: {fileID: 114121258993321558}
+  - component: {fileID: 1241607453996447181}
+  - component: {fileID: 547210678960943988}
   m_Layer: 0
   m_Name: Enemy_04
   m_TagString: Enemy
@@ -79,6 +81,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammo: {fileID: 11400000, guid: 760ca477d28b0c241952a77d61b8d76f, type: 2}
   firePoint: {fileID: 716440033603538555}
+--- !u!114 &1241607453996447181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452266909387775665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59483bf092b409d49a5d0a43d5d65327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &547210678960943988
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452266909387775665}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 19.231586, y: 9.162876, z: 21.160982}
+  m_Center: {x: -0.17695045, y: -0.81077933, z: 0.20326138}
 --- !u!1001 &7102498789628547643
 PrefabInstance:
   m_ObjectHideFlags: 0

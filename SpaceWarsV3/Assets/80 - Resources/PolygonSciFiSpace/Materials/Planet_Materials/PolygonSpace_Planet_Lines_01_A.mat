@@ -123,7 +123,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_42ED4346: 0
-    - Vector1_CBF347CE: 1
+    - Vector1_CBF347CE: 5.08
     - _ASEOutlineWidth: 0.01
     - _BumpScale: 1
     - _Cloud_Contrast: 1.2
@@ -152,7 +152,7 @@ Material:
     - _PlanetSurfaceTiling: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RimPower: 2.95
+    - _RimPower: 7.78
     - _Scale: -0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
