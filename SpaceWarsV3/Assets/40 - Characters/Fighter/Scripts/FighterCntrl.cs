@@ -102,6 +102,7 @@ public class FighterCntrl : MonoBehaviour
     {
         GameObject go = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
         go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
+        go.GetComponent<AmmoCntrl>().Initialize(ammo.destroyPrefab);
         Destroy(go, ammo.range);
 
         ammoCount -= 1;

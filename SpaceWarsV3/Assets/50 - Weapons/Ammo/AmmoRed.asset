@@ -21,6 +21,8 @@ MonoBehaviour:
   rangeSec: 0
   ammoPrefab: {fileID: 682657527431606495, guid: e3e07abae6cc0ca4682d3891f4dd50dd,
     type: 3}
+  destroyPrefab: {fileID: 7673899423614434835, guid: 5da89393c42017449a2997c4df5c6647,
+    type: 3}
   maxRounds: 20
   reloadSec: 3
   range: 3

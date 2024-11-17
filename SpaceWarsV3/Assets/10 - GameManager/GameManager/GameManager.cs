@@ -74,8 +74,11 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(WaitBeforeStarting(fighter));
 
-        LeanTween.moveLocal(gameCamera, new Vector3(0.0f, 150.0f, 0.0f), 2.0f);
-        LeanTween.rotateLocal(gameCamera, new Vector3(90.0f, 0.0f, 0.0f), 2.0f);
+        //LeanTween.moveLocal(gameCamera, new Vector3(0.0f, 150.0f, 0.0f), 2.0f);
+        //LeanTween.rotateLocal(gameCamera, new Vector3(90.0f, 0.0f, 0.0f), 2.0f);
+
+        gameCamera.transform.position = new Vector3(0.0f, 150.0f, 0.0f);
+        gameCamera.transform.Rotate(new Vector3(90.0f, 0.0f, 0.0f), Space.World);
 
         gameCamera.GetComponent<CameraCntrl>().StartEngagement(fighter.transform);
 

@@ -14,11 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   weaponName: Ammo Yellow
+  description: 
   sprite: {fileID: 21300000, guid: a920121dee7b1a34eb948e08863c980b, type: 3}
   cost: 20
   damage: 17
   rangeSec: 0
   ammoPrefab: {fileID: 682657527431606495, guid: 71391bfeb3b7a43479de0932149787a9,
+    type: 3}
+  destroyPrefab: {fileID: 7673899423614434835, guid: 5da89393c42017449a2997c4df5c6647,
     type: 3}
   maxRounds: 40
   reloadSec: 2
