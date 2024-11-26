@@ -11,4 +11,11 @@ public class GameDataSO : ScriptableObject
 
     [Header("Fighters ...")]
     public FighterSO[] fighterList;
+
+    [Header("Camera Positions ...")]
+    public Vector3 cameraEngagementPosition;
+    public Vector3 cameraEngagementRotation;
+
+    public Vector3 cameraIdlePosition;
+    public Vector3 cameraIdleRotation;
 }

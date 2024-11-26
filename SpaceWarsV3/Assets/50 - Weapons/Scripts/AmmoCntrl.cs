@@ -20,6 +20,7 @@ public class AmmoCntrl : MonoBehaviour
                 GameObject prefab = Instantiate(destroyPrefab, transform.position, Quaternion.identity);
                 Destroy(prefab, 4.0f);
                 Destroy(other.transform.gameObject);
+                EventManager.Instance.InvokeOnDestroyEnemy();
             }
 
             Destroy(gameObject);

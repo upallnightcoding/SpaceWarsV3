@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class UICntrl : MonoBehaviour
 {
+    [Header("UI Controllers ...")]
     [SerializeField] private FighterSelectionCntrl fighterSelectionCntrl;
     [SerializeField] private UIAnimationCntrl uIAnimationCntrl;
     [SerializeField] private MainMenuCntrl mainMenuCntrl;
-
-    [SerializeField] private TMP_Text currentCoins;
+    [SerializeField] private EngagementCntrl engagementCntrl;
 
     [Header("Health & Status Bar ...")]
     [SerializeField] private Slider healthBar;
@@ -36,6 +36,9 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private WeaponSO[] missileList;
     [SerializeField] private WeaponSO[] shieldList;
 
+    [Header("UI Attributes ...")]
+    [SerializeField] private TMP_Text currentCoins;
+
     public void Start()
     {
         SetWeaponItems();
@@ -52,17 +55,56 @@ public class UICntrl : MonoBehaviour
      */
     public void NewGameAction()
     {
-        RenderPanel(PanelType.SELECT_LEVEL_PANEL);
+        //RenderPanel(PanelType.SELECT_LEVEL_PANEL);
+    }
+
+    public void RenderMainMenu()
+    {
+        mainMenuPanel.SetActive(true);
+    }
+
+    /**
+     * RenderSelectLevelPanel() -
+     */
+    public void RenderSelectLevelPanel()
+    {
+        CloseAllPanels();
+        mainMenuCntrl.StopFighterDisplay();
+        selectLevelPanel.SetActive(true);
+    }
+
+    public void RenderSelectFighterPanel()
+    {
+        CloseAllPanels();
+        fighterSelectionPanel.SetActive(true);
+        fighterSelectionCntrl.NewGameAction();
+    }
+
+    public void RenderSelectInventoryPanel()
+    {
+        CloseAllPanels();
+        inventorySelectionPanel.SetActive(true);
+    }
+
+    public void RenderEngage()
+    {
+        CloseAllPanels();
+        engagementPanel.SetActive(true);
+    }
+
+    public void StartEngagementCountDown(LevelData levelData)
+    {
+        engagementCntrl.StartEngagementCountDown(levelData);
     }
 
     /**
      * StartEngagement() - Update the UI when it is time for an engagement
      * to begin.  
      */
-    public void StartEngagement()
-    {
-        RenderPanel(PanelType.BATTLE_PANEL);
-    }
+    //public void StartEngagement()
+    //{
+      //  battlePanel.SetActive(true);
+    //}
 
     /****************************/
     /*** Health & Status Bars ***/
@@ -89,50 +131,6 @@ public class UICntrl : MonoBehaviour
     /*** Fighter Level Menu Selection ***/
     /************************************/
 
-    public void SetLevelTutorial()
-    {
-        RenderPanel(PanelType.FIGHTER_SELECTION_PANEL);
-
-        EventManager.Instance.InvokeOnSetLevelTutorial();
-    }
-
-    public void SetLevelHavoc()
-    {
-        RenderPanel(PanelType.FIGHTER_SELECTION_PANEL);
-    }
-
-    public void SetLevelTooEasy()
-    {
-        Debug.Log("Set Level Too Easy ...");
-        RenderPanel(PanelType.FIGHTER_SELECTION_PANEL);
-    }
-
-    public void SetLevelLevels()
-    {
-        Debug.Log("Set Level Levels ...");
-        RenderPanel(PanelType.FIGHTER_SELECTION_PANEL);
-    }
-
-    public void FighterSelection(GameObject selectedFighter)
-    {
-        RenderPanel(PanelType.INVENTORY_SELECTION_PANEL);
-    }
-
-    //public void BattlePanel()
-    //{
-      //  RenderPanel(PanelType.BATTLE_PANEL);
-    //}
-
-    /**
-     * DoneInventorySelection() - When the inventory selection is done.  This
-     * function will switch over the display to the Engagement Panel and 
-     * capture the selected inventory.
-     */
-    public void DoneInventorySelection()
-    {
-        RenderPanel(PanelType.ENGAGEMENT_PANEL);
-    }
-
     public void SetWeaponItems()
     {
         ammoListCntrl.SetItem(ammoList);
@@ -140,55 +138,31 @@ public class UICntrl : MonoBehaviour
         shieldListCntrl.SetItem(shieldList);
     }
 
-    private void RenderPanel(PanelType panel)
+    private void CloseAllPanels()
     {
         mainMenuPanel.SetActive(false);
         fighterSelectionPanel.SetActive(false);
         selectLevelPanel.SetActive(false);
         inventorySelectionPanel.SetActive(false);
         engagementPanel.SetActive(false);
-
-        switch (panel)
-        {
-            case PanelType.FIGHTER_SELECTION_PANEL:
-                fighterSelectionPanel.SetActive(true);
-                fighterSelectionCntrl.NewGameAction();
-                break;
-            case PanelType.SELECT_LEVEL_PANEL:
-                mainMenuCntrl.StopFighterDisplay();
-                selectLevelPanel.SetActive(true);
-                break;
-            case PanelType.INVENTORY_SELECTION_PANEL:
-                inventorySelectionPanel.SetActive(true);
-                break;
-            case PanelType.ENGAGEMENT_PANEL:
-                engagementPanel.SetActive(true);
-                break;
-            case PanelType.BATTLE_PANEL:
-                battlePanel.SetActive(true);
-                break;
-        }
+        battlePanel.SetActive(false);
     }
 
     private void OnEnable()
     {
-        EventManager.Instance.OnNewGameAction += NewGameAction;
-        EventManager.Instance.OnFighterSelection += FighterSelection;
-        EventManager.Instance.OnStartEngagement += StartEngagement;
+        //EventManager.Instance.OnStartBattle += StartEngagement;
         EventManager.Instance.OnUpdateAmmoBar += UpdateAmmoBar;
         EventManager.Instance.OnUpdateReload += UpdateReload;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnNewGameAction -= NewGameAction;
-        EventManager.Instance.OnFighterSelection -= FighterSelection;
-        EventManager.Instance.OnStartEngagement -= StartEngagement;
+        //EventManager.Instance.OnStartBattle -= StartEngagement;
         EventManager.Instance.OnUpdateAmmoBar -= UpdateAmmoBar;
         EventManager.Instance.OnUpdateReload -= UpdateReload;
     }
 
-    private enum PanelType
+    /*private enum PanelType
     {
         MAIN_MENU_PANEL,
         FIGHTER_SELECTION_PANEL,
@@ -196,5 +170,5 @@ public class UICntrl : MonoBehaviour
         INVENTORY_SELECTION_PANEL,
         ENGAGEMENT_PANEL,
         BATTLE_PANEL
-    }
+    }*/
 }

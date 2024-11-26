@@ -5,21 +5,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameDataSO gameData;
-    [SerializeField] private FighterSO fighter1;
     [SerializeField] private UICntrl uiCntrl;
-
     [SerializeField] private GameObject gameCamera;
-
     [SerializeField] private EnemyManager enemyManager;
-
-    private LevelData levelData = null;
+    [SerializeField] private NewGameManager newGameManager;
 
     public void Start()
     {
-        //fighter1.Create(new Vector3(2.6f, 0.0f, 7.7f));
-
-        //fighter1.Create(gameData.displayFighterCenter);
-        //NewGameAction();
+        uiCntrl.RenderMainMenu();
     }
 
     /***********************************/
@@ -60,7 +53,7 @@ public class GameManager : MonoBehaviour
      * enemy ships.  The depth of the engagement is determined by the 
      * "levelData" attribute that contains all the data driven information.
      */
-    public void StartEngagement()
+    public void StartBattle(LevelData levelData)
     {
         // Return the current weapons selected during inventory
         //-----------------------------------------------------
@@ -71,14 +64,7 @@ public class GameManager : MonoBehaviour
         GameObject fighter = Instantiate(levelData.Fighter, new Vector3(), Quaternion.identity);
         fighter.GetComponent<FighterCntrl>().SetLevel(levelData);
         fighter.SetActive(true);
-
-        StartCoroutine(WaitBeforeStarting(fighter));
-
-        //LeanTween.moveLocal(gameCamera, new Vector3(0.0f, 150.0f, 0.0f), 2.0f);
-        //LeanTween.rotateLocal(gameCamera, new Vector3(90.0f, 0.0f, 0.0f), 2.0f);
-
-        gameCamera.transform.position = new Vector3(0.0f, 150.0f, 0.0f);
-        gameCamera.transform.Rotate(new Vector3(90.0f, 0.0f, 0.0f), Space.World);
+        fighter.GetComponent<FighterCntrl>().StartEngage();
 
         gameCamera.GetComponent<CameraCntrl>().StartEngagement(fighter.transform);
 
@@ -86,43 +72,31 @@ public class GameManager : MonoBehaviour
     }
 
     /**
-     * WaitBeforeStarting() - This is an additional wait period before an
-     * engagement starts.  This allows the figther to sit in the middle of
-     * the screen before the first enemy emerges.
+     * QuitEngagment() - 
      */
-    private IEnumerator WaitBeforeStarting(GameObject go)
+    public void QuitEngagment()
     {
-        yield return new WaitForSeconds(3.0f);
-        go.GetComponent<FighterCntrl>().StartEngage();
-    }
+        uiCntrl.NewGameAction();
 
-    /**
-     * SetLevelTutorial() -
-     */
-    public void SetLevelTutorial()
-    {
-        levelData = new LevelData(LevelType.TUTORIAL);
+        gameCamera.GetComponent<CameraCntrl>().PositionCameraAtIdle();
+
+        EventManager.Instance.InvokeOnDestoryRequest();
     }
 
     /**
      * FighterSelection() - 
      */
-    public void FighterSelection(GameObject selectedFighter)
-    {
-        levelData.Fighter = selectedFighter;
-    }
+   
 
     private void OnEnable()
     {
-        EventManager.Instance.OnFighterSelection += FighterSelection;
-        EventManager.Instance.OnSetLevelTutorial += SetLevelTutorial;
-        EventManager.Instance.OnStartEngagement += StartEngagement;
+        EventManager.Instance.OnStartBattle += StartBattle;
+        EventManager.Instance.OnQuitEngagment += QuitEngagment;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnFighterSelection -= FighterSelection;
-        EventManager.Instance.OnSetLevelTutorial -= SetLevelTutorial;
-        EventManager.Instance.OnStartEngagement -= StartEngagement;
+        EventManager.Instance.OnStartBattle -= StartBattle;
+        EventManager.Instance.OnQuitEngagment -= QuitEngagment;
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraCntrl : MonoBehaviour
 {
+    [SerializeField] private GameDataSO gameData;
+
     private Vector3 delta;
     private Transform fighter;
     private Vector3 movePosition;
@@ -16,13 +18,26 @@ public class CameraCntrl : MonoBehaviour
         
     }
 
+    /**
+     * StartEngagement() - Sets up the camera for engagement.  Only one
+     * camera is used and must be position and re-position throughout
+     * game play.
+     */
     public void StartEngagement(Transform fighter)
     {
+        transform.position = gameData.cameraEngagementPosition;
+        transform.Rotate(gameData.cameraEngagementRotation);
+
         this.fighter = fighter;
         delta = fighter.position - transform.position;
     }
 
-    // Update is called once per frame
+    public void PositionCameraAtIdle()
+    {
+        transform.position = gameData.cameraIdlePosition;
+        transform.Rotate(gameData.cameraIdleRotation, Space.World);
+    }
+
     void LateUpdate()
     {
         if (fighter != null)

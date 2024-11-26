@@ -7,12 +7,12 @@ public class EngagementCntrl : MonoBehaviour
 {
     [SerializeField] private TMP_Text countDownText;
 
-    public void EngageAction()
+    public void StartEngagementCountDown(LevelData levelData)
     {
-        StartCoroutine(StartFighterEngagement());
+        StartCoroutine(StartFighterEngagement(levelData));
     }
 
-    private IEnumerator StartFighterEngagement()
+    private IEnumerator StartFighterEngagement(LevelData levelData)
     {
         float transitionTime = 6.0f;
 
@@ -27,7 +27,7 @@ public class EngagementCntrl : MonoBehaviour
             transitionTime -= Time.deltaTime;
         }
 
-        EventManager.Instance.InvokeOnStartEngagement();
+        EventManager.Instance.InvokeOnStartBattle(levelData);
 
     }
 

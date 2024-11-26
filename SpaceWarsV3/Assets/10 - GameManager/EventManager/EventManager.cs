@@ -5,17 +5,30 @@ using System;
 
 public class EventManager
 {
+    public event Action OnQuitEngagment = delegate { };
+    public void InvokeOnQuitEngagment() => OnQuitEngagment.Invoke();
+
+    public event Action OnDestroyEnemy = delegate { };
+    public void InvokeOnDestroyEnemy() => OnDestroyEnemy.Invoke();
+
+    // Upon desengagement from a fight, this event starts the process
+    public event Action OnDestoryRequest = delegate { };
+    public void InvokeOnDestoryRequest() => OnDestoryRequest.Invoke();
+
     public event Action OnNewGameAction = delegate { };
     public void InvokeOnNewGameAction() => OnNewGameAction.Invoke();
 
-    public event Action OnSetLevelTutorial = delegate { };
-    public void InvokeOnSetLevelTutorial() => OnSetLevelTutorial.Invoke();
+    //public event Action OnSetLevelTutorial = delegate { };
+    //public void InvokeOnSetLevelTutorial() => OnSetLevelTutorial.Invoke();
 
     public event Action<GameObject> OnFighterSelection = delegate { };
     public void InvokeOnFighterSelection(GameObject fighter) => OnFighterSelection.Invoke(fighter);
 
-    public event Action OnStartEngagement = delegate { };
-    public void InvokeOnStartEngagement() => OnStartEngagement.Invoke();
+    public event Action<LevelData> OnStartBattle = delegate { };
+    public void InvokeOnStartBattle(LevelData levelData) => OnStartBattle.Invoke(levelData);
+
+    public event Action OnQuitEngagement = delegate { };
+    public void InvokeOnQuitEngagement() => OnQuitEngagement.Invoke();
 
     public event Action<Vector2> OnInputMove = delegate { };
     public void InvokeOnInputMove(Vector2 context) => OnInputMove.Invoke(context);

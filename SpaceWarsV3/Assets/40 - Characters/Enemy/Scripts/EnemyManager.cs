@@ -6,6 +6,8 @@ public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] enemyList;
 
+    private int enemyCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +28,27 @@ public class EnemyManager : MonoBehaviour
         int enemyIndex = Random.Range(0, enemyList.Length);
         GameObject enemy = Instantiate(enemyList[enemyIndex], position, Quaternion.identity);
         enemy.GetComponent<EnemyCntrl>().Set(fighter);
+        enemyCount++;
 
         fighter.transform.position = new Vector3(69.0f, 0.0f, 3.5f);
     }
+
+    private void OnDestroyEnemy()
+    {
+        if (--enemyCount == 0)
+        {
+            EventManager.Instance.InvokeOnQuitEngagment();
+        }
+    }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.OnDestroyEnemy += OnDestroyEnemy;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnDestroyEnemy -= OnDestroyEnemy;
+    }
 }
+

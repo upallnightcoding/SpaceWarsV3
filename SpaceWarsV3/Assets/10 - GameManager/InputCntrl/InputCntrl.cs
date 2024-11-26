@@ -40,6 +40,14 @@ public class InputCntrl : MonoBehaviour
         }
     }
 
+    public void OnQuitEngagement(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            EventManager.Instance.InvokeOnQuitEngagement();
+        }
+    }
+
     public void OnFire1(InputAction.CallbackContext context)
     {
         if (context.started)

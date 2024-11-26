@@ -98,6 +98,11 @@ public class FighterCntrl : MonoBehaviour
         isReloading = false;
     }
 
+    /**
+     * FireMissle() - Fires one ammo round with the press of the "1" key.  If
+     * the ammo has been exhausted, the process goes into reload.  The "1" is
+     * is egnored during reload.
+     */
     private IEnumerator FireMissle()
     {
         GameObject go = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
@@ -155,6 +160,11 @@ public class FighterCntrl : MonoBehaviour
         StartCoroutine(FadeObject(1.0f, 0.0f, 2.0f));
     }
 
+    public void DestroyRequest()
+    {
+        Destroy(gameObject);
+    }
+
     private IEnumerator FadeObject(float current, float required, float fadeTime)
     {
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / fadeTime)
@@ -173,6 +183,7 @@ public class FighterCntrl : MonoBehaviour
         EventManager.Instance.OnInputMove += OnMove;
         EventManager.Instance.OnFire += OnFire;
         EventManager.Instance.OnFireKey += OnFireKey;
+        EventManager.Instance.OnDestoryRequest += DestroyRequest;
     }
 
     private void OnDisable()
@@ -181,5 +192,6 @@ public class FighterCntrl : MonoBehaviour
         EventManager.Instance.OnInputMove -= OnMove;
         EventManager.Instance.OnFire -= OnFire;
         EventManager.Instance.OnFireKey -= OnFireKey;
+        EventManager.Instance.OnDestoryRequest -= DestroyRequest;
     }
 }

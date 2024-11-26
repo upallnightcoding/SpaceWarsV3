@@ -34,20 +34,26 @@ public class EnemyCntrl : MonoBehaviour
 
     private void Update()
     {
-        switch(currentState)
+        if (fighter != null)
         {
-            case EnemyState.IDLE:
-                currentState = State_Idle();
-                break;
-            case EnemyState.COMBAT:
-                currentState = State_Combat();                      
-                break;
-            case EnemyState.AVOID:
-                currentState = State_Avoid();
-                break;
-            case EnemyState.DISENGAGE:
-                currentState = State_Disengage();
-                break;
+            switch (currentState)
+            {
+                case EnemyState.IDLE:
+                    currentState = State_Idle();
+                    break;
+                case EnemyState.COMBAT:
+                    currentState = State_Combat();
+                    break;
+                case EnemyState.AVOID:
+                    currentState = State_Avoid();
+                    break;
+                case EnemyState.DISENGAGE:
+                    currentState = State_Disengage();
+                    break;
+                case EnemyState.DESTROY_REQUEST:
+                    DestroyRequest();
+                    break;
+            }
         }
     }
 
@@ -111,10 +117,9 @@ public class EnemyCntrl : MonoBehaviour
     {
         EnemyState state = EnemyState.DISENGAGE;
 
-            disengageTimer -= Time.deltaTime;
+        disengageTimer -= Time.deltaTime;
 
         Quaternion targetRotation = Quaternion.LookRotation(avoidDirection);
-        //Quaternion playerRotation = targetRotation;
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 2.0f * Time.deltaTime);
 
         transform.localRotation = playerRotation;
@@ -123,36 +128,20 @@ public class EnemyCntrl : MonoBehaviour
         return (state);
     }
 
+    /**
+     * DestroyRequest() - The system may ask for the enemies to be destroyed.
+     * This could happen if the player decides to "Disengage" from an
+     * engagement.  All of the enemies must be destroyed at the same time.
+     */
+    private void DestroyRequest()
+    {
+        Destroy(gameObject);
+    }
+
     private IEnumerator DisengageTimer()
     {
         yield return new WaitForSeconds(2.0f);
         currentState = EnemyState.COMBAT;
-    }
-
-    // Update is called once per frame
-    void xxxUpdate()
-    {
-        if (fighter != null)
-        {
-            Vector3 playerPos = fighter.transform.position;
-
-            Vector3 target = new Vector3(playerPos.x, 0.0f, playerPos.z);
-
-            if (Vector3.Distance(target, transform.position) > minDistance)
-            {
-                Vector3 direction = (target - transform.position).normalized;
-
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                //Quaternion playerRotation = targetRotation;
-                Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 25.0f * Time.deltaTime);
-
-                transform.localRotation = playerRotation;
-                transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
-            } else
-            {
-                Vector3 direction = (transform.forward + fighter.transform.forward).normalized;
-            }
-        }
     }
 
     private void FireMissle()
@@ -173,12 +162,23 @@ public class EnemyCntrl : MonoBehaviour
         //yield return new WaitForSeconds(0.1f);
     }
 
+    private void OnEnable()
+    {
+        EventManager.Instance.OnDestoryRequest += DestroyRequest;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnDestoryRequest -= DestroyRequest;
+    }
+
     private enum EnemyState
     {
         IDLE,
         COMBAT,
         AVOID,
-        DISENGAGE
+        DISENGAGE,
+        DESTROY_REQUEST
     }
 
 }
