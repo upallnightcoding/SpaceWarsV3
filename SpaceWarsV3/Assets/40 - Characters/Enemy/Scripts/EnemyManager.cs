@@ -22,11 +22,12 @@ public class EnemyManager : MonoBehaviour
 
     public void StartEngagement(GameObject fighter, LevelData levelData)
     {
-        Vector2 point = Random.insideUnitCircle * 70.0f;
-        Vector3 position = new Vector3(-100.0f, 0.0f, 3.5f);
+        Vector2 randomPoint = Random.insideUnitCircle * 70.0f;
+        //Vector3 enemyPos = new Vector3(-100.0f+randomPoint.x, 0.0f, 3.5f+randomPoint.y);
+        Vector3 enemyPos = new Vector3(69.0f+randomPoint.x, 0.0f, 3.5f+randomPoint.y);
 
         int enemyIndex = Random.Range(0, enemyList.Length);
-        GameObject enemy = Instantiate(enemyList[enemyIndex], position, Quaternion.identity);
+        GameObject enemy = Instantiate(enemyList[enemyIndex], enemyPos, Quaternion.identity);
         enemy.GetComponent<EnemyCntrl>().Set(fighter);
         enemyCount++;
 
@@ -37,7 +38,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (--enemyCount == 0)
         {
-            EventManager.Instance.InvokeOnQuitEngagment();
+            EventManager.Instance.InvokeOnQuitEngagment("Congratulations");
         }
     }
 

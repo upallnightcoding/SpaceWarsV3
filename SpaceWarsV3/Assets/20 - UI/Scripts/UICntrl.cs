@@ -39,6 +39,10 @@ public class UICntrl : MonoBehaviour
     [Header("UI Attributes ...")]
     [SerializeField] private TMP_Text currentCoins;
 
+    [Header("Battle Attributes ...")]
+    [SerializeField] private GameObject banner;
+    [SerializeField] private TMP_Text bannerMessage;
+
     public void Start()
     {
         SetWeaponItems();
@@ -53,14 +57,31 @@ public class UICntrl : MonoBehaviour
     /**
      * NewGameAction() - When the user selects "New Game" from the main menu.
      */
-    public void NewGameAction()
+    /*public void NewGameAction()
     {
         //RenderPanel(PanelType.SELECT_LEVEL_PANEL);
-    }
+    }*/
 
     public void RenderMainMenu()
     {
         mainMenuPanel.SetActive(true);
+    }
+
+    public void BattleBanner(string message, GameManagerIf callback)
+    {
+        StartCoroutine(DisplayBattleBanner(message, callback));
+    }
+
+    private IEnumerator DisplayBattleBanner(string message, GameManagerIf callback)
+    {
+        bannerMessage.text = message;
+        banner.SetActive(true);
+
+        yield return new WaitForSeconds(3.0f);
+
+        banner.SetActive(false);
+
+        callback.EndBattleCallback();
     }
 
     /**
@@ -92,19 +113,16 @@ public class UICntrl : MonoBehaviour
         engagementPanel.SetActive(true);
     }
 
+    public void RenderBattlePanel()
+    {
+        CloseAllPanels();
+        battlePanel.SetActive(true);
+    }
+
     public void StartEngagementCountDown(LevelData levelData)
     {
         engagementCntrl.StartEngagementCountDown(levelData);
     }
-
-    /**
-     * StartEngagement() - Update the UI when it is time for an engagement
-     * to begin.  
-     */
-    //public void StartEngagement()
-    //{
-      //  battlePanel.SetActive(true);
-    //}
 
     /****************************/
     /*** Health & Status Bars ***/

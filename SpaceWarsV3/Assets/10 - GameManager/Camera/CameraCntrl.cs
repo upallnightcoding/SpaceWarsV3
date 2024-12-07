@@ -26,16 +26,22 @@ public class CameraCntrl : MonoBehaviour
     public void StartEngagement(Transform fighter)
     {
         transform.position = gameData.cameraEngagementPosition;
-        transform.Rotate(gameData.cameraEngagementRotation);
+        transform.rotation = Quaternion.Euler(gameData.cameraEngagementRotation);
 
         this.fighter = fighter;
         delta = fighter.position - transform.position;
     }
 
+    /**
+     * PositionCameraAtIdle() - Sets the camera in the idle position that is
+     * used to view the main menu.  The delta is then set to zero since it is
+     * not tracking the fighter.
+     */
     public void PositionCameraAtIdle()
     {
         transform.position = gameData.cameraIdlePosition;
-        transform.Rotate(gameData.cameraIdleRotation, Space.World);
+        transform.rotation = Quaternion.Euler(gameData.cameraIdleRotation);
+        delta = Vector3.zero;
     }
 
     void LateUpdate()

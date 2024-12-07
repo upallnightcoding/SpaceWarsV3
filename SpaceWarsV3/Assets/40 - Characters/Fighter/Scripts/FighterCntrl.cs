@@ -126,7 +126,7 @@ public class FighterCntrl : MonoBehaviour
     {
         float throttle = 1.0f;
         float speed = 50.0f;
-        Vector3 direction = Vector3.zero;
+        //Vector3 direction = Vector3.zero;
 
         if (Mouse.current.leftButton.isPressed)
         {
@@ -134,7 +134,7 @@ public class FighterCntrl : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 Vector3 target = new Vector3(hit.point.x, 0.0f, hit.point.z);
-                direction = (target - transform.position).normalized;
+                Vector3 direction = (target - transform.position).normalized;
 
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 25.0f * dt);

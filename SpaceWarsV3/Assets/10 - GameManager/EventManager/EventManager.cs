@@ -5,8 +5,8 @@ using System;
 
 public class EventManager
 {
-    public event Action OnQuitEngagment = delegate { };
-    public void InvokeOnQuitEngagment() => OnQuitEngagment.Invoke();
+    public event Action<string> OnQuitEngagment = delegate { };
+    public void InvokeOnQuitEngagment(string message) => OnQuitEngagment.Invoke(message);
 
     public event Action OnDestroyEnemy = delegate { };
     public void InvokeOnDestroyEnemy() => OnDestroyEnemy.Invoke();

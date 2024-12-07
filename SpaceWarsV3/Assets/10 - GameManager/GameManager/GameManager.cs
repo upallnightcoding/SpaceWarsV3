@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, GameManagerIf
 {
     [SerializeField] private GameDataSO gameData;
     [SerializeField] private UICntrl uiCntrl;
@@ -68,35 +68,45 @@ public class GameManager : MonoBehaviour
 
         gameCamera.GetComponent<CameraCntrl>().StartEngagement(fighter.transform);
 
+        uiCntrl.RenderBattlePanel();
+
         enemyManager.StartEngagement(fighter, levelData);
     }
 
     /**
-     * QuitEngagment() - 
+     * EndBattle() - Ends the battle engagement by displaying a banner 
+     * and setting up the diplay to allow for the selection of the next
+     * level.  The banner is displayed for a set amount of time and the
+     * remaining logic is trigger via a callback interface.
      */
-    public void QuitEngagment()
+    public void EndBattle(string message)
     {
-        uiCntrl.NewGameAction();
+        uiCntrl.BattleBanner(message, this);
+    }
 
+    public void EndBattleCallback()
+    {
         gameCamera.GetComponent<CameraCntrl>().PositionCameraAtIdle();
 
         EventManager.Instance.InvokeOnDestoryRequest();
-    }
 
-    /**
-     * FighterSelection() - 
-     */
-   
+        NewGameAction();
+    }
 
     private void OnEnable()
     {
         EventManager.Instance.OnStartBattle += StartBattle;
-        EventManager.Instance.OnQuitEngagment += QuitEngagment;
+        EventManager.Instance.OnQuitEngagment += EndBattle;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnStartBattle -= StartBattle;
-        EventManager.Instance.OnQuitEngagment -= QuitEngagment;
+        EventManager.Instance.OnQuitEngagment -= EndBattle;
     }
+}
+
+public interface GameManagerIf
+{
+    public void EndBattleCallback();
 }

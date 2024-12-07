@@ -13,10 +13,13 @@ public class AmmoCntrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("OnTriggerEnter ...");
         if (other.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc)) 
         {
+            Debug.Log("TakeDamageCntrl");
             if (tdc.TakeDamage(10.0f))
             {
+                Debug.Log("Create Explosion");
                 GameObject prefab = Instantiate(destroyPrefab, transform.position, Quaternion.identity);
                 Destroy(prefab, 4.0f);
                 Destroy(other.transform.gameObject);
