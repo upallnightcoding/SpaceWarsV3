@@ -27,8 +27,8 @@ public class EventManager
     public event Action<LevelData> OnStartBattle = delegate { };
     public void InvokeOnStartBattle(LevelData levelData) => OnStartBattle.Invoke(levelData);
 
-    public event Action OnQuitEngagement = delegate { };
-    public void InvokeOnQuitEngagement() => OnQuitEngagement.Invoke();
+    //public event Action OnQuitEngagement = delegate { };
+    //public void InvokeOnQuitEngagement() => OnQuitEngagement.Invoke();
 
     public event Action<Vector2> OnInputMove = delegate { };
     public void InvokeOnInputMove(Vector2 context) => OnInputMove.Invoke(context);

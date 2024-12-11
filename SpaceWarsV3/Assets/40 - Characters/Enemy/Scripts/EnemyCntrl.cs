@@ -16,7 +16,7 @@ public class EnemyCntrl : MonoBehaviour
     private float minDistance = 50.0f;
     private EnemyState currentState = EnemyState.IDLE;
     private Vector3 avoidDirection;
-    private float disengageTimer;
+    //private float disengageTimer;
     private EnemyState oldState = EnemyState.COMBAT;
 
     // Start is called before the first frame update
@@ -87,7 +87,6 @@ public class EnemyCntrl : MonoBehaviour
         if (Vector3.Distance(target, transform.position) > minDistance)
         {
             Vector3 direction = (target - transform.position).normalized;
-
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 2.0f * Time.deltaTime);
 
@@ -117,7 +116,7 @@ public class EnemyCntrl : MonoBehaviour
     {
         EnemyState state = EnemyState.DISENGAGE;
 
-        disengageTimer -= Time.deltaTime;
+        //disengageTimer -= Time.deltaTime;
 
         Quaternion targetRotation = Quaternion.LookRotation(avoidDirection);
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 2.0f * Time.deltaTime);

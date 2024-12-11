@@ -40,7 +40,7 @@ public class FighterCntrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventManager.Instance.InvokeOnUpdateAmmoBar(ammoCount, maxAmmoCount);
+        EventManager.Instance.InvokeOnUpdateAmmoBar(1, 1);
     }
 
     void Update()

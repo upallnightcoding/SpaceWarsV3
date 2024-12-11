@@ -11,6 +11,7 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private UIAnimationCntrl uIAnimationCntrl;
     [SerializeField] private MainMenuCntrl mainMenuCntrl;
     [SerializeField] private EngagementCntrl engagementCntrl;
+    [SerializeField] private BattlePanelCntrl battlePanelCntrl;
 
     [Header("Health & Status Bar ...")]
     [SerializeField] private Slider healthBar;
@@ -47,7 +48,7 @@ public class UICntrl : MonoBehaviour
     {
         SetWeaponItems();
         UpdateHealthBar(1.0f);
-        UpdateAmmoBar(0, 1);
+        //UpdateAmmoBar(1, 1);
     }
 
     /****************************/
@@ -117,6 +118,7 @@ public class UICntrl : MonoBehaviour
     {
         CloseAllPanels();
         battlePanel.SetActive(true);
+        battlePanelCntrl.StartTimer();
     }
 
     public void StartEngagementCountDown(LevelData levelData)
@@ -135,12 +137,14 @@ public class UICntrl : MonoBehaviour
 
     public void UpdateAmmoBar(int ammoCount, int maxAmmoCount)
     {
-        ammoBar.value = (float)ammoCount / (float)maxAmmoCount;
+        ammoBar.image.color = Color.green;
+        ammoBar.value = (float)ammoCount / maxAmmoCount;
         ammoBarText.text = $"{ammoCount}/{maxAmmoCount}";
     }
 
     public void UpdateReload(float timing, float reloadTime)
     {
+        ammoBar.image.color = Color.yellow;
         ammoBar.value = timing / reloadTime;
         ammoBarText.text = "";
     }

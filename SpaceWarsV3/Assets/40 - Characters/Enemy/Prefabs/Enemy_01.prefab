@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d428c9fb1225c04abfc9494ee6b5077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammo: {fileID: 11400000, guid: 760ca477d28b0c241952a77d61b8d76f, type: 2}
+  ammo: {fileID: 11400000, guid: 5677d2154d8808e408752b3cc220328e, type: 2}
   firePoint: {fileID: 9034748595579275000}
 --- !u!65 &5110645296933932729
 BoxCollider:
