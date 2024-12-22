@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class FighterCntrl : MonoBehaviour
 {
+    [SerializeField] private GameDataSO gameData;
     [SerializeField] private GameObject firePoint;
 
     public void EngageEnemy() => engage = true;
@@ -105,10 +106,10 @@ public class FighterCntrl : MonoBehaviour
      */
     private IEnumerator FireMissle()
     {
-        GameObject go = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
-        go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
-        go.GetComponent<AmmoCntrl>().Initialize(ammo.destroyPrefab);
-        Destroy(go, ammo.range);
+        GameObject missile = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
+        missile.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
+        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab);
+        Destroy(missile, ammo.range);
 
         ammoCount -= 1;
 
@@ -126,7 +127,6 @@ public class FighterCntrl : MonoBehaviour
     {
         float throttle = 1.0f;
         float speed = 50.0f;
-        //Vector3 direction = Vector3.zero;
 
         if (Mouse.current.leftButton.isPressed)
         {

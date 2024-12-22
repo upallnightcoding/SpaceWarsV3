@@ -81,6 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammo: {fileID: 11400000, guid: 5677d2154d8808e408752b3cc220328e, type: 2}
   firePoint: {fileID: 716440033603538555}
+  gameData: {fileID: 11400000, guid: fa3e569a7ff8ee8488b0e097dae41cd2, type: 2}
 --- !u!114 &1241607453996447181
 MonoBehaviour:
   m_ObjectHideFlags: 0

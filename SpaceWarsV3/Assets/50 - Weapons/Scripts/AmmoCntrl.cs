@@ -4,26 +4,35 @@ using UnityEngine;
 
 public class AmmoCntrl : MonoBehaviour
 {
-    private GameObject destroyPrefab;
+    private GameObject destroyPrefab = null;
+    private string originator = "";
 
-    public void Initialize(GameObject destroyPrefab)
+    public void Initialize(string originator, GameObject destroyPrefab)
     {
-        this.destroyPrefab = destroyPrefab;
+        this.destroyPrefab  = destroyPrefab;
+        this.originator     = originator;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc)) 
+        if (!other.CompareTag(originator))
         {
-            if (tdc.TakeDamage(10.0f))
+            if (other.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc))
             {
-                GameObject prefab = Instantiate(destroyPrefab, transform.position, Quaternion.identity);
-                Destroy(prefab, 4.0f);
-                Destroy(other.transform.gameObject);
-                EventManager.Instance.InvokeOnDestroyEnemy();
-            }
+                if (tdc.TakeDamage(10.0f))
+                {
+                    if (destroyPrefab)
+                    {
+                        GameObject prefab = Instantiate(destroyPrefab, transform.position, Quaternion.identity);
+                        Destroy(prefab, 4.0f);
+                    }
 
-            Destroy(gameObject);
+                    Destroy(other.transform.gameObject);
+                    EventManager.Instance.InvokeOnDestroyEnemy();
+                }
+
+                Destroy(gameObject);
+            }
         }
     }
 }

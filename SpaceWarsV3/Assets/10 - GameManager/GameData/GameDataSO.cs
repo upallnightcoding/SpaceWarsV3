@@ -18,4 +18,8 @@ public class GameDataSO : ScriptableObject
 
     public Vector3 cameraIdlePosition;
     public Vector3 cameraIdleRotation;
+
+    [Header("Tags ...")]
+    public string TAG_ENEMY = "Enemy";
+    public string TAG_FIGHTER = "FIghter";
 }

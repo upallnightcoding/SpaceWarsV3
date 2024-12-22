@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6803940820846301193}
   m_Layer: 0
   m_Name: Fighter_05
-  m_TagString: Untagged
+  m_TagString: Fighter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ab833d803ae384081fe970f16d318b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: fa3e569a7ff8ee8488b0e097dae41cd2, type: 2}
   firePoint: {fileID: 8979844338360244389}
-  ammo: {fileID: 11400000, guid: 760ca477d28b0c241952a77d61b8d76f, type: 2}
 --- !u!1 &8979844338360244389
 GameObject:
   m_ObjectHideFlags: 0

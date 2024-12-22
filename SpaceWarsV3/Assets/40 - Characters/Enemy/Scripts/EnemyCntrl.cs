@@ -6,11 +6,15 @@ public class EnemyCntrl : MonoBehaviour
 {
     [SerializeField] private WeaponSO ammo;
     [SerializeField] private GameObject firePoint;
+    [SerializeField] private GameDataSO gameData;
 
     // Get the player reference from the hierarchy
     private GameObject fighter = null;
 
     private int ammoCount = 0;
+
+    // Keep the enemy from firing until game play is ready
+    private bool readyToFire = false;
 
     private float speed = 0.0f;
     private float minDistance = 50.0f;
@@ -25,6 +29,8 @@ public class EnemyCntrl : MonoBehaviour
         speed = 25.0f;
 
         ammoCount = ammo.maxRounds;
+
+        StartCoroutine(PauseFiringDuringStartup());
     }
 
     public void Set(GameObject fighter)
@@ -94,6 +100,11 @@ public class EnemyCntrl : MonoBehaviour
             transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
         } else
         {
+            if (readyToFire)
+            {
+                FireMissle();
+            }
+
             state = EnemyState.AVOID;
         }
 
@@ -116,8 +127,6 @@ public class EnemyCntrl : MonoBehaviour
     {
         EnemyState state = EnemyState.DISENGAGE;
 
-        //disengageTimer -= Time.deltaTime;
-
         Quaternion targetRotation = Quaternion.LookRotation(avoidDirection);
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 2.0f * Time.deltaTime);
 
@@ -137,6 +146,12 @@ public class EnemyCntrl : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private IEnumerator PauseFiringDuringStartup()
+    {
+        yield return new WaitForSeconds(1.0f);
+        readyToFire = true;
+    }
+
     private IEnumerator DisengageTimer()
     {
         yield return new WaitForSeconds(2.0f);
@@ -145,20 +160,14 @@ public class EnemyCntrl : MonoBehaviour
 
     private void FireMissle()
     {
-        GameObject go = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
-        go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
-        Destroy(go, ammo.range);
+        GameObject missile = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
+        missile.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
+        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_ENEMY, ammo.destroyPrefab);
+        Destroy(missile, ammo.range);
+
+        Debug.Log("Firing ...");
 
         ammoCount -= 1;
-
-        //EventManager.Instance.InvokeOnUpdateAmmoBar(ammoCount, maxAmmoCount);
-
-        //if (ammoCount == 0)
-        //{
-          //  StartCoroutine(ReLoad());
-        //}
-
-        //yield return new WaitForSeconds(0.1f);
     }
 
     private void OnEnable()

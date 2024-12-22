@@ -24,3 +24,5 @@ MonoBehaviour:
   cameraEngagementRotation: {x: 90, y: 0, z: 0}
   cameraIdlePosition: {x: 0, y: 1, z: -10}
   cameraIdleRotation: {x: 0, y: 0, z: 0}
+  TAG_ENEMY: Enemy
+  TAG_FIGHTER: Fighter

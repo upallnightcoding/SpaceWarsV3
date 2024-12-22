@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TakeDamageCntrl : MonoBehaviour
 {
-    private float totalDamage = 20.0f;
+    private float totalDamage = 50.0f;
 
     public bool TakeDamage(float damage)
     {
