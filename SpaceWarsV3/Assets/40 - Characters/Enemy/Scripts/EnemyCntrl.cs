@@ -131,7 +131,7 @@ public class EnemyCntrl : MonoBehaviour
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 2.0f * Time.deltaTime);
 
         transform.localRotation = playerRotation;
-        transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
+        //transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
 
         return (state);
     }

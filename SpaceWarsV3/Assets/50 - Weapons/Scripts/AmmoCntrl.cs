@@ -15,6 +15,7 @@ public class AmmoCntrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"Ammo Hit Something: ${originator}/${other.tag}/${other.name}");
         if (!other.CompareTag(originator))
         {
             if (other.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc))
@@ -28,7 +29,11 @@ public class AmmoCntrl : MonoBehaviour
                     }
 
                     Destroy(other.transform.gameObject);
+
                     EventManager.Instance.InvokeOnDestroyEnemy();
+                } else
+                {
+                    EventManager.Instance.InvokeOnFighterHit();
                 }
 
                 Destroy(gameObject);

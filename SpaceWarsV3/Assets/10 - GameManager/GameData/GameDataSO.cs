@@ -21,5 +21,5 @@ public class GameDataSO : ScriptableObject
 
     [Header("Tags ...")]
     public string TAG_ENEMY = "Enemy";
-    public string TAG_FIGHTER = "FIghter";
+    public string TAG_FIGHTER = "Fighter";
 }

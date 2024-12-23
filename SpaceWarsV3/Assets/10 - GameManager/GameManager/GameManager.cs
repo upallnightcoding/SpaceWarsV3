@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour, GameManagerIf
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private NewGameManager newGameManager;
 
+    private float health = 100.0f;
+    private float maxHealth = 100.0f;
+
     public void Start()
     {
         uiCntrl.RenderMainMenu();
@@ -93,16 +96,24 @@ public class GameManager : MonoBehaviour, GameManagerIf
         NewGameAction();
     }
 
+    private void FighterHit()
+    {
+        health -= 10.0f;
+        uiCntrl.UpdateHealthBar(health, maxHealth);
+    }
+
     private void OnEnable()
     {
         EventManager.Instance.OnStartBattle += StartBattle;
         EventManager.Instance.OnQuitEngagment += EndBattle;
+        EventManager.Instance.OnFighterHit += FighterHit;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnStartBattle -= StartBattle;
         EventManager.Instance.OnQuitEngagment -= EndBattle;
+        EventManager.Instance.OnFighterHit -= FighterHit;
     }
 }
 

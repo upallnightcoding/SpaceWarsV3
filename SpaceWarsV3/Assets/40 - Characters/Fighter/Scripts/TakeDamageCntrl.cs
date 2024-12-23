@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class TakeDamageCntrl : MonoBehaviour
 {
-    private float totalDamage = 50.0f;
+    private float health = 0.0f;
+
+    public void Init(float initHealth)
+    {
+        health = initHealth;
+    }
 
     public bool TakeDamage(float damage)
     {
-        totalDamage -= damage;
+        health -= damage;
 
-        return (totalDamage <= 0.0f);
+        return (health <= 0.0f);
     }
 }

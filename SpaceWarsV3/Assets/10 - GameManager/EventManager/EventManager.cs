@@ -8,6 +8,9 @@ public class EventManager
     public event Action<string> OnQuitEngagment = delegate { };
     public void InvokeOnQuitEngagment(string message) => OnQuitEngagment.Invoke(message);
 
+    public event Action OnFighterHit = delegate { };
+    public void InvokeOnFighterHit() => OnFighterHit.Invoke();
+
     public event Action OnDestroyEnemy = delegate { };
     public void InvokeOnDestroyEnemy() => OnDestroyEnemy.Invoke();
 

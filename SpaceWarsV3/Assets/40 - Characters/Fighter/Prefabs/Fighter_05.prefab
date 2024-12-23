@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7794057356399558341}
   - component: {fileID: 6803940820846301193}
+  - component: {fileID: 6186482223256273751}
+  - component: {fileID: 4930887728900885762}
   m_Layer: 0
   m_Name: Fighter_05
   m_TagString: Fighter
@@ -48,6 +50,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: fa3e569a7ff8ee8488b0e097dae41cd2, type: 2}
   firePoint: {fileID: 8979844338360244389}
+--- !u!65 &6186482223256273751
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5754244844749495904}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 14, y: 8, z: 12}
+  m_Center: {x: 0, y: -0.34929872, z: -0.96552134}
+--- !u!114 &4930887728900885762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5754244844749495904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59483bf092b409d49a5d0a43d5d65327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8979844338360244389
 GameObject:
   m_ObjectHideFlags: 0

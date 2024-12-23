@@ -47,7 +47,7 @@ public class UICntrl : MonoBehaviour
     public void Start()
     {
         SetWeaponItems();
-        UpdateHealthBar(1.0f);
+        UpdateHealthBar(100.0f, 100.0f);
         //UpdateAmmoBar(1, 1);
     }
 
@@ -130,9 +130,10 @@ public class UICntrl : MonoBehaviour
     /*** Health & Status Bars ***/
     /****************************/
 
-    public void UpdateHealthBar(float value)
+    public void UpdateHealthBar(float health, float maxHealth)
     {
-        healthBar.value = value;
+        healthBar.value = health / maxHealth;
+        healthBarText.text = $"{health}/{maxHealth}";
     }
 
     public void UpdateAmmoBar(int ammoCount, int maxAmmoCount)
@@ -172,25 +173,13 @@ public class UICntrl : MonoBehaviour
 
     private void OnEnable()
     {
-        //EventManager.Instance.OnStartBattle += StartEngagement;
         EventManager.Instance.OnUpdateAmmoBar += UpdateAmmoBar;
         EventManager.Instance.OnUpdateReload += UpdateReload;
     }
 
     private void OnDisable()
     {
-        //EventManager.Instance.OnStartBattle -= StartEngagement;
         EventManager.Instance.OnUpdateAmmoBar -= UpdateAmmoBar;
         EventManager.Instance.OnUpdateReload -= UpdateReload;
     }
-
-    /*private enum PanelType
-    {
-        MAIN_MENU_PANEL,
-        FIGHTER_SELECTION_PANEL,
-        SELECT_LEVEL_PANEL,
-        INVENTORY_SELECTION_PANEL,
-        ENGAGEMENT_PANEL,
-        BATTLE_PANEL
-    }*/
 }
