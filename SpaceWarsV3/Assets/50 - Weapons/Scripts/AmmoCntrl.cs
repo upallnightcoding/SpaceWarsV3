@@ -6,21 +6,30 @@ public class AmmoCntrl : MonoBehaviour
 {
     private GameObject destroyPrefab = null;
     private string originator = "";
+    private bool active;
+    private float damage;
 
-    public void Initialize(string originator, GameObject destroyPrefab)
+    public void Initialize(string originator, GameObject destroyPrefab, float damage)
     {
         this.destroyPrefab  = destroyPrefab;
         this.originator     = originator;
+        this.damage         = damage;
+
+        active = true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    /**
+     * OnTriggerExit() - 
+     */
+    private void OnTriggerExit(Collider obstacle)
     {
-        Debug.Log($"Ammo Hit Something: ${originator}/${other.tag}/${other.name}");
-        if (!other.CompareTag(originator))
+        if (!obstacle.CompareTag(originator) && active)
         {
-            if (other.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc))
+            active = false;
+
+            if (obstacle.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc))
             {
-                if (tdc.TakeDamage(10.0f))
+                if (tdc.TakeDamage(damage))
                 {
                     if (destroyPrefab)
                     {
@@ -28,16 +37,29 @@ public class AmmoCntrl : MonoBehaviour
                         Destroy(prefab, 4.0f);
                     }
 
-                    Destroy(other.transform.gameObject);
+                    switch (obstacle.tag)
+                    {
+                        case "Enemy":
+                            EventManager.Instance.InvokeOnDestroyEnemy();
+                            break;
+                        case "Fighter":
+                            EventManager.Instance.InvokeOnDestroyFighter();
+                            break;
+                    }
 
-                    EventManager.Instance.InvokeOnDestroyEnemy();
+                    Destroy(obstacle.transform.gameObject);
                 } else
                 {
-                    EventManager.Instance.InvokeOnFighterHit();
+                    switch(obstacle.tag)
+                    {
+                        case "Fighter":
+                            EventManager.Instance.InvokeOnFighterHit(tdc.RemainingHealth());
+                            break;
+                    }
                 }
-
-                Destroy(gameObject);
             }
+
+            Destroy(gameObject);
         }
     }
 }

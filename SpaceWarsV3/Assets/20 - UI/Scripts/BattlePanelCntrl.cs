@@ -33,7 +33,10 @@ public class BattlePanelCntrl : MonoBehaviour
         StartCoroutine(StartTimerRoutine());
     }
 
-    private void EndTimer(string message)
+    /**
+     * OnPlayerWins() - When the player wins the timer must stopped.
+     */
+    private void OnPlayerWins()
     {
         startTimerSw = false;
     }
@@ -49,11 +52,11 @@ public class BattlePanelCntrl : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.Instance.OnQuitEngagment += EndTimer;
+        EventManager.Instance.OnPlayerWins += OnPlayerWins;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnQuitEngagment -= EndTimer;
+        EventManager.Instance.OnPlayerWins -= OnPlayerWins;
     }
 }

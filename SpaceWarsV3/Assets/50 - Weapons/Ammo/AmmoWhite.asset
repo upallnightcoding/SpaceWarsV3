@@ -17,7 +17,7 @@ MonoBehaviour:
   description: 
   sprite: {fileID: 21300000, guid: a920121dee7b1a34eb948e08863c980b, type: 3}
   cost: 20
-  damage: 2
+  damage: 50
   rangeSec: 2
   ammoPrefab: {fileID: 682657527431606495, guid: 71391bfeb3b7a43479de0932149787a9,
     type: 3}

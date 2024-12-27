@@ -130,12 +130,23 @@ public class UICntrl : MonoBehaviour
     /*** Health & Status Bars ***/
     /****************************/
 
+    /**
+     * UpdateHealthBar() - Update health bar as the fighter is attached
+     * by the enemy.  Updates are done by events as missiles trigger
+     * the fighter collision box.
+     */
     public void UpdateHealthBar(float health, float maxHealth)
     {
         healthBar.value = health / maxHealth;
-        healthBarText.text = $"{health}/{maxHealth}";
+        int percent = (int)(100.0f * healthBar.value);
+        healthBarText.text = $"{percent}%";
     }
 
+    /**
+     * UpdateAmmoBar() - Update the ammo bar each time the player fires
+     * a missile.  When the player has run out of ammo, execute the 
+     * reload state.
+     */
     public void UpdateAmmoBar(int ammoCount, int maxAmmoCount)
     {
         ammoBar.image.color = Color.green;

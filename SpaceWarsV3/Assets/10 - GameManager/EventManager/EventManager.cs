@@ -5,18 +5,30 @@ using System;
 
 public class EventManager
 {
-    public event Action<string> OnQuitEngagment = delegate { };
-    public void InvokeOnQuitEngagment(string message) => OnQuitEngagment.Invoke(message);
+    // This event is raise if the player wins.
+    //----------------------------------------
+    public event Action OnPlayerWins = delegate { };
+    public void InvokeOnPlayerWins() => OnPlayerWins.Invoke();
 
-    public event Action OnFighterHit = delegate { };
-    public void InvokeOnFighterHit() => OnFighterHit.Invoke();
+    // If the fighter takes a hit, update the UI and other stuff.
+    //-----------------------------------------------------------
+    public event Action<float> OnFighterHit = delegate { };
+    public void InvokeOnFighterHit(float remainingDamage) => OnFighterHit.Invoke(remainingDamage);
 
+    // When an enemy ship has been destroyed send out this event.
+    //-----------------------------------------------------------
     public event Action OnDestroyEnemy = delegate { };
     public void InvokeOnDestroyEnemy() => OnDestroyEnemy.Invoke();
 
-    // Upon desengagement from a fight, this event starts the process
-    public event Action OnDestoryRequest = delegate { };
-    public void InvokeOnDestoryRequest() => OnDestoryRequest.Invoke();
+    // When the fighter has been destroyed send out this event.
+    //---------------------------------------------------------
+    public event Action OnDestroyFighter = delegate { };
+    public void InvokeOnDestroyFighter() => OnDestroyFighter.Invoke();
+
+    // Upon desengagement from battle, this event starts the process.
+    //---------------------------------------------------------------
+    public event Action OnDisengageRequest = delegate { };
+    public void InvokeOnDisengageRequest() => OnDisengageRequest.Invoke();
 
     public event Action OnNewGameAction = delegate { };
     public void InvokeOnNewGameAction() => OnNewGameAction.Invoke();

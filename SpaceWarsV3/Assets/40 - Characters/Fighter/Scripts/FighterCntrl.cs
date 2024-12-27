@@ -110,7 +110,7 @@ public class FighterCntrl : MonoBehaviour
     {
         GameObject missile = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
         missile.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
-        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab);
+        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage);
         Destroy(missile, ammo.range);
 
         ammoCount -= 1;
@@ -185,7 +185,7 @@ public class FighterCntrl : MonoBehaviour
         EventManager.Instance.OnInputMove += OnMove;
         EventManager.Instance.OnFire += OnFire;
         EventManager.Instance.OnFireKey += OnFireKey;
-        EventManager.Instance.OnDestoryRequest += DestroyRequest;
+        EventManager.Instance.OnDisengageRequest += DestroyRequest;
     }
 
     private void OnDisable()
@@ -194,6 +194,6 @@ public class FighterCntrl : MonoBehaviour
         EventManager.Instance.OnInputMove -= OnMove;
         EventManager.Instance.OnFire -= OnFire;
         EventManager.Instance.OnFireKey -= OnFireKey;
-        EventManager.Instance.OnDestoryRequest -= DestroyRequest;
+        EventManager.Instance.OnDisengageRequest -= DestroyRequest;
     }
 }

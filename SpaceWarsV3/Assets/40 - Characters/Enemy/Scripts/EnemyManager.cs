@@ -20,16 +20,18 @@ public class EnemyManager : MonoBehaviour
         
     }
 
-    public void StartEngagement(GameObject fighter, LevelData levelData)
+    public void StartEngagement(GameObject fighter, LevelData levelData, int nEnemies)
     {
-        Vector2 randomPoint = Random.insideUnitCircle * 70.0f;
-        //Vector3 enemyPos = new Vector3(-100.0f+randomPoint.x, 0.0f, 3.5f+randomPoint.y);
-        Vector3 enemyPos = new Vector3(69.0f+randomPoint.x, 0.0f, 3.5f+randomPoint.y);
+        for (int i = 0; i < nEnemies; i++)
+        {
+            Vector2 randomPoint = Random.insideUnitCircle * 70.0f;
+            Vector3 enemyPos = new Vector3(69.0f+randomPoint.x, 0.0f, 3.5f+randomPoint.y);
 
-        int enemyIndex = Random.Range(0, enemyList.Length);
-        GameObject enemy = Instantiate(enemyList[enemyIndex], enemyPos, Quaternion.identity);
-        enemy.GetComponent<EnemyCntrl>().Set(fighter);
-        enemyCount++;
+            int enemyIndex = Random.Range(0, enemyList.Length);
+            GameObject enemy = Instantiate(enemyList[enemyIndex], enemyPos, Quaternion.identity);
+            enemy.GetComponent<EnemyCntrl>().Set(fighter);
+            enemyCount++;
+        }
 
         fighter.transform.position = new Vector3(69.0f, 0.0f, 3.5f);
     }
@@ -38,7 +40,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (--enemyCount == 0)
         {
-            EventManager.Instance.InvokeOnQuitEngagment("Congratulations");
+            EventManager.Instance.InvokeOnPlayerWins();
         }
     }
 

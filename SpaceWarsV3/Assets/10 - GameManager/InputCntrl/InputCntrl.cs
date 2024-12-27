@@ -44,7 +44,7 @@ public class InputCntrl : MonoBehaviour
     {
         if (context.started)
         {
-            EventManager.Instance.InvokeOnQuitEngagment("Giving Up");
+            //EventManager.Instance.InvokeOnQuitEngagment("Giving Up");
         }
     }
 

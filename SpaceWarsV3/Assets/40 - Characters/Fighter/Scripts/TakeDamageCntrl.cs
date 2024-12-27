@@ -17,4 +17,13 @@ public class TakeDamageCntrl : MonoBehaviour
 
         return (health <= 0.0f);
     }
+
+    /**
+     * RemainingHealth() - Returns the remaining health of the fighter or
+     * enemy.
+     */
+    public float RemainingHealth()
+    {
+        return (health);
+    }
 }

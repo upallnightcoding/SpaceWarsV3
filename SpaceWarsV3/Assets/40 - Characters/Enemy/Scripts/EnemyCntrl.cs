@@ -162,22 +162,20 @@ public class EnemyCntrl : MonoBehaviour
     {
         GameObject missile = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
         missile.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
-        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_ENEMY, ammo.destroyPrefab);
+        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_ENEMY, ammo.destroyPrefab, ammo.damage);
         Destroy(missile, ammo.range);
-
-        Debug.Log("Firing ...");
 
         ammoCount -= 1;
     }
 
     private void OnEnable()
     {
-        EventManager.Instance.OnDestoryRequest += DestroyRequest;
+        EventManager.Instance.OnDisengageRequest += DestroyRequest;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnDestoryRequest -= DestroyRequest;
+        EventManager.Instance.OnDisengageRequest -= DestroyRequest;
     }
 
     private enum EnemyState

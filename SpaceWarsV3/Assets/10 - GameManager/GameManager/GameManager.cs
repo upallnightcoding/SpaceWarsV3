@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour, GameManagerIf
 
         uiCntrl.RenderBattlePanel();
 
-        enemyManager.StartEngagement(fighter, levelData);
+        enemyManager.StartEngagement(fighter, levelData, 3);
     }
 
     /**
@@ -87,33 +87,52 @@ public class GameManager : MonoBehaviour, GameManagerIf
         uiCntrl.BattleBanner(message, this);
     }
 
+    /**
+     * EndBattleCallback() - 
+     */
     public void EndBattleCallback()
     {
         gameCamera.GetComponent<CameraCntrl>().PositionCameraAtIdle();
 
-        EventManager.Instance.InvokeOnDestoryRequest();
+        //EventManager.Instance.InvokeOnDestoryRequest();
 
         NewGameAction();
     }
 
-    private void FighterHit()
+    private void OnFighterHit(float remainingDamage)
     {
-        health -= 10.0f;
-        uiCntrl.UpdateHealthBar(health, maxHealth);
+        uiCntrl.UpdateHealthBar(remainingDamage, maxHealth);
+    }
+
+    /**
+     * OnDestroyFighter() - Starts the process if a fighter has been 
+     * destroyed.
+     */
+    private void OnDestroyFighter()
+    {
+        EndBattle("You Loose");
+    }
+
+    private void OnPlayerWins()
+    {
+        EndBattle("Congratulations");
     }
 
     private void OnEnable()
     {
         EventManager.Instance.OnStartBattle += StartBattle;
-        EventManager.Instance.OnQuitEngagment += EndBattle;
-        EventManager.Instance.OnFighterHit += FighterHit;
+        EventManager.Instance.OnPlayerWins += OnPlayerWins;
+
+        EventManager.Instance.OnFighterHit += OnFighterHit;
+        EventManager.Instance.OnDestroyFighter += OnDestroyFighter;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnStartBattle -= StartBattle;
-        EventManager.Instance.OnQuitEngagment -= EndBattle;
-        EventManager.Instance.OnFighterHit -= FighterHit;
+        EventManager.Instance.OnPlayerWins -= OnPlayerWins;
+        EventManager.Instance.OnFighterHit -= OnFighterHit;
+        EventManager.Instance.OnDestroyFighter -= OnDestroyFighter;
     }
 }
 
