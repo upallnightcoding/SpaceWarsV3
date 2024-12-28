@@ -6355,9 +6355,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 504630906}
-        m_TargetAssemblyTypeName: UICntrl, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 127738527}
+        m_TargetAssemblyTypeName: NewGameManager, Assembly-CSharp
+        m_MethodName: StartHavocLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

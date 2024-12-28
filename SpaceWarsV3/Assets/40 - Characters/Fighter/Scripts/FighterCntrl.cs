@@ -185,7 +185,7 @@ public class FighterCntrl : MonoBehaviour
         EventManager.Instance.OnInputMove += OnMove;
         EventManager.Instance.OnFire += OnFire;
         EventManager.Instance.OnFireKey += OnFireKey;
-        EventManager.Instance.OnDisengageRequest += DestroyRequest;
+        EventManager.Instance.OnDestroyAllShips += DestroyRequest;
     }
 
     private void OnDisable()
@@ -194,6 +194,6 @@ public class FighterCntrl : MonoBehaviour
         EventManager.Instance.OnInputMove -= OnMove;
         EventManager.Instance.OnFire -= OnFire;
         EventManager.Instance.OnFireKey -= OnFireKey;
-        EventManager.Instance.OnDisengageRequest -= DestroyRequest;
+        EventManager.Instance.OnDestroyAllShips -= DestroyRequest;
     }
 }

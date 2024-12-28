@@ -14,25 +14,41 @@ public class EnemyManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartEngagement(GameObject fighter, LevelData levelData)
     {
         
+        switch(levelData.GetLevel())
+        {
+            case LevelType.TUTORIAL:
+                CreateRandomEnemies(fighter, 1);
+                break;
+            case LevelType.HAVOC:
+                CreateRandomEnemies(fighter, 15);
+                break;
+            default:
+                CreateRandomEnemies(fighter, 2);
+                break;
+        }
+
+        PositionFighter(fighter);
     }
 
-    public void StartEngagement(GameObject fighter, LevelData levelData, int nEnemies)
+    private void CreateRandomEnemies(GameObject fighter, int nEnemies)
     {
         for (int i = 0; i < nEnemies; i++)
         {
             Vector2 randomPoint = Random.insideUnitCircle * 70.0f;
-            Vector3 enemyPos = new Vector3(69.0f+randomPoint.x, 0.0f, 3.5f+randomPoint.y);
+            Vector3 enemyPos = new Vector3(69.0f + randomPoint.x, 0.0f, 3.5f + randomPoint.y);
 
             int enemyIndex = Random.Range(0, enemyList.Length);
             GameObject enemy = Instantiate(enemyList[enemyIndex], enemyPos, Quaternion.identity);
             enemy.GetComponent<EnemyCntrl>().Set(fighter);
             enemyCount++;
         }
+    }
 
+    private void PositionFighter(GameObject fighter)
+    {
         fighter.transform.position = new Vector3(69.0f, 0.0f, 3.5f);
     }
 
@@ -46,12 +62,12 @@ public class EnemyManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.Instance.OnDestroyEnemy += OnDestroyEnemy;
+        EventManager.Instance.OnDestroyEnemyShip += OnDestroyEnemy;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnDestroyEnemy -= OnDestroyEnemy;
+        EventManager.Instance.OnDestroyEnemyShip -= OnDestroyEnemy;
     }
 }
 

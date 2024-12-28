@@ -18,6 +18,14 @@ public class LevelData
     {
         this.type = type;
     }
+
+    /**
+     * GetLevel() - Returns the current level of the player.
+     */
+    public LevelType GetLevel()
+    {
+        return (type);
+    }
 }
 
 public enum LevelType

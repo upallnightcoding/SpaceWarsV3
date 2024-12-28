@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour, GameManagerIf
+public class GameManager : MonoBehaviour, NewGameIf
 {
     [SerializeField] private GameDataSO gameData;
     [SerializeField] private UICntrl uiCntrl;
@@ -73,49 +73,46 @@ public class GameManager : MonoBehaviour, GameManagerIf
 
         uiCntrl.RenderBattlePanel();
 
-        enemyManager.StartEngagement(fighter, levelData, 3);
+        enemyManager.StartEngagement(fighter, levelData);
     }
 
     /**
-     * EndBattle() - Ends the battle engagement by displaying a banner 
-     * and setting up the diplay to allow for the selection of the next
-     * level.  The banner is displayed for a set amount of time and the
-     * remaining logic is trigger via a callback interface.
+     * OnFighterHit() - 
      */
-    public void EndBattle(string message)
-    {
-        uiCntrl.BattleBanner(message, this);
-    }
-
-    /**
-     * EndBattleCallback() - 
-     */
-    public void EndBattleCallback()
-    {
-        gameCamera.GetComponent<CameraCntrl>().PositionCameraAtIdle();
-
-        //EventManager.Instance.InvokeOnDestoryRequest();
-
-        NewGameAction();
-    }
-
     private void OnFighterHit(float remainingDamage)
     {
         uiCntrl.UpdateHealthBar(remainingDamage, maxHealth);
     }
 
     /**
-     * OnDestroyFighter() - Starts the process if a fighter has been 
+     * OnPlayerLooses() - Starts the process if a fighter has been 
      * destroyed.
      */
-    private void OnDestroyFighter()
+    private void OnPlayerLooses()
     {
-        EndBattle("You Loose");
+        uiCntrl.BattleBanner("You Loose", this);
     }
 
+    /**
+     * OnPlayerWins() -
+     */
     private void OnPlayerWins()
     {
-        EndBattle("Congratulations");
+        uiCntrl.BattleBanner("Congratulations", this);
+    }
+
+    /**
+     * ReStartNewGame() - When a new game is purposed, all existing ships must
+     * be destroyed, the camer is put back in the correct position and then a
+     * new game can be started.
+     */
+    public void ReStartNewGame()
+    {
+        EventManager.Instance.InvokeDestroyAllShips();
+
+        gameCamera.GetComponent<CameraCntrl>().PositionCameraAtIdle();
+
+        NewGameAction();
     }
 
     private void OnEnable()
@@ -124,7 +121,7 @@ public class GameManager : MonoBehaviour, GameManagerIf
         EventManager.Instance.OnPlayerWins += OnPlayerWins;
 
         EventManager.Instance.OnFighterHit += OnFighterHit;
-        EventManager.Instance.OnDestroyFighter += OnDestroyFighter;
+        EventManager.Instance.OnPlayerLooses += OnPlayerLooses;
     }
 
     private void OnDisable()
@@ -132,11 +129,12 @@ public class GameManager : MonoBehaviour, GameManagerIf
         EventManager.Instance.OnStartBattle -= StartBattle;
         EventManager.Instance.OnPlayerWins -= OnPlayerWins;
         EventManager.Instance.OnFighterHit -= OnFighterHit;
-        EventManager.Instance.OnDestroyFighter -= OnDestroyFighter;
+        EventManager.Instance.OnPlayerLooses -= OnPlayerLooses;
     }
 }
 
-public interface GameManagerIf
+public interface NewGameIf
 {
-    public void EndBattleCallback();
+    public void ReStartNewGame();
 }
+

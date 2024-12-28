@@ -68,12 +68,17 @@ public class UICntrl : MonoBehaviour
         mainMenuPanel.SetActive(true);
     }
 
-    public void BattleBanner(string message, GameManagerIf callback)
+    /**
+     * BattleBanner() - Display a banner across the screen informing the 
+     * player of the current status.  The banner will only display for
+     * a limited amount of time.
+     */
+    public void BattleBanner(string message, NewGameIf callback)
     {
         StartCoroutine(DisplayBattleBanner(message, callback));
     }
 
-    private IEnumerator DisplayBattleBanner(string message, GameManagerIf callback)
+    private IEnumerator DisplayBattleBanner(string message, NewGameIf callback)
     {
         bannerMessage.text = message;
         banner.SetActive(true);
@@ -82,7 +87,7 @@ public class UICntrl : MonoBehaviour
 
         banner.SetActive(false);
 
-        callback.EndBattleCallback();
+        callback.ReStartNewGame();
     }
 
     /**

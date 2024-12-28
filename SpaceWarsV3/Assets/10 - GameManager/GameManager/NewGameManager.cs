@@ -10,7 +10,6 @@ public class NewGameManager : MonoBehaviour
 
     private LevelData levelData = null;
 
-    // Start is called before the first frame update
     public void NewGameAction()
     {
         uiCntrl.RenderSelectLevelPanel();
@@ -19,6 +18,13 @@ public class NewGameManager : MonoBehaviour
     public void StartTutorialLevel()
     {
         levelData = new LevelData(LevelType.TUTORIAL);
+
+        uiCntrl.RenderSelectFighterPanel();
+    }
+
+    public void StartHavocLevel()
+    {
+        levelData = new LevelData(LevelType.HAVOC);
 
         uiCntrl.RenderSelectFighterPanel();
     }
@@ -46,12 +52,6 @@ public class NewGameManager : MonoBehaviour
     public void StartEngagmentCountDown()
     {
         uiCntrl.StartEngagementCountDown(levelData);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void FighterSelection(GameObject selectedFighter)

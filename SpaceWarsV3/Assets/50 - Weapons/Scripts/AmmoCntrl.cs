@@ -40,7 +40,7 @@ public class AmmoCntrl : MonoBehaviour
                     switch (obstacle.tag)
                     {
                         case "Enemy":
-                            EventManager.Instance.InvokeOnDestroyEnemy();
+                            EventManager.Instance.InvokeOnDestroyEnemyShip();
                             break;
                         case "Fighter":
                             EventManager.Instance.InvokeOnDestroyFighter();

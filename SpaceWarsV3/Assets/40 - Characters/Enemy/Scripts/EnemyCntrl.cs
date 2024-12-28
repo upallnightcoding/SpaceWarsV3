@@ -170,12 +170,12 @@ public class EnemyCntrl : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.Instance.OnDisengageRequest += DestroyRequest;
+        EventManager.Instance.OnDestroyAllShips += DestroyRequest;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnDisengageRequest -= DestroyRequest;
+        EventManager.Instance.OnDestroyAllShips -= DestroyRequest;
     }
 
     private enum EnemyState
