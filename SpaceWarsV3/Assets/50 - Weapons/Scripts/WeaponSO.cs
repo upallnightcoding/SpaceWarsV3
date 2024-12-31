@@ -35,7 +35,11 @@ public class WeaponSO : ScriptableObject
     public GameObject missileExplosion;
 
     [Header("Shield Attributes ...")]
-    public int defectionPercent;
+    public GameObject shieldPrefab;
+    public float deflectionPercentage;
+    public float durationSec;
+    public float totalDurationSec;
+    public int reChargeSec;
 }
 
 public enum WeaponType

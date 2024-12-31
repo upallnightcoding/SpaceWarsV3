@@ -18,6 +18,8 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private TMP_Text healthBarText;
     [SerializeField] private Slider ammoBar;
     [SerializeField] private TMP_Text ammoBarText;
+    [SerializeField] private Slider shieldsBar;
+    [SerializeField] private TMP_Text shieldsBarText;
 
     [Header("UI Panels ...")]
     [SerializeField] private GameObject mainMenuPanel;
@@ -135,6 +137,13 @@ public class UICntrl : MonoBehaviour
     /*** Health & Status Bars ***/
     /****************************/
 
+    public void UpdateShieldBar(float shield, float maxShield)
+    {
+        shieldsBar.value = shield / maxShield;
+        int percent = (int)(100.0f * shieldsBar.value);
+        shieldsBarText.text = $"{percent}%";
+    }
+
     /**
      * UpdateHealthBar() - Update health bar as the fighter is attached
      * by the enemy.  Updates are done by events as missiles trigger
@@ -191,11 +200,13 @@ public class UICntrl : MonoBehaviour
     {
         EventManager.Instance.OnUpdateAmmoBar += UpdateAmmoBar;
         EventManager.Instance.OnUpdateReload += UpdateReload;
+        EventManager.Instance.OnUpdateShield += UpdateShieldBar;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnUpdateAmmoBar -= UpdateAmmoBar;
         EventManager.Instance.OnUpdateReload -= UpdateReload;
+        EventManager.Instance.OnUpdateShield -= UpdateShieldBar;
     }
 }

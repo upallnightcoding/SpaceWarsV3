@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour, NewGameIf
         //-----------------------------------------------------
         levelData.Ammo = uiCntrl.ammoListCntrl.GetCurrentWeapon();
         levelData.Missile = uiCntrl.missileListCntrl.GetCurrentWeapon();
-        levelData.Shild = uiCntrl.shieldListCntrl.GetCurrentWeapon();
+        levelData.Shield = uiCntrl.shieldListCntrl.GetCurrentWeapon();
 
         GameObject fighter = Instantiate(levelData.Fighter, new Vector3(), Quaternion.identity);
         fighter.GetComponent<FighterCntrl>().SetLevel(levelData);

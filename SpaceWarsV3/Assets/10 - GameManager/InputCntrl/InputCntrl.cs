@@ -48,6 +48,9 @@ public class InputCntrl : MonoBehaviour
         }
     }
 
+    /**
+     * OnFire1() - 
+     */
     public void OnFire1(InputAction.CallbackContext context)
     {
         if (context.started)

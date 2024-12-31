@@ -36,6 +36,11 @@ public class EventManager
     public event Action<GameObject> OnFighterSelection = delegate { };
     public void InvokeOnFighterSelection(GameObject fighter) => OnFighterSelection.Invoke(fighter);
 
+    // Ammo, shield, Missle Bars Update
+    //---------------------------------
+    public event Action<float, float> OnUpdateShield = delegate { };
+    public void InvokeOnUpdateShield(float shield, float maxShiled) => OnUpdateShield.Invoke(shield, maxShiled);
+
     public event Action<int, int> OnUpdateAmmoBar = delegate { };
     public void InvokeOnUpdateAmmoBar(int ammoCount, int maxAmmoCount) => OnUpdateAmmoBar.Invoke(ammoCount, maxAmmoCount);
 

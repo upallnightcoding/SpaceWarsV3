@@ -8,7 +8,7 @@ public class LevelData
 
     public WeaponSO Ammo { get; set; }
     public WeaponSO Missile { get; set; }
-    public WeaponSO Shild { get; set; }
+    public WeaponSO Shield { get; set; }
 
     private LevelType type = LevelType.TUTORIAL;
 

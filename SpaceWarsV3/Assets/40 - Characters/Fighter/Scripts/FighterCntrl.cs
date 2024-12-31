@@ -29,8 +29,11 @@ public class FighterCntrl : MonoBehaviour
     private int maxHealth = 100;
 
     private WeaponSO ammo;
+    private WeaponSO shield;
 
     private bool engage = false;
+
+    private float totalDurationSec;
 
     private Color newColor;
     private Renderer meshRenderer;
@@ -57,6 +60,9 @@ public class FighterCntrl : MonoBehaviour
     public void SetLevel(LevelData levelData)
     {
         this.ammo = levelData.Ammo;
+        this.shield = levelData.Shield;
+
+        totalDurationSec = levelData.Shield.totalDurationSec;
 
         ammoCount = ammo.maxRounds;
         maxAmmoCount = ammo.maxRounds;
@@ -72,14 +78,42 @@ public class FighterCntrl : MonoBehaviour
 
     private void OnFireKey(int key)
     {
-        if (!isReloading)
+
+        switch(key)
         {
-            StartCoroutine(FireMissle());
+            case 1:
+                if (!isReloading) StartCoroutine(FireMissle());
+                break;
+            case 2:
+                break;
+            case 3:
+                StartCoroutine(ShieldsUp());
+                break;
+
         }
     }
 
+    private IEnumerator ShieldsUp()
+    {
+        GameObject go = Instantiate(shield.shieldPrefab, transform);
+
+        float duration = shield.durationSec;
+
+        while (duration >= 0.0f)
+        {
+            duration -= Time.deltaTime;
+            totalDurationSec -= Time.deltaTime;
+            EventManager.Instance.InvokeOnUpdateShield(totalDurationSec, shield.totalDurationSec);
+            yield return null;
+        }
+
+        Destroy(go);
+    }
+
     /**
-     * ReLoad() -
+     * ReLoad() - If the ammo is reloading stop all firing until the
+     * reloading is complete.  When the reloading is finished, the ammo will
+     * return to maximum.
      */
     private IEnumerator ReLoad()
     {
