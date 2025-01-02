@@ -30,15 +30,18 @@ public class FighterCntrl : MonoBehaviour
 
     private WeaponSO ammo;
     private WeaponSO shield;
+    private WeaponSO missile;
 
     private bool engage = false;
 
-    private float totalDurationSec;
+    private float totalShieldSec;
 
     private Color newColor;
     private Renderer meshRenderer;
 
     public void StartEngage() => engage = true;
+
+    private TakeDamageCntrl tdc;
 
 
     // Start is called before the first frame update
@@ -46,9 +49,16 @@ public class FighterCntrl : MonoBehaviour
     {
         EventManager.Instance.InvokeOnUpdateAmmoBar(1, 1);
 
-        GetComponent<TakeDamageCntrl>().Init(100.0f);
+        tdc = GetComponent<TakeDamageCntrl>();
+
+        tdc.Init(100.0f);
     }
 
+    /**
+     * Update() - If the player is in engagment, coutinue reading commands
+     * from the keyboard.  If there is no engagement, all keyboard input
+     * is egnored.
+     */
     void Update()
     {
         if (engage)
@@ -57,12 +67,18 @@ public class FighterCntrl : MonoBehaviour
         }
     }
 
+    /**
+     * SetLevel() - Sets the level of the ammo, shield and missiles.  This is
+     * determined when the player selects the inventory. This initialization
+     * must be done before the fighter can engage.
+     */
     public void SetLevel(LevelData levelData)
     {
         this.ammo = levelData.Ammo;
         this.shield = levelData.Shield;
+        this.missile = levelData.Missile;
 
-        totalDurationSec = levelData.Shield.totalDurationSec;
+        totalShieldSec = levelData.Shield.totalDurationSec;
 
         ammoCount = ammo.maxRounds;
         maxAmmoCount = ammo.maxRounds;
@@ -72,7 +88,7 @@ public class FighterCntrl : MonoBehaviour
     {
         if (!isReloading)
         {
-            StartCoroutine(FireMissle());
+            StartCoroutine(FireAmmo());
         }
     }
 
@@ -82,12 +98,13 @@ public class FighterCntrl : MonoBehaviour
         switch(key)
         {
             case 1:
-                if (!isReloading) StartCoroutine(FireMissle());
+                if (!isReloading) StartCoroutine(FireAmmo());
                 break;
             case 2:
+                StartCoroutine(FireMissile());
                 break;
             case 3:
-                StartCoroutine(ShieldsUp());
+                if (totalShieldSec > 0.0f) StartCoroutine(ShieldsUp());
                 break;
 
         }
@@ -98,15 +115,17 @@ public class FighterCntrl : MonoBehaviour
         GameObject go = Instantiate(shield.shieldPrefab, transform);
 
         float duration = shield.durationSec;
+        tdc.TurnShieldOn(shield.absorption / 100.0f);
 
         while (duration >= 0.0f)
         {
             duration -= Time.deltaTime;
-            totalDurationSec -= Time.deltaTime;
-            EventManager.Instance.InvokeOnUpdateShield(totalDurationSec, shield.totalDurationSec);
+            totalShieldSec -= Time.deltaTime;
+            EventManager.Instance.InvokeOnUpdateShield(totalShieldSec, shield.totalDurationSec);
             yield return null;
         }
 
+        tdc.TurnShieldOff();
         Destroy(go);
     }
 
@@ -135,16 +154,27 @@ public class FighterCntrl : MonoBehaviour
         isReloading = false;
     }
 
+    private IEnumerator FireMissile()
+    {
+        GameObject go = Instantiate(missile.missilePrefab, firePoint.transform.position, transform.rotation);
+        go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * missile.missileForce, ForceMode.Impulse);
+        go.GetComponent<MissileCntrl>().Initialize();
+
+        Debug.Log($"Missile Fire ... {firePoint.transform.position}");
+
+        yield return new WaitForSeconds(0.1f);
+    }
+
     /**
-     * FireMissle() - Fires one ammo round with the press of the "1" key.  If
+     * FireAmmo() - Fires one ammo round with the press of the "1" key.  If
      * the ammo has been exhausted, the process goes into reload.  The "1" is
      * is egnored during reload.
      */
-    private IEnumerator FireMissle()
+    private IEnumerator FireAmmo()
     {
         GameObject missile = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
         missile.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
-        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage);
+        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, ammo.ammoSound);
         Destroy(missile, ammo.range);
 
         ammoCount -= 1;

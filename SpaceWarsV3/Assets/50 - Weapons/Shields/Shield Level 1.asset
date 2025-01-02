@@ -36,7 +36,7 @@ MonoBehaviour:
   missileExplosion: {fileID: 0}
   shieldPrefab: {fileID: 413536564725247937, guid: a7f64fcaad3292e4da94f1e8841a2088,
     type: 3}
-  deflectionPercentage: 0
+  absorption: 90
   durationSec: 2
   totalDurationSec: 10
   reChargeSec: 5

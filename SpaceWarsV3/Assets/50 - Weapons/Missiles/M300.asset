@@ -14,13 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   weaponName: M300
+  description: 
   sprite: {fileID: 21300000, guid: d9ba79fc1563a9e4797078438c487251, type: 3}
   cost: 30
   damage: 15
   rangeSec: 0
-  rounds: 0
+  ammoPrefab: {fileID: 0}
+  destroyPrefab: {fileID: 0}
+  maxRounds: 0
   reloadSec: 0
-  payload: 0
-  damageRange: 0
-  missileExplosion: {fileID: 0}
-  defectionPercent: 0
+  range: 0
+  force: 0
+  ammoSound: {fileID: 0}
+  missilePrefab: {fileID: 7925339433632548225, guid: 72c45c8c57a8ccd439e42b96f5e59dd6,
+    type: 3}
+  missileForce: 200
+  shieldPrefab: {fileID: 0}
+  absorption: 0
+  durationSec: 0
+  totalDurationSec: 0
+  reChargeSec: 0

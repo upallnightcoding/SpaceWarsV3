@@ -9,8 +9,10 @@ public class AmmoCntrl : MonoBehaviour
     private bool active;
     private float damage;
 
-    public void Initialize(string originator, GameObject destroyPrefab, float damage)
+    public void Initialize(string originator, GameObject destroyPrefab, float damage, AudioClip audioClip)
     {
+        GetComponent<AudioSource>().PlayOneShot(audioClip);
+
         this.destroyPrefab  = destroyPrefab;
         this.originator     = originator;
         this.damage         = damage;

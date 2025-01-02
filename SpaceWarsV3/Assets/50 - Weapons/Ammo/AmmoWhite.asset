@@ -27,7 +27,12 @@ MonoBehaviour:
   reloadSec: 2
   range: 2
   force: 200
+  ammoSound: {fileID: 8300000, guid: d997f4c23427a1a4894a8485df3662b6, type: 3}
   payload: 0
   damageRange: 0
   missileExplosion: {fileID: 0}
-  defectionPercent: 0
+  shieldPrefab: {fileID: 0}
+  absorption: 0
+  durationSec: 0
+  totalDurationSec: 0
+  reChargeSec: 0

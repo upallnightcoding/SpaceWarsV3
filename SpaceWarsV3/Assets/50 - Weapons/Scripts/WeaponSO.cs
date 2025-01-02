@@ -28,15 +28,15 @@ public class WeaponSO : ScriptableObject
     public float reloadSec;
     public float range;
     public float force;
+    public AudioClip ammoSound;
 
     [Header("Missiles Attributes ...")]
-    public int payload;
-    public float damageRange;
-    public GameObject missileExplosion;
+    public GameObject missilePrefab;
+    public float missileForce;
 
     [Header("Shield Attributes ...")]
     public GameObject shieldPrefab;
-    public float deflectionPercentage;
+    public float absorption;
     public float durationSec;
     public float totalDurationSec;
     public int reChargeSec;
