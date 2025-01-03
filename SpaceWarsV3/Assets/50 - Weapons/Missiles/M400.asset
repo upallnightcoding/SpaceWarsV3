@@ -28,7 +28,7 @@ MonoBehaviour:
   ammoSound: {fileID: 0}
   missilePrefab: {fileID: 7925339433632548225, guid: 72c45c8c57a8ccd439e42b96f5e59dd6,
     type: 3}
-  missileForce: 200
+  missileForce: 250
   shieldPrefab: {fileID: 0}
   absorption: 0
   durationSec: 0
