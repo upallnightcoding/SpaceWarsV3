@@ -12,7 +12,7 @@ public class LevelData
 
     private LevelType type = LevelType.TUTORIAL;
 
-    private int level = -1;
+    private int level = 1;
 
     public LevelData(LevelType type)
     {

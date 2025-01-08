@@ -7,9 +7,16 @@ public class TakeDamageCntrl : MonoBehaviour
     private float health = 0.0f;
     private float absorb = 0.0f;
 
+    private int index = -1;
+
     public void Init(float initHealth)
     {
         health = initHealth;
+    }
+
+    public void Set(int index)
+    {
+        this.index = index;
     }
 
     /**
@@ -40,9 +47,18 @@ public class TakeDamageCntrl : MonoBehaviour
      */
     public bool TakeDamage(float damage)
     {
-        health -= damage - (damage * absorb);
+        bool alreadyDead = health <= 0.0f;
 
-        return (health <= 0.0f);
+        if (!alreadyDead)
+        {
+            health -= damage - (damage * absorb);
+        }
+
+        bool justDied = health <= 0.0f; 
+
+        Debug.Log($"index: ({index}) alreadyDead: {alreadyDead} health: {health} damage: {damage} justDied: {justDied}");
+
+        return (!alreadyDead && justDied);
     }
 
     /**

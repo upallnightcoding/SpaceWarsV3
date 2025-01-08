@@ -5166,6 +5166,7 @@ MonoBehaviour:
   currentCoins: {fileID: 641148031}
   banner: {fileID: 1178536990}
   bannerMessage: {fileID: 1178536989}
+  gameLevel: {fileID: 1984060101}
 --- !u!114 &504630907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9424,7 +9425,7 @@ PrefabInstance:
     - target: {fileID: 2695830208169822078, guid: fa9d5d2d351bb524980442abd79b14db,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: FighterSelectionNext
+      value: FighterSelectionPrev
       objectReference: {fileID: 0}
     - target: {fileID: 2695830208169822078, guid: fa9d5d2d351bb524980442abd79b14db,
         type: 3}

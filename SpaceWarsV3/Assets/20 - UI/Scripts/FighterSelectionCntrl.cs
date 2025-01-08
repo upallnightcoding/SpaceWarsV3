@@ -19,10 +19,11 @@ public class FighterSelectionCntrl : MonoBehaviour
     {
         Destroy(currentFighter);
 
-        //fighter = (--fighter < 0) ? gameData.fighterList.Length - 1 : fighter;
-        fighter = --fighter % gameData.fighterList.Length;
+        int index = --fighter % gameData.fighterList.Length;
 
-        currentFighter = gameData.fighterList[fighter].Create(gameData.fighterSelectionCenter);
+        Debug.Log($"Fighter Index: {index}/{fighter}");
+
+        currentFighter = gameData.fighterList[index].Create(gameData.fighterSelectionCenter);
         currentFighter.GetComponent<FighterCntrl>().StartTurn();
     }
 
@@ -30,9 +31,11 @@ public class FighterSelectionCntrl : MonoBehaviour
     {
         Destroy(currentFighter);
 
-        fighter = ++fighter % gameData.fighterList.Length;
+        int index = ++fighter % gameData.fighterList.Length;
 
-        currentFighter = gameData.fighterList[fighter].Create(gameData.fighterSelectionCenter);
+        Debug.Log($"Fighter Index: {index}/{fighter}");
+
+        currentFighter = gameData.fighterList[index].Create(gameData.fighterSelectionCenter);
         currentFighter.GetComponent<FighterCntrl>().StartTurn();
     }
 

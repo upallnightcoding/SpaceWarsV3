@@ -29,6 +29,13 @@ public class NewGameManager : MonoBehaviour
         uiCntrl.RenderSelectFighterPanel();
     }
 
+    public void StartGamePlayLevel()
+    {
+        levelData = new LevelData(LevelType.LEVEL);
+
+        uiCntrl.RenderSelectFighterPanel();
+    }
+
     public void SelectFighter()
     {
         uiCntrl.RenderSelectFighterPanel();
@@ -37,6 +44,11 @@ public class NewGameManager : MonoBehaviour
     public void SelectInventory()
     {
         uiCntrl.RenderSelectInventoryPanel();
+    }
+
+    private void OnPlayerWins()
+    {
+        uiCntrl.RaiseGamePlayLevel();
     }
 
     /**
@@ -65,11 +77,13 @@ public class NewGameManager : MonoBehaviour
     {
         EventManager.Instance.OnNewGameAction += NewGameAction;
         EventManager.Instance.OnFighterSelection += FighterSelection;
+        EventManager.Instance.OnPlayerWins += OnPlayerWins;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnNewGameAction -= NewGameAction;
         EventManager.Instance.OnFighterSelection -= FighterSelection;
+        EventManager.Instance.OnPlayerWins -= OnPlayerWins;
     }
 }

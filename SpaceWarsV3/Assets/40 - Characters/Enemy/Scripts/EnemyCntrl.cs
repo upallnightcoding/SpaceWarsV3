@@ -30,6 +30,8 @@ public class EnemyCntrl : MonoBehaviour
 
         ammoCount = ammo.maxRounds;
 
+        GetComponent<TakeDamageCntrl>().Init(100.0f);
+
         StartCoroutine(PauseFiringDuringStartup());
     }
 

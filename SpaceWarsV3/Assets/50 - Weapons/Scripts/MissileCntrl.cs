@@ -29,15 +29,18 @@ public class MissileCntrl : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         GameObject separator = Instantiate(separatorPrefab, transform.position, Quaternion.identity);
+        Destroy(separator, 0.5f);
 
         FireAmmoNow(ammo, transform.forward);
         FireAmmoNow(ammo, transform.forward + transform.right);
         FireAmmoNow(ammo, transform.forward + (-transform.right));
         FireAmmoNow(ammo, transform.right);
-        FireAmmoNow(ammo, (-transform.right));
+        FireAmmoNow(ammo, -transform.right);
+        FireAmmoNow(ammo, -transform.forward);
+        FireAmmoNow(ammo, -transform.forward + transform.right);
+        FireAmmoNow(ammo, -transform.forward + (-transform.right));
 
         Destroy(gameObject);
-        Destroy(separator);
     }
 
     private void FireAmmoNow(WeaponSO ammo, Vector3 direction)

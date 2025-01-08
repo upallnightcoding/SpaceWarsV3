@@ -49,9 +49,7 @@ public class FighterCntrl : MonoBehaviour
     {
         EventManager.Instance.InvokeOnUpdateAmmoBar(1, 1);
 
-        tdc = GetComponent<TakeDamageCntrl>();
-
-        tdc.Init(100.0f);
+        GetComponent<TakeDamageCntrl>().Init(100.0f);
     }
 
     /**

@@ -20,7 +20,7 @@ MonoBehaviour:
     <color="red">Red <color=yellow>Dark Green '
   sprite: {fileID: 21300000, guid: 4146e39355ccb734a81c6fcf9df339fd, type: 3}
   cost: 10
-  damage: 9
+  damage: 40
   rangeSec: 0
   ammoPrefab: {fileID: 682657527431606495, guid: 81beef59dfdda4d41b4c105ab0d0f4c2,
     type: 3}
@@ -31,9 +31,8 @@ MonoBehaviour:
   range: 1
   force: 100
   ammoSound: {fileID: 8300000, guid: d4e037ed0057f1b4bb2fd6d35c412b6b, type: 3}
-  payload: 0
-  damageRange: 0
-  missileExplosion: {fileID: 0}
+  missilePrefab: {fileID: 0}
+  missileForce: 0
   shieldPrefab: {fileID: 0}
   absorption: 0
   durationSec: 0

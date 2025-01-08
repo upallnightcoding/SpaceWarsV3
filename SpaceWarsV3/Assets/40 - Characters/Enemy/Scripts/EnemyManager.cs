@@ -35,14 +35,15 @@ public class EnemyManager : MonoBehaviour
 
     private void CreateRandomEnemies(GameObject fighter, int nEnemies)
     {
-        for (int i = 0; i < nEnemies; i++)
+        for (int enemyIndex = 0; enemyIndex < nEnemies; enemyIndex++)
         {
             Vector2 randomPoint = Random.insideUnitCircle * 70.0f;
             Vector3 enemyPos = new Vector3(69.0f + randomPoint.x, 0.0f, 3.5f + randomPoint.y);
 
-            int enemyIndex = Random.Range(0, enemyList.Length);
-            GameObject enemy = Instantiate(enemyList[enemyIndex], enemyPos, Quaternion.identity);
+            int choose = Random.Range(0, enemyList.Length);
+            GameObject enemy = Instantiate(enemyList[choose], enemyPos, Quaternion.identity);
             enemy.GetComponent<EnemyCntrl>().Set(fighter);
+            enemy.GetComponent<TakeDamageCntrl>().Set(enemyIndex);
             enemyCount++;
         }
     }

@@ -45,6 +45,9 @@ public class UICntrl : MonoBehaviour
     [Header("Battle Attributes ...")]
     [SerializeField] private GameObject banner;
     [SerializeField] private TMP_Text bannerMessage;
+    [SerializeField] private TMP_Text gameLevel;
+
+    private int gamePlayLevel = 1;
 
     public void Start()
     {
@@ -57,14 +60,9 @@ public class UICntrl : MonoBehaviour
     /*** Main Menu Selections ***/
     /****************************/
 
-    /**
-     * NewGameAction() - When the user selects "New Game" from the main menu.
+    /** 
+     * RenderMainMenu() - Render the Main Menu
      */
-    /*public void NewGameAction()
-    {
-        //RenderPanel(PanelType.SELECT_LEVEL_PANEL);
-    }*/
-
     public void RenderMainMenu()
     {
         mainMenuPanel.SetActive(true);
@@ -99,7 +97,13 @@ public class UICntrl : MonoBehaviour
     {
         CloseAllPanels();
         mainMenuCntrl.StopFighterDisplay();
+        gameLevel.text = $"Level ({gamePlayLevel})";
         selectLevelPanel.SetActive(true);
+    }
+
+    public void RaiseGamePlayLevel()
+    {
+        gamePlayLevel++;
     }
 
     public void RenderSelectFighterPanel()
@@ -115,6 +119,9 @@ public class UICntrl : MonoBehaviour
         inventorySelectionPanel.SetActive(true);
     }
 
+    /**
+     * RenderEngage() - 
+     */
     public void RenderEngage()
     {
         CloseAllPanels();
@@ -179,6 +186,9 @@ public class UICntrl : MonoBehaviour
     /*** Fighter Level Menu Selection ***/
     /************************************/
 
+    /**
+     * SetWeaponItems() - 
+     */
     public void SetWeaponItems()
     {
         ammoListCntrl.SetItem(ammoList);
@@ -186,6 +196,11 @@ public class UICntrl : MonoBehaviour
         shieldListCntrl.SetItem(shieldList);
     }
 
+    /**
+     * CloseAllPanels() - Close all panels, this is usually done before 
+     * displaying a new panel to the user.  Order of closing the 
+     * panels does not matter.
+     */
     private void CloseAllPanels()
     {
         mainMenuPanel.SetActive(false);
@@ -196,6 +211,9 @@ public class UICntrl : MonoBehaviour
         battlePanel.SetActive(false);
     }
 
+    /**
+     * OnEnable() - 
+     */
     private void OnEnable()
     {
         EventManager.Instance.OnUpdateAmmoBar += UpdateAmmoBar;
@@ -203,6 +221,9 @@ public class UICntrl : MonoBehaviour
         EventManager.Instance.OnUpdateShield += UpdateShieldBar;
     }
 
+    /**
+     * OnDisable() - 
+     */
     private void OnDisable()
     {
         EventManager.Instance.OnUpdateAmmoBar -= UpdateAmmoBar;
