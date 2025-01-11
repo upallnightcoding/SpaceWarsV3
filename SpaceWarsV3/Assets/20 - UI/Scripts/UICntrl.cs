@@ -61,10 +61,12 @@ public class UICntrl : MonoBehaviour
     /****************************/
 
     /** 
-     * RenderMainMenu() - Render the Main Menu
+     * RenderMainMenu() - Render the Main Menu, close any other menu before
+     * displaying main menu.
      */
     public void RenderMainMenu()
     {
+        CloseAllPanels();
         mainMenuPanel.SetActive(true);
     }
 

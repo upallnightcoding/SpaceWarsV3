@@ -13,30 +13,32 @@ MonoBehaviour:
   m_Name: Shield Level 3
   m_EditorClassIdentifier: 
   weaponType: 2
-  weaponName: Level 3
-  description: 'Deflection: 50%
+  weaponName: Yellow
+  description: 'Absorption: 30%
 
-    Duration: 20 seconds
+    Duration: 4 secs
 
-    Recharge: 1 seconds
+    Total Duration: 35 secs
+
+    Recharge:
+    1 secs
 
 '
   sprite: {fileID: 21300000, guid: f426a85faa9ed3441b4f1c9cf4469b7b, type: 3}
-  cost: 30
+  cost: 10
   damage: 0
-  rangeSec: 0
   ammoPrefab: {fileID: 0}
   destroyPrefab: {fileID: 0}
   maxRounds: 0
   reloadSec: 0
   range: 0
   force: 0
-  payload: 0
-  damageRange: 0
-  missileExplosion: {fileID: 0}
+  ammoSound: {fileID: 0}
+  missilePrefab: {fileID: 0}
+  missileForce: 0
   shieldPrefab: {fileID: 4136414383506781020, guid: b2edd649bdbfe354eb6b1433943e5a92,
     type: 3}
   absorption: 30
   durationSec: 4
-  totalDurationSec: 10
+  totalDurationSec: 35
   reChargeSec: 1

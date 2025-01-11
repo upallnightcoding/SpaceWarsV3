@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour, NewGameIf
 
     public void Start()
     {
-        uiCntrl.RenderMainMenu();
+        StartMainMenu();
     }
 
     /***********************************/
@@ -45,6 +45,11 @@ public class GameManager : MonoBehaviour, NewGameIf
     public void QuitBtn()
     {
 
+    }
+
+    public void StartMainMenu()
+    {
+        uiCntrl.RenderMainMenu();
     }
 
     /*********************************/

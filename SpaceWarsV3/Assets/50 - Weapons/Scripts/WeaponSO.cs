@@ -19,8 +19,6 @@ public class WeaponSO : ScriptableObject
 
     public int damage;
 
-    public float rangeSec;
-
     [Header("Ammo Attributes ...")]
     public GameObject ammoPrefab;
     public GameObject destroyPrefab;

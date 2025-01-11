@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SelectLevelMenuOptionCntrl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] Image icon;
+    [SerializeField] private Image icon;
 
     public void OnPointerEnter(PointerEventData eventData) 
     {

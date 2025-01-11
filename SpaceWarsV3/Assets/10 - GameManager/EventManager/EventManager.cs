@@ -5,6 +5,10 @@ using System;
 
 public class EventManager
 {
+    // Event raised
+    public event Action<int> OnNearEnemyDeath = delegate { };
+    public void InvokeOnNearEnemyDeath(int enemyId) => OnNearEnemyDeath.Invoke(enemyId);
+
     // This event is raise if the player wins.
     //----------------------------------------
     public event Action OnPlayerWins = delegate { };

@@ -17,8 +17,7 @@ MonoBehaviour:
   description: 
   sprite: {fileID: 21300000, guid: 45a94e168db02d441acbca97c251a7d1, type: 3}
   cost: 10
-  damage: 40
-  rangeSec: 0
+  damage: 10
   ammoPrefab: {fileID: 0}
   destroyPrefab: {fileID: 0}
   maxRounds: 0

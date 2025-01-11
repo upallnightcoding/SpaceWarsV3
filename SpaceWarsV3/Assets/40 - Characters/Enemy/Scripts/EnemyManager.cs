@@ -44,6 +44,7 @@ public class EnemyManager : MonoBehaviour
             GameObject enemy = Instantiate(enemyList[choose], enemyPos, Quaternion.identity);
             enemy.GetComponent<EnemyCntrl>().Set(fighter);
             enemy.GetComponent<TakeDamageCntrl>().Set(enemyIndex);
+            enemy.GetComponentInChildren<NearDeathCntrl>().Set(enemyIndex);
             enemyCount++;
         }
     }

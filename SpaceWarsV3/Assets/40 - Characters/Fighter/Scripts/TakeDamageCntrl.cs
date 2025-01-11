@@ -7,16 +7,19 @@ public class TakeDamageCntrl : MonoBehaviour
     private float health = 0.0f;
     private float absorb = 0.0f;
 
-    private int index = -1;
+    private int enemyId = -1;
+    //private float maxHealth = 100.0f;
 
-    public void Init(float initHealth)
+    private bool nearDeath = false;
+
+    public void Init(float health)
     {
-        health = initHealth;
+        this.health = health;
     }
 
-    public void Set(int index)
+    public void Set(int enemyId)
     {
-        this.index = index;
+        this.enemyId = enemyId;
     }
 
     /**
@@ -48,15 +51,20 @@ public class TakeDamageCntrl : MonoBehaviour
     public bool TakeDamage(float damage)
     {
         bool alreadyDead = health <= 0.0f;
+        bool nearDeath = false;
 
         if (!alreadyDead)
         {
             health -= damage - (damage * absorb);
+
+            if (!nearDeath && (health < 30.0f))
+            {
+                nearDeath = true;
+                EventManager.Instance.InvokeOnNearEnemyDeath(enemyId);
+            }
         }
 
         bool justDied = health <= 0.0f; 
-
-        Debug.Log($"index: ({index}) alreadyDead: {alreadyDead} health: {health} damage: {damage} justDied: {justDied}");
 
         return (!alreadyDead && justDied);
     }
