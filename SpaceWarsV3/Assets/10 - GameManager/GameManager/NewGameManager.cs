@@ -29,6 +29,13 @@ public class NewGameManager : MonoBehaviour
         uiCntrl.RenderSelectFighterPanel();
     }
 
+    public void StartBerserkLevel()
+    {
+        levelData = new LevelData(LevelType.BERSERK);
+
+        uiCntrl.RenderSelectFighterPanel();
+    }
+
     public void StartGamePlayLevel()
     {
         levelData = new LevelData(LevelType.LEVEL);

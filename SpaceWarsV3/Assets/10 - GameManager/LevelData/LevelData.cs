@@ -26,6 +26,11 @@ public class LevelData
     {
         return (type);
     }
+
+    public bool isBerserk()
+    {
+        return (this.type == LevelType.BERSERK);
+    }
 }
 
 public enum LevelType
@@ -33,5 +38,6 @@ public enum LevelType
     TUTORIAL,
     HAVOC,
     TOOEASY,
+    BERSERK,
     LEVEL
 }

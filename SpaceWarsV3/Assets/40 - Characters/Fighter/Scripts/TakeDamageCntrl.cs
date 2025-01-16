@@ -8,9 +8,6 @@ public class TakeDamageCntrl : MonoBehaviour
     private float absorb = 0.0f;
 
     private int enemyId = -1;
-    //private float maxHealth = 100.0f;
-
-    private bool nearDeath = false;
 
     public void Init(float health)
     {

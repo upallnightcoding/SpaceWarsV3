@@ -277,7 +277,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: fa3e569a7ff8ee8488b0e097dae41cd2, type: 2}
-  separatorPrefab: {fileID: 7259939279390390408, guid: adf4bcf3bc47a8547b753baef780d983,
+  sparkPrefab: {fileID: 8104649566931167219, guid: 01ad1ea72b0edfb4e8a077084538a2f3,
+    type: 3}
+  destroyPrefab: {fileID: 7673899423614434835, guid: 5da89393c42017449a2997c4df5c6647,
     type: 3}
 --- !u!1001 &3328075410187422561
 PrefabInstance:

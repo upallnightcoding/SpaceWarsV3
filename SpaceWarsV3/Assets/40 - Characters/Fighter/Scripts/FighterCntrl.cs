@@ -23,11 +23,8 @@ public class FighterCntrl : MonoBehaviour
     private float reloadTime = 3.0f;
     private bool isReloading = false;
 
-    // Health Attributes
-    //==================
-    private int health = 100;
-    private int maxHealth = 100;
-
+    // Weapons
+    //========
     private WeaponSO ammo;
     private WeaponSO shield;
     private WeaponSO missile;
@@ -43,13 +40,10 @@ public class FighterCntrl : MonoBehaviour
 
     private TakeDamageCntrl tdc;
 
-
     // Start is called before the first frame update
     void Start()
     {
         EventManager.Instance.InvokeOnUpdateAmmoBar(1, 1);
-
-        GetComponent<TakeDamageCntrl>().Init(100.0f);
     }
 
     /**
@@ -72,16 +66,22 @@ public class FighterCntrl : MonoBehaviour
      */
     public void SetLevel(LevelData levelData)
     {
-        this.ammo = levelData.Ammo;
-        this.shield = levelData.Shield;
-        this.missile = levelData.Missile;
+        ammo = levelData.Ammo;
+        shield = levelData.Shield;
+        missile = levelData.Missile;
 
         totalShieldSec = levelData.Shield.totalDurationSec;
 
         ammoCount = ammo.maxRounds;
         maxAmmoCount = ammo.maxRounds;
+
+        float initialHealth = levelData.isBerserk() ? 1000.0f : 100.0f;
+        GetComponent<TakeDamageCntrl>().Init(initialHealth);
     }
 
+    /**
+     * OnFire() - 
+     */
     private void OnFire()
     {
         if (!isReloading)
@@ -90,9 +90,11 @@ public class FighterCntrl : MonoBehaviour
         }
     }
 
+    /**
+     * OnFireKey() - 
+     */
     private void OnFireKey(int key)
     {
-
         switch(key)
         {
             case 1:
