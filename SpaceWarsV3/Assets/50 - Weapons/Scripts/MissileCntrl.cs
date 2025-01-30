@@ -5,7 +5,6 @@ using UnityEngine;
 public class MissileCntrl : MonoBehaviour
 {
     [SerializeField] private GameDataSO gameData;
-    [SerializeField] private GameObject sparkPrefab;
     [SerializeField] private GameObject destroyPrefab;
 
     private float damage = 40.0f;
@@ -23,28 +22,53 @@ public class MissileCntrl : MonoBehaviour
         
     }
 
-    public void Initialize(WeaponSO ammo)
+    public void Initialize(WeaponSO missile, WeaponSO ammo)
     {
-        StartCoroutine(FireRange(ammo));
+        ChooseMissile(missile, ammo);
     }
 
-    private IEnumerator FireRange(WeaponSO ammo)
+    private void ChooseMissile(WeaponSO missile, WeaponSO ammo)
+    {
+        switch(missile.missileType) {
+            case MissileType.RANGE:
+                StartCoroutine(FireRange(missile, ammo));
+                break;
+            case MissileType.STAR:
+                StartCoroutine(FireStar(missile, ammo));
+                break;
+            case MissileType.PORTAL:
+                StartCoroutine(FirePortal(ammo));
+                break;
+        }
+    }
+
+    private IEnumerator FirePortal(WeaponSO missile)
+    {
+        if (missile.detonationPrefab)
+        {
+            GameObject detonation = Instantiate(missile.detonationPrefab, transform.position, Quaternion.identity);
+            Destroy(detonation, 3.0f);
+        }
+
+        yield return null;
+    }
+
+    private IEnumerator FireRange(WeaponSO missile, WeaponSO ammo)
     {
         yield return new WaitForSeconds(0.2f);
 
         Quaternion rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
 
-        GameObject spark = Instantiate(sparkPrefab, transform.position, rotation);
-        Destroy(spark, 0.5f);
+        if (missile.detonationPrefab)
+        {
+            GameObject spark = Instantiate(missile.detonationPrefab, transform.position, rotation);
+            Destroy(spark, 0.5f);
+        }
 
         Collider[] hitList = Physics.OverlapSphere(transform.position, radius);
 
-        Debug.Log($"Hit List: {hitList.Length}");
-
         foreach(Collider obstacle in hitList)
         {
-            Debug.Log($"Obstacle: {obstacle.tag}");
-
             if (obstacle.CompareTag("Enemy"))
             {
                 if (obstacle.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc))
@@ -71,22 +95,22 @@ public class MissileCntrl : MonoBehaviour
     /**
      * FireSpark() - 
      */
-    private IEnumerator FireSpark(WeaponSO ammo)
+    private IEnumerator FireStar(WeaponSO missile, WeaponSO ammo)
     {
         yield return new WaitForSeconds(0.2f);
 
-        GameObject spark = Instantiate(sparkPrefab, transform.position, Quaternion.identity);
+        GameObject spark = Instantiate(missile.detonationPrefab, transform.position, Quaternion.identity);
         Destroy(spark, 0.5f);
 
-        FireAmmoNow(ammo, transform.right);
-        FireAmmoNow(ammo, transform.forward);
-        FireAmmoNow(ammo, transform.forward + transform.right);
-        FireAmmoNow(ammo, transform.forward + (-transform.right));
+        FireMissileNow(ammo, transform.right);
+        FireMissileNow(ammo, transform.forward);
+        FireMissileNow(ammo, transform.forward + transform.right);
+        FireMissileNow(ammo, transform.forward + (-transform.right));
 
-        FireAmmoNow(ammo, -transform.right);
-        FireAmmoNow(ammo, -transform.forward);
-        FireAmmoNow(ammo, -transform.forward + transform.right);
-        FireAmmoNow(ammo, -transform.forward + (-transform.right));
+        FireMissileNow(ammo, -transform.right);
+        FireMissileNow(ammo, -transform.forward);
+        FireMissileNow(ammo, -transform.forward + transform.right);
+        FireMissileNow(ammo, -transform.forward + (-transform.right));
 
         Destroy(gameObject);
     }
@@ -94,18 +118,20 @@ public class MissileCntrl : MonoBehaviour
     /**
      * FireAmmoNow() - 
      */
-    private void FireAmmoNow(WeaponSO ammo, Vector3 direction)
+    private void FireMissileNow(WeaponSO missile, Vector3 direction)
     {
-        GameObject missile = Instantiate(ammo.ammoPrefab, transform.position + direction * 0.5f, Quaternion.identity);
-        missile.GetComponentInChildren<Rigidbody>().AddForce(direction * ammo.force, ForceMode.Impulse);
-        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, ammo.ammoSound);
-        Destroy(missile, ammo.range);
+        GameObject weapon = Instantiate(missile.ammoPrefab, transform.position + direction * 0.5f, Quaternion.identity);
+        weapon.GetComponentInChildren<Rigidbody>().AddForce(direction * missile.force, ForceMode.Impulse);
+        weapon.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, missile.destroyPrefab, missile.damage, missile.ammoSound);
+        Destroy(weapon, missile.range);
     }
+}
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(gameObject.transform.position, radius);
-        Debug.Log("Drawing Gizmos ...");
-    }
+public enum MissileType
+{
+    STAR,
+    RANGE,
+    PORTAL,
+    XXX,
+    NONE
 }

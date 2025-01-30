@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 9127341190212567486}
   - component: {fileID: 7165479565029837435}
   m_Layer: 0
-  m_Name: MissilePrefab
+  m_Name: MissileTailPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: fa3e569a7ff8ee8488b0e097dae41cd2, type: 2}
-  sparkPrefab: {fileID: 8104649566931167219, guid: 01ad1ea72b0edfb4e8a077084538a2f3,
+  sparkPrefab: {fileID: 7259939279390390408, guid: adf4bcf3bc47a8547b753baef780d983,
     type: 3}
   destroyPrefab: {fileID: 7673899423614434835, guid: 5da89393c42017449a2997c4df5c6647,
     type: 3}

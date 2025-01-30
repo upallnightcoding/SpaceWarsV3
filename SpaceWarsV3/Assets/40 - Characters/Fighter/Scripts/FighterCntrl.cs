@@ -158,7 +158,7 @@ public class FighterCntrl : MonoBehaviour
     {
         GameObject go = Instantiate(missile.missilePrefab, firePoint.transform.position, transform.rotation);
         go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * missile.missileForce, ForceMode.Impulse);
-        go.GetComponent<MissileCntrl>().Initialize(ammo);
+        go.GetComponent<MissileCntrl>().Initialize(missile, ammo);
 
         yield return new WaitForSeconds(0.1f);
     }

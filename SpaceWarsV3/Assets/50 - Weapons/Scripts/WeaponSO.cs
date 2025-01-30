@@ -31,6 +31,8 @@ public class WeaponSO : ScriptableObject
     [Header("Missiles Attributes ...")]
     public GameObject missilePrefab;
     public float missileForce;
+    public MissileType missileType = MissileType.NONE;
+    public GameObject detonationPrefab;
 
     [Header("Shield Attributes ...")]
     public GameObject shieldPrefab;

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: M200
   m_EditorClassIdentifier: 
   weaponType: 1
-  weaponName: M200
-  description: 
+  weaponName: Range Missile
+  description: "Range Missile, launches for one second and explodes, sending a shock
+    wave in all direcitons.\t"
   sprite: {fileID: 21300000, guid: cd1cb6fa613455b4c97fcb39984fc1f7, type: 3}
   cost: 20
   damage: 10
-  rangeSec: 0
   ammoPrefab: {fileID: 0}
   destroyPrefab: {fileID: 0}
   maxRounds: 0
@@ -29,6 +29,9 @@ MonoBehaviour:
   missilePrefab: {fileID: 7925339433632548225, guid: 72c45c8c57a8ccd439e42b96f5e59dd6,
     type: 3}
   missileForce: 250
+  missileType: 1
+  detonationPrefab: {fileID: 8104649566931167219, guid: 01ad1ea72b0edfb4e8a077084538a2f3,
+    type: 3}
   shieldPrefab: {fileID: 0}
   absorption: 0
   durationSec: 0
