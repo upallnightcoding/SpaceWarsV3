@@ -7,6 +7,8 @@ public class MissileCntrl : MonoBehaviour
     [SerializeField] private GameDataSO gameData;
     [SerializeField] private GameObject destroyPrefab;
 
+    private GameObject parent;
+
     private float damage = 40.0f;
     private float radius = 30.0f;
 
@@ -22,8 +24,10 @@ public class MissileCntrl : MonoBehaviour
         
     }
 
-    public void Initialize(WeaponSO missile, WeaponSO ammo)
+    public void Initialize(WeaponSO missile, WeaponSO ammo, GameObject parent)
     {
+        this.parent = parent;
+
         ChooseMissile(missile, ammo);
     }
 
@@ -39,16 +43,73 @@ public class MissileCntrl : MonoBehaviour
             case MissileType.PORTAL:
                 StartCoroutine(FirePortal(ammo));
                 break;
+            case MissileType.FLAMES:
+                StartCoroutine(FireFlames(missile));
+                break;
+        }
+    }
+
+    private IEnumerator FireFlames(WeaponSO missile)
+    {
+        yield return null;
+
+        if (missile.detonationPrefab)
+        {
+            GameObject flames = Instantiate(missile.detonationPrefab, parent.transform);
+            flames.transform.SetParent(parent.transform);
+            Destroy(flames, 3.0f);
         }
     }
 
     private IEnumerator FirePortal(WeaponSO missile)
     {
+        GameObject detonation = null;
+
         if (missile.detonationPrefab)
         {
-            GameObject detonation = Instantiate(missile.detonationPrefab, transform.position, Quaternion.identity);
-            Destroy(detonation, 3.0f);
+            detonation = Instantiate(missile.detonationPrefab, transform.position, Quaternion.identity);
         }
+
+        for (int i = 1; i <= 4; i++)
+        {
+            Collider[] hitList = Physics.OverlapSphere(transform.position, radius);
+
+            if (hitList.Length > 0)
+            {
+                foreach (Collider obstacle in hitList)
+                {
+                    if ((obstacle != null) && obstacle.CompareTag("Enemy"))
+                    {
+                        if (obstacle.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc))
+                        {
+                            if (tdc.TakeDamage(damage))
+                            {
+                                if (destroyPrefab)
+                                {
+                                    GameObject prefab = Instantiate(destroyPrefab, transform.position, Quaternion.identity);
+                                    Destroy(prefab, 4.0f);
+                                }
+
+                                EventManager.Instance.InvokeOnDestroyEnemyShip();
+
+                                Destroy(obstacle.transform.gameObject);
+                            }
+                        }
+                    }
+
+                    yield return null;
+                }
+            }
+            
+            yield return new WaitForSeconds(1.0f);
+        }
+
+        if (missile.detonationPrefab)
+        {
+            Destroy(detonation);
+        }
+
+        Destroy(gameObject);
 
         yield return null;
     }
@@ -87,6 +148,8 @@ public class MissileCntrl : MonoBehaviour
                     }
                 }
             }
+
+            yield return null;
         }
 
         Destroy(gameObject);
@@ -132,6 +195,6 @@ public enum MissileType
     STAR,
     RANGE,
     PORTAL,
-    XXX,
+    FLAMES,
     NONE
 }

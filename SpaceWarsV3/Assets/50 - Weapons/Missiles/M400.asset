@@ -25,10 +25,11 @@ MonoBehaviour:
   range: 0
   force: 0
   ammoSound: {fileID: 0}
-  missilePrefab: {fileID: 7925339433632548225, guid: 72c45c8c57a8ccd439e42b96f5e59dd6,
+  missilePrefab: {fileID: 1958831216324117925, guid: 9d3fde2ee7b54ef429d6f4bd03d08dfb,
     type: 3}
-  missileForce: 250
+  missileForce: 0
   missileType: 3
+  detonationPrefab: {fileID: 0}
   shieldPrefab: {fileID: 0}
   absorption: 0
   durationSec: 0

@@ -39,9 +39,6 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private WeaponSO[] missileList;
     [SerializeField] private WeaponSO[] shieldList;
 
-    [Header("UI Attributes ...")]
-    [SerializeField] private TMP_Text currentCoins;
-
     [Header("Battle Attributes ...")]
     [SerializeField] private GameObject banner;
     [SerializeField] private TMP_Text bannerMessage;

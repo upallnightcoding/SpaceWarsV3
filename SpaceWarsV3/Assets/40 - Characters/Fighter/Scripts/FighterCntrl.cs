@@ -154,11 +154,16 @@ public class FighterCntrl : MonoBehaviour
         isReloading = false;
     }
 
+    /**
+     * FireMissile() - Fires a missile round with the press of the "2" key.  This
+     * countinues until all missiles have been fired.  There is no reload time
+     * for missiles. 
+     */
     private IEnumerator FireMissile()
     {
         GameObject go = Instantiate(missile.missilePrefab, firePoint.transform.position, transform.rotation);
         go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * missile.missileForce, ForceMode.Impulse);
-        go.GetComponent<MissileCntrl>().Initialize(missile, ammo);
+        go.GetComponent<MissileCntrl>().Initialize(missile, ammo, firePoint);
 
         yield return new WaitForSeconds(0.1f);
     }
@@ -170,10 +175,10 @@ public class FighterCntrl : MonoBehaviour
      */
     private IEnumerator FireAmmo()
     {
-        GameObject missile = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
-        missile.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
-        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, ammo.ammoSound);
-        Destroy(missile, ammo.range);
+        GameObject go = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
+        go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
+        go.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, ammo.ammoSound);
+        Destroy(go, ammo.range);
 
         ammoCount -= 1;
 
@@ -187,6 +192,9 @@ public class FighterCntrl : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
 
+    /**
+     * MoveFighterKeyBoard() - 
+     */
     private void MoveFighterKeyBoard(float dt)
     {
         float throttle = 1.0f;

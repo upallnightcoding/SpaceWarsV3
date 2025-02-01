@@ -165,10 +165,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2603541947461134806, guid: 10d1f41db1d30794eb7c7ab9a10b1a7c,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3180344313492749683, guid: 10d1f41db1d30794eb7c7ab9a10b1a7c,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6050005801001061677, guid: 10d1f41db1d30794eb7c7ab9a10b1a7c,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7307340448404331104, guid: 10d1f41db1d30794eb7c7ab9a10b1a7c,
         type: 3}
       propertyPath: m_Name
       value: WavePortalRed
+      objectReference: {fileID: 0}
+    - target: {fileID: 9103261150671295941, guid: 10d1f41db1d30794eb7c7ab9a10b1a7c,
+        type: 3}
+      propertyPath: looping
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
