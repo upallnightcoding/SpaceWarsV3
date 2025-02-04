@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64a52b2ae17d1494f8c330628d15746f, type: 3}
-  m_Name: Shield Level 3
+  m_Name: Shield Level 4
   m_EditorClassIdentifier: 
   weaponType: 2
   weaponName: Yellow
@@ -24,7 +24,7 @@ MonoBehaviour:
     1 secs
 
 '
-  sprite: {fileID: 21300000, guid: c888f0758fbef8847801cd01fa0dcc96, type: 3}
+  sprite: {fileID: 21300000, guid: d8f27e6cb035f3044b26f043f0360d97, type: 3}
   cost: 10
   damage: 0
   ammoPrefab: {fileID: 0}
@@ -38,7 +38,7 @@ MonoBehaviour:
   missileForce: 0
   missileType: 4
   detonationPrefab: {fileID: 0}
-  shieldPrefab: {fileID: 5466601452072209137, guid: b8a5110baf669254c8c91af920979ed9,
+  shieldPrefab: {fileID: 6055430921637287589, guid: 788a0f7b898cdf64296dc59f41979c50,
     type: 3}
   absorption: 30
   durationSec: 4

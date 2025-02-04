@@ -43,22 +43,51 @@ public class MissileCntrl : MonoBehaviour
             case MissileType.PORTAL:
                 StartCoroutine(FirePortal(ammo));
                 break;
-            case MissileType.FLAMES:
-                StartCoroutine(FireFlames(missile));
+            case MissileType.SEEKING:
+                StartCoroutine(FireSeeking(missile));
                 break;
         }
     }
 
-    private IEnumerator FireFlames(WeaponSO missile)
+    private IEnumerator FireSeeking(WeaponSO missile)
     {
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
+
+        Quaternion rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
 
         if (missile.detonationPrefab)
         {
-            GameObject flames = Instantiate(missile.detonationPrefab, parent.transform);
-            flames.transform.SetParent(parent.transform);
-            Destroy(flames, 3.0f);
+            GameObject spark = Instantiate(missile.detonationPrefab, transform.position, rotation);
+            Destroy(spark, 0.5f);
         }
+
+        Collider[] hitList = Physics.OverlapSphere(transform.position, radius);
+
+        foreach (Collider obstacle in hitList)
+        {
+            if (obstacle && obstacle.CompareTag("Enemy"))
+            {
+                if (obstacle.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc))
+                {
+                    if (tdc.TakeDamage(damage))
+                    {
+                        if (destroyPrefab)
+                        {
+                            GameObject prefab = Instantiate(destroyPrefab, transform.position, Quaternion.identity);
+                            Destroy(prefab, 4.0f);
+                        }
+
+                        EventManager.Instance.InvokeOnDestroyEnemyShip();
+
+                        Destroy(obstacle.transform.gameObject);
+                    }
+                }
+            }
+
+            yield return null;
+        }
+
+        Destroy(gameObject);
     }
 
     private IEnumerator FirePortal(WeaponSO missile)
@@ -130,7 +159,7 @@ public class MissileCntrl : MonoBehaviour
 
         foreach(Collider obstacle in hitList)
         {
-            if (obstacle.CompareTag("Enemy"))
+            if (obstacle && obstacle.CompareTag("Enemy"))
             {
                 if (obstacle.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc))
                 {
@@ -195,6 +224,6 @@ public enum MissileType
     STAR,
     RANGE,
     PORTAL,
-    FLAMES,
+    SEEKING,
     NONE
 }

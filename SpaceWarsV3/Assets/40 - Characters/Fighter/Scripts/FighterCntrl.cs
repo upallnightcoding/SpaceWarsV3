@@ -77,6 +77,8 @@ public class FighterCntrl : MonoBehaviour
 
         float initialHealth = levelData.isBerserk() ? 1000.0f : 100.0f;
         GetComponent<TakeDamageCntrl>().Init(initialHealth);
+
+        tdc = GetComponent<TakeDamageCntrl>();
     }
 
     /**

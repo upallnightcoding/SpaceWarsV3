@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AmmoRed
   m_EditorClassIdentifier: 
   weaponType: 0
-  weaponName: Ammo Red
+  weaponName: Red Ammo
   description: 'Cost: 30
 
     Damage: 40
@@ -23,18 +23,20 @@ MonoBehaviour:
     Range: 3'
   sprite: {fileID: 21300000, guid: 2181afacf7214ce4292f1bf94c04e699, type: 3}
   cost: 30
-  damage: 15
+  damage: 30
   ammoPrefab: {fileID: 682657527431606495, guid: e3e07abae6cc0ca4682d3891f4dd50dd,
     type: 3}
   destroyPrefab: {fileID: 7673899423614434835, guid: 5da89393c42017449a2997c4df5c6647,
     type: 3}
-  maxRounds: 20
-  reloadSec: 3
-  range: 3
-  force: 150
+  maxRounds: 45
+  reloadSec: 1.5
+  range: 1.5
+  force: 300
   ammoSound: {fileID: 8300000, guid: 15900e8f0931e2e418d0136e7533f198, type: 3}
   missilePrefab: {fileID: 0}
   missileForce: 0
+  missileType: 4
+  detonationPrefab: {fileID: 0}
   shieldPrefab: {fileID: 0}
   absorption: 0
   durationSec: 0

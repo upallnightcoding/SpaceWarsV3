@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AmmoYellow
   m_EditorClassIdentifier: 
   weaponType: 0
-  weaponName: Ammo Yellow
+  weaponName: Yellow Ammo
   description: 'Cost: 20
 
     Damage: 25
@@ -23,18 +23,20 @@ MonoBehaviour:
     Range: 2'
   sprite: {fileID: 21300000, guid: a920121dee7b1a34eb948e08863c980b, type: 3}
   cost: 20
-  damage: 12
+  damage: 40
   ammoPrefab: {fileID: 682657527431606495, guid: 47e448861dedb9644bb997c4252182aa,
     type: 3}
   destroyPrefab: {fileID: 7673899423614434835, guid: 5da89393c42017449a2997c4df5c6647,
     type: 3}
-  maxRounds: 40
+  maxRounds: 30
   reloadSec: 2
   range: 2
   force: 200
   ammoSound: {fileID: 8300000, guid: 51d2bef9fdd79ba4faff6850d5697620, type: 3}
   missilePrefab: {fileID: 0}
   missileForce: 0
+  missileType: 4
+  detonationPrefab: {fileID: 0}
   shieldPrefab: {fileID: 0}
   absorption: 0
   durationSec: 0

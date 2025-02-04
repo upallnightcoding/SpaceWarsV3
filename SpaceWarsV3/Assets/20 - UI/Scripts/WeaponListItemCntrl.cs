@@ -9,15 +9,11 @@ public class WeaponListItemCntrl : MonoBehaviour, IPointerEnterHandler, IPointer
 {
     [SerializeField] GameObject highlight;
     [SerializeField] GameObject selected;
-    [SerializeField] TMP_Text costText;
     [SerializeField] TMP_Text weaponName;
     [SerializeField] Image image;
-    [SerializeField] TMP_Text damageText;
     //[SerializeField] TMP_Text descriptionText;
 
     // Properties ...
-    public int WeaponCost { get; set; } = 0;
-
     private bool selectedSw = false;
 
     private WeaponSO weapon = null;
@@ -38,11 +34,8 @@ public class WeaponListItemCntrl : MonoBehaviour, IPointerEnterHandler, IPointer
 
         this.weapon = weapon;
 
-        WeaponCost = weapon.cost;
-        costText.text = weapon.cost.ToString();
         weaponName.text = weapon.weaponName;
         image.sprite = weapon.sprite;
-        damageText.text = weapon.damage.ToString();
     }
 
     /**

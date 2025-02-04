@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8677606038173679915}
-  - component: {fileID: 6192110751462473554}
-  - component: {fileID: -5630423417482120485}
-  - component: {fileID: 3589065409640164210}
-  - component: {fileID: 2905784355668747361}
+  - component: {fileID: 4867653240573657475}
+  - component: {fileID: 394965527088865643}
+  - component: {fileID: 3488388766619918089}
+  - component: {fileID: -5191116699702610044}
   m_Layer: 0
-  m_Name: AmmoGreenPrefab
+  m_Name: AmmoBluePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ Transform:
   - {fileID: 1870515546431587382}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6192110751462473554
+--- !u!135 &4867653240573657475
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,7 +57,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-5630423417482120485
+--- !u!114 &394965527088865643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0057350ff214724e9e835914eb1bae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &3589065409640164210
+--- !u!54 &3488388766619918089
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,7 +96,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!82 &2905784355668747361
+--- !u!82 &-5191116699702610044
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -349,17 +349,17 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 1, b: 0.046749115, a: 1}
-      key1: {r: 0.5944732, g: 0.99215686, b: 0.44313732, a: 1}
-      key2: {r: 0.9811321, g: 0.93444985, b: 0.8469206, a: 0}
+      key0: {r: 0, g: 0.09286618, b: 1, a: 1}
+      key1: {r: 0.48627448, g: 0.6238233, b: 1, a: 1}
+      key2: {r: 0.9528302, g: 0.93250734, b: 0.8944019, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 33346
-      ctime2: 64379
+      ctime1: 34310
+      ctime2: 61873
       ctime3: 0
       ctime4: 0
       ctime5: 0

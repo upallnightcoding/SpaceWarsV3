@@ -10,8 +10,6 @@ public class WeaponListCntrl : MonoBehaviour
 
     [SerializeField] private InventorySelectionCntrl inventorySelectionCntrl;
 
-    [SerializeField] private TMP_Text coinText;
-
     private int currentWeapon = -1;
 
     private int nWeapons = 0;
@@ -40,26 +38,13 @@ public class WeaponListCntrl : MonoBehaviour
        
         if (currentWeapon != -1)
         {
-            AddToCoins(weaponListItem[currentWeapon].WeaponCost);
             weaponListItem[currentWeapon].ToggleSelection();
         }
 
         currentWeapon = index;
         weaponListItem[currentWeapon].ToggleSelection();
-        AddToCoins(-weaponListItem[currentWeapon].WeaponCost);
 
         inventorySelectionCntrl.SetDescription(weaponListItem[currentWeapon].GetWeapon().description);
-    }
-
-    /**
-     * AddToCoins() - Adds the value to the current coin value in the 
-     * UI display.  The current coin value must be converted from 
-     * text before the value can be added.
-     */
-    private void AddToCoins(int value)
-    {
-        int total = Int32.Parse(coinText.text) + value;
-        coinText.text = total.ToString();
     }
 
     /**
