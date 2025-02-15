@@ -44,12 +44,12 @@ public class MissileCntrl : MonoBehaviour
                 StartCoroutine(FirePortal(ammo));
                 break;
             case MissileType.SEEKING:
-                StartCoroutine(FireSeeking(missile));
+                StartCoroutine(FireSeeking(missile, ammo));
                 break;
         }
     }
 
-    private IEnumerator FireSeeking(WeaponSO missile)
+    private IEnumerator FireSeeking(WeaponSO missile, WeaponSO ammo)
     {
         yield return new WaitForSeconds(0.2f);
 
@@ -57,11 +57,11 @@ public class MissileCntrl : MonoBehaviour
 
         if (missile.detonationPrefab)
         {
-            GameObject spark = Instantiate(missile.detonationPrefab, transform.position, rotation);
-            Destroy(spark, 0.5f);
+            //GameObject spark = Instantiate(missile.detonationPrefab, transform.position, rotation);
+            //Destroy(spark, 0.5f);
         }
 
-        Collider[] hitList = Physics.OverlapSphere(transform.position, radius);
+        Collider[] hitList = Physics.OverlapSphere(transform.position, 100.0f);
 
         foreach (Collider obstacle in hitList)
         {
@@ -69,7 +69,12 @@ public class MissileCntrl : MonoBehaviour
             {
                 if (obstacle.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc))
                 {
-                    if (tdc.TakeDamage(damage))
+                    Vector3 direction = (obstacle.gameObject.transform.position - transform.position).normalized;
+                    FireMissileNow(ammo, direction, 3.0f);
+
+                    yield return null;
+
+                    /*if (tdc.TakeDamage(damage))
                     {
                         if (destroyPrefab)
                         {
@@ -80,7 +85,7 @@ public class MissileCntrl : MonoBehaviour
                         EventManager.Instance.InvokeOnDestroyEnemyShip();
 
                         Destroy(obstacle.transform.gameObject);
-                    }
+                    }*/
                 }
             }
 
@@ -210,12 +215,12 @@ public class MissileCntrl : MonoBehaviour
     /**
      * FireAmmoNow() - 
      */
-    private void FireMissileNow(WeaponSO missile, Vector3 direction)
+    private void FireMissileNow(WeaponSO ammo, Vector3 direction, float offset = 1.0f)
     {
-        GameObject weapon = Instantiate(missile.ammoPrefab, transform.position + direction * 0.5f, Quaternion.identity);
-        weapon.GetComponentInChildren<Rigidbody>().AddForce(direction * missile.force, ForceMode.Impulse);
-        weapon.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, missile.destroyPrefab, missile.damage, missile.ammoSound);
-        Destroy(weapon, missile.range);
+        GameObject weapon = Instantiate(ammo.ammoPrefab, transform.position + direction * offset, Quaternion.identity);
+        weapon.GetComponentInChildren<Rigidbody>().AddForce(direction * ammo.force, ForceMode.Impulse);
+        weapon.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, ammo.ammoSound);
+        Destroy(weapon, ammo.range);
     }
 }
 

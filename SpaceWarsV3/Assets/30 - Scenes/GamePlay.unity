@@ -890,7 +890,8 @@ MonoBehaviour:
   uiCntrl: {fileID: 504630906}
   gameCamera: {fileID: 961739749}
   enemyManager: {fileID: 127738526}
-  newGameManager: {fileID: 0}
+  clickingPlane: {fileID: 1871065922}
+  spaceCntrl: {fileID: 1216378140}
 --- !u!4 &127738523
 Transform:
   m_ObjectHideFlags: 0
@@ -952,8 +953,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 127738525}
         m_TargetAssemblyTypeName: InputCntrl, Assembly-CSharp
-        m_MethodName: OnFire
-        m_Mode: 0
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -961,7 +962,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 0
     m_ActionId: 38d2171e-d1c8-4403-aae6-59892ff8ba43
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -9811,9 +9812,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0ade45e181a0b429fd504310ece475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clickingPlane: {fileID: 1871065922}
   spaceClouds:
   - {fileID: 7556922235015343179, guid: ffdae2ebefc272544b2dfb29e2b8573b, type: 3}
   - {fileID: 7556922235015343179, guid: 498653900028f5c47aca15427dcf9e9d, type: 3}
+  - {fileID: 7556922235015343179, guid: 3cf5fed98df5c7243aadec01ade23eac, type: 3}
+  - {fileID: 7556922235015343179, guid: 7c3bde384c02cb74db97b9e7913ba75e, type: 3}
+  spacePortal:
+  - {fileID: 2705291778364891600, guid: 30f8cc6f531b3f34ebb2377ca1b90c33, type: 3}
+  - {fileID: 6596374672699156044, guid: 7b5ffd977a0731842a6152d6725a5b09, type: 3}
+  - {fileID: 2316794236351835898, guid: 6b74a2caeee9ceb4b981bcd40a456a8c, type: 3}
 --- !u!1001 &1264156587
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15215,7 +15223,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 100, y: 1, z: 100}
+  m_LocalScale: {x: 70, y: 1, z: 70}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1216378139}

@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour, NewGameIf
     [SerializeField] private UICntrl uiCntrl;
     [SerializeField] private GameObject gameCamera;
     [SerializeField] private EnemyManager enemyManager;
-    [SerializeField] private NewGameManager newGameManager;
+    //[SerializeField] private NewGameManager newGameManager;
+    [SerializeField] private Transform clickingPlane;
+    [SerializeField] private CreateSpaceCntrl spaceCntrl;
 
     private float health = 100.0f;
     private float maxHealth = 100.0f;
@@ -70,7 +72,7 @@ public class GameManager : MonoBehaviour, NewGameIf
         levelData.Shield = uiCntrl.shieldListCntrl.GetCurrentWeapon();
 
         GameObject fighter = Instantiate(levelData.Fighter, new Vector3(), Quaternion.identity);
-        fighter.GetComponent<FighterCntrl>().SetLevel(levelData);
+        fighter.GetComponent<FighterCntrl>().SetLevel(levelData, clickingPlane);
         fighter.SetActive(true);
         fighter.GetComponent<FighterCntrl>().StartEngage();
 
@@ -79,6 +81,8 @@ public class GameManager : MonoBehaviour, NewGameIf
         uiCntrl.RenderBattlePanel();
 
         enemyManager.StartEngagement(fighter, levelData);
+
+        spaceCntrl.StartEnvironment();
     }
 
     /**
@@ -96,6 +100,8 @@ public class GameManager : MonoBehaviour, NewGameIf
     private void OnPlayerLooses()
     {
         uiCntrl.BattleBanner("You Loose", this);
+
+        spaceCntrl.EndEnvironment();
     }
 
     /**
@@ -104,6 +110,8 @@ public class GameManager : MonoBehaviour, NewGameIf
     private void OnPlayerWins()
     {
         uiCntrl.BattleBanner("Congratulations", this);
+
+        spaceCntrl.EndEnvironment();
     }
 
     /**

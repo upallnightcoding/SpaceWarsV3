@@ -32,13 +32,13 @@ public class InputCntrl : MonoBehaviour
         //EventManager.Instance.InvokeOnInputLook(look);
     }
 
-    public void OnFire(InputAction.CallbackContext context)
+    /*public void OnFire(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             EventManager.Instance.InvokeOnFire();
         }
-    }
+    }*/
 
     public void OnQuitEngagement(InputAction.CallbackContext context)
     {

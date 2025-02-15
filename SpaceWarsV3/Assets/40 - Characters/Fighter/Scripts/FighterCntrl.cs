@@ -10,6 +10,8 @@ public class FighterCntrl : MonoBehaviour
 
     public void EngageEnemy() => engage = true;
 
+    private Transform clickingPlane;
+
     private Vector2 move = new Vector2();
     private Vector2 look = new Vector2();
 
@@ -64,8 +66,10 @@ public class FighterCntrl : MonoBehaviour
      * determined when the player selects the inventory. This initialization
      * must be done before the fighter can engage.
      */
-    public void SetLevel(LevelData levelData)
+    public void SetLevel(LevelData levelData, Transform clickingPlane)
     {
+        this.clickingPlane = clickingPlane;
+
         ammo = levelData.Ammo;
         shield = levelData.Shield;
         missile = levelData.Missile;
@@ -84,13 +88,13 @@ public class FighterCntrl : MonoBehaviour
     /**
      * OnFire() - 
      */
-    private void OnFire()
+    /*private void OnFire()
     {
         if (!isReloading)
         {
             StartCoroutine(FireAmmo());
         }
-    }
+    }*/
 
     /**
      * OnFireKey() - 
@@ -217,6 +221,7 @@ public class FighterCntrl : MonoBehaviour
         }
 
         transform.Translate(transform.forward * speed * throttle * dt, Space.World);
+        clickingPlane.position = transform.position;
     }
 
     /**
@@ -255,7 +260,6 @@ public class FighterCntrl : MonoBehaviour
     {
         EventManager.Instance.OnInputLook += OnLook;
         EventManager.Instance.OnInputMove += OnMove;
-        EventManager.Instance.OnFire += OnFire;
         EventManager.Instance.OnFireKey += OnFireKey;
         EventManager.Instance.OnDestroyAllShips += DestroyRequest;
     }
@@ -264,7 +268,6 @@ public class FighterCntrl : MonoBehaviour
     {
         EventManager.Instance.OnInputLook -= OnLook;
         EventManager.Instance.OnInputMove -= OnMove;
-        EventManager.Instance.OnFire -= OnFire;
         EventManager.Instance.OnFireKey -= OnFireKey;
         EventManager.Instance.OnDestroyAllShips -= DestroyRequest;
     }

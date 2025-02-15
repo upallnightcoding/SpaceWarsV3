@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7576939068885298667}
   - component: {fileID: 2986590270747242896}
   m_Layer: 0
-  m_Name: FX_SpaceClouds_Green
+  m_Name: FX_SpaceClouds_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4663,7 +4663,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e09805caf7b9f494681c9218e7ea1722, type: 2}
+  - {fileID: 2100000, guid: 996f51e4e2788d941a892e9b14948457, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
