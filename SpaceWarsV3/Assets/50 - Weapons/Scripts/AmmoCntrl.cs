@@ -45,6 +45,7 @@ public class AmmoCntrl : MonoBehaviour
                             EventManager.Instance.InvokeOnDestroyEnemyShip();
                             break;
                         case "Fighter":
+                            EventManager.Instance.InvokeOnFighterHit(tdc.RemainingHealth());
                             EventManager.Instance.InvokeOnDestroyFighter();
                             break;
                     }
