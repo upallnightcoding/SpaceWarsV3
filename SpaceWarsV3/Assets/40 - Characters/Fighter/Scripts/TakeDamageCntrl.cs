@@ -66,6 +66,11 @@ public class TakeDamageCntrl : MonoBehaviour
         return (!alreadyDead && justDied);
     }
 
+    public void AddHealth(float healing)
+    {
+        health += healing;
+    }
+
     /**
      * RemainingHealth() - Returns the remaining health of the fighter or
      * enemy.

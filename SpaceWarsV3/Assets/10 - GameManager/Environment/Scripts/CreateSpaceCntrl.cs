@@ -20,7 +20,6 @@ public class CreateSpaceCntrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Displace(spaceClouds, 200.0f, 2);
         
     }
 
@@ -30,7 +29,7 @@ public class CreateSpaceCntrl : MonoBehaviour
 
         StartCoroutine(DisplayClouds());
         StartCoroutine(DisplayPortal());
-        StartCoroutine(DisplayPanets());
+        //StartCoroutine(DisplayPanets());
     }
 
     public void EndEnvironment()
@@ -60,7 +59,7 @@ public class CreateSpaceCntrl : MonoBehaviour
     {
         while (startSpaceCntrl)
         {
-            if (Random.Range(0, 10) == 0)
+            if (Random.Range(0, 15) == 0)
             {
                 Vector2 pos = Random.insideUnitCircle * portalSpace;
                 Vector3 position = new Vector3(pos.x, 0.0f, pos.y) + clickingPlane.position;

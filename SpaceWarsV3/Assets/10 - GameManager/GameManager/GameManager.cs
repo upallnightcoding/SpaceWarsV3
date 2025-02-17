@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour, NewGameIf
     [SerializeField] private UICntrl uiCntrl;
     [SerializeField] private GameObject gameCamera;
     [SerializeField] private EnemyManager enemyManager;
-    //[SerializeField] private NewGameManager newGameManager;
     [SerializeField] private Transform clickingPlane;
     [SerializeField] private CreateSpaceCntrl spaceCntrl;
 
