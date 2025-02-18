@@ -35,7 +35,7 @@ public class LevelData
 
 public enum LevelType
 {
-    TUTORIAL,
+    TUTORIAL = 0,
     HAVOC,
     TOOEASY,
     BERSERK,

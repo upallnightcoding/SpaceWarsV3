@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour, NewGameIf
@@ -82,6 +83,19 @@ public class GameManager : MonoBehaviour, NewGameIf
         enemyManager.StartEngagement(fighter, levelData);
 
         spaceCntrl.StartEnvironment();
+    }
+
+    public void SaveGameState()
+    {
+        SaveLoadManager slm = new SaveLoadManager();
+        slm.type = LevelType.HAVOC;
+        string json = JsonUtility.ToJson(slm);
+        Debug.Log($"Save Game State: {json}");
+        File.WriteAllText(Application.dataPath + "/save.txt", json);
+
+        string loaded = File.ReadAllText(Application.dataPath + "/save.txt");
+        SaveLoadManager s = JsonUtility.FromJson<SaveLoadManager>(loaded);
+        Debug.Log($"FromJson: {s.type}");
     }
 
     /**
