@@ -12203,9 +12203,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 127738522}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: SaveGameState
+      - m_Target: {fileID: 127738527}
+        m_TargetAssemblyTypeName: NewGameManager, Assembly-CSharp
+        m_MethodName: SaveState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -27,9 +27,27 @@ public class LevelData
         return (type);
     }
 
-    public bool isBerserk()
+    public bool IsBerserk()
     {
         return (this.type == LevelType.BERSERK);
+    }
+
+    public void LoadState(SaveLoadManager data)
+    {
+        type = data.type;
+    }
+
+    public SaveLoadManager SaveState()
+    {
+        SaveLoadManager data = new SaveLoadManager();
+
+        data.type       = type;
+        data.fighter    = Fighter.name;
+        data.ammo       = Ammo.name;
+        data.missile    = Missile.name;
+        data.shield     = Shield.name;
+
+        return (data);
     }
 }
 

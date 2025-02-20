@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour, NewGameIf
         spaceCntrl.StartEnvironment();
     }
 
-    public void SaveGameState()
+    /*public void SaveGameState()
     {
         SaveLoadManager slm = new SaveLoadManager();
         slm.type = LevelType.HAVOC;
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour, NewGameIf
         string loaded = File.ReadAllText(Application.dataPath + "/save.txt");
         SaveLoadManager s = JsonUtility.FromJson<SaveLoadManager>(loaded);
         Debug.Log($"FromJson: {s.type}");
-    }
+    }*/
 
     /**
      * OnFighterHit() - 

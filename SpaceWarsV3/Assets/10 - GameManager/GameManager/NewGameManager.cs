@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class NewGameManager : MonoBehaviour
@@ -71,6 +72,19 @@ public class NewGameManager : MonoBehaviour
     public void StartEngagmentCountDown()
     {
         uiCntrl.StartEngagementCountDown(levelData);
+    }
+
+    public void SaveState()
+    {
+        SaveLoadManager slm = levelData.SaveState();
+        string json = JsonUtility.ToJson(slm);
+        File.WriteAllText(Application.dataPath + "/save.txt", json);
+    }
+
+    public void LoadState()
+    {
+        string loaded = File.ReadAllText(Application.dataPath + "/save.txt");
+        SaveLoadManager s = JsonUtility.FromJson<SaveLoadManager>(loaded);
     }
 
     public void FighterSelection(GameObject selectedFighter)

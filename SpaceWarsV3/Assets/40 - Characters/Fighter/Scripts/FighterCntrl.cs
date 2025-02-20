@@ -79,7 +79,7 @@ public class FighterCntrl : MonoBehaviour
         ammoCount = ammo.maxRounds;
         maxAmmoCount = ammo.maxRounds;
 
-        float initialHealth = levelData.isBerserk() ? 1000.0f : 100.0f;
+        float initialHealth = levelData.IsBerserk() ? 1000.0f : 100.0f;
         GetComponent<TakeDamageCntrl>().Init(initialHealth);
 
         tdc = GetComponent<TakeDamageCntrl>();

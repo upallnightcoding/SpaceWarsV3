@@ -60,6 +60,4 @@ public class WeaponListCntrl : MonoBehaviour
             item.DeActivate();
         }
     }
-
-    
 }
