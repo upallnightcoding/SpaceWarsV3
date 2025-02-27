@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class UICntrl : MonoBehaviour
 {
+    [SerializeField] public GameDataSO gameData;
+
     [Header("UI Controllers ...")]
     [SerializeField] private FighterSelectionCntrl fighterSelectionCntrl;
     [SerializeField] private UIAnimationCntrl uIAnimationCntrl;
@@ -34,20 +36,23 @@ public class UICntrl : MonoBehaviour
     [SerializeField] public WeaponListCntrl missileListCntrl;
     [SerializeField] public WeaponListCntrl shieldListCntrl;
 
-    [Header("Weapon List ...")]
-    [SerializeField] private WeaponSO[] ammoList;
-    [SerializeField] private WeaponSO[] missileList;
-    [SerializeField] private WeaponSO[] shieldList;
-
     [Header("Battle Attributes ...")]
     [SerializeField] private GameObject banner;
     [SerializeField] private TMP_Text bannerMessage;
     [SerializeField] private TMP_Text gameLevel;
 
+    private WeaponSO[] ammoList;
+    private WeaponSO[] missileList;
+    private WeaponSO[] shieldList;
+
     private int gamePlayLevel = 1;
 
     public void Start()
     {
+        ammoList = gameData.ammoList;
+        missileList = gameData.missileList;
+        shieldList = gameData.shieldList;
+
         SetWeaponItems();
         UpdateHealthBar(100.0f, 100.0f);
         //UpdateAmmoBar(1, 1);

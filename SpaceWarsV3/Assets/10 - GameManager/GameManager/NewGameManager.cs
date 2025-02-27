@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class NewGameManager : MonoBehaviour
 {
+    const string SAVE_FILE = "CyberFighter.dat";
+
     [SerializeField] private UICntrl uiCntrl;
 
     //private NewGameState state = NewGameState.IDLE;
@@ -78,13 +80,14 @@ public class NewGameManager : MonoBehaviour
     {
         SaveLoadManager slm = levelData.SaveState();
         string json = JsonUtility.ToJson(slm);
-        File.WriteAllText(Application.dataPath + "/save.txt", json);
+        File.WriteAllText(Application.dataPath + "/" + SAVE_FILE, json);
     }
 
     public void LoadState()
     {
-        string loaded = File.ReadAllText(Application.dataPath + "/save.txt");
-        SaveLoadManager s = JsonUtility.FromJson<SaveLoadManager>(loaded);
+        string loaded = File.ReadAllText(Application.dataPath + "/" + SAVE_FILE);
+        SaveLoadManager slm = JsonUtility.FromJson<SaveLoadManager>(loaded);
+        levelData.LoadState(slm, uiCntrl.gameData);
     }
 
     public void FighterSelection(GameObject selectedFighter)

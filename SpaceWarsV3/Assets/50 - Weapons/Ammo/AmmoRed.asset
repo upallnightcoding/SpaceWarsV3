@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   weaponName: Red Ammo
+  weaponIndex: 2
   description: 'Cost: 30
 
     Damage: 40

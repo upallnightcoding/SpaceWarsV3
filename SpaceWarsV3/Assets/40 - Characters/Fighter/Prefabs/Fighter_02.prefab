@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: fa3e569a7ff8ee8488b0e097dae41cd2, type: 2}
   firePoint: {fileID: 4870864745705536611}
+  fighterId: 1
 --- !u!65 &7484503568561754526
 BoxCollider:
   m_ObjectHideFlags: 0

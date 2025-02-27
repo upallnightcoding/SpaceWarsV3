@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   weaponName: Yellow Ammo
+  weaponIndex: 1
   description: 'Cost: 20
 
     Damage: 25

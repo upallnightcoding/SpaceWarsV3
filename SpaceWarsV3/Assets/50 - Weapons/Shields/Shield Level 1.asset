@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Shield Level 1
   m_EditorClassIdentifier: 
   weaponType: 2
-  weaponName: Green
+  weaponName: Fog Shield
+  weaponIndex: 0
   description: 'Absorption: 90%
 
     Duration: 2 secs

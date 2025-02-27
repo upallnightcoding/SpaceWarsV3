@@ -26,3 +26,18 @@ MonoBehaviour:
   cameraIdleRotation: {x: 0, y: 0, z: 0}
   TAG_ENEMY: Enemy
   TAG_FIGHTER: Fighter
+  ammoList:
+  - {fileID: 11400000, guid: 760ca477d28b0c241952a77d61b8d76f, type: 2}
+  - {fileID: 11400000, guid: 51bc2d247fbf2b143b14a7f814189fcd, type: 2}
+  - {fileID: 11400000, guid: 0c84950e2ea241649b34228af48d9e9a, type: 2}
+  - {fileID: 11400000, guid: 21bca8a19390236498332a7fab9df6b4, type: 2}
+  missileList:
+  - {fileID: 11400000, guid: f724ee62522f3ca48b3644383bebf566, type: 2}
+  - {fileID: 11400000, guid: 9b979bb68c1c1b146a76de776d6f1d77, type: 2}
+  - {fileID: 11400000, guid: c982523bed577de4db4126a497b16e60, type: 2}
+  - {fileID: 11400000, guid: 69ec2e8011ee2874e98d106ead8cfb7d, type: 2}
+  shieldList:
+  - {fileID: 11400000, guid: 5edf249bd7e69a849a8b0601946889be, type: 2}
+  - {fileID: 11400000, guid: 9ae0cb2b3bb0e44498430aa461b0a34d, type: 2}
+  - {fileID: 11400000, guid: 352d475900c1057499abaac8a02fc97d, type: 2}
+  - {fileID: 11400000, guid: 40f4986049aed5a4b82e58eb59df4763, type: 2}

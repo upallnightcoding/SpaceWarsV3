@@ -10,6 +10,8 @@ public class WeaponSO : ScriptableObject
 
     public string weaponName;
 
+    public int weaponIndex = -1;
+
     [TextArea(5, 5)]
     public string description;
 

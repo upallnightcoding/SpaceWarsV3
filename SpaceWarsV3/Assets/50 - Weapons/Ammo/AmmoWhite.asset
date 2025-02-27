@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: AmmoWhite
   m_EditorClassIdentifier: 
   weaponType: 0
-  weaponName: Ammo Yellow
+  weaponName: White Ammo
   description: 
   sprite: {fileID: 21300000, guid: a920121dee7b1a34eb948e08863c980b, type: 3}
   cost: 20
   damage: 10
-  rangeSec: 2
   ammoPrefab: {fileID: 682657527431606495, guid: 71391bfeb3b7a43479de0932149787a9,
     type: 3}
   destroyPrefab: {fileID: 7673899423614434835, guid: 5da89393c42017449a2997c4df5c6647,
@@ -28,9 +27,10 @@ MonoBehaviour:
   range: 2
   force: 200
   ammoSound: {fileID: 8300000, guid: d997f4c23427a1a4894a8485df3662b6, type: 3}
-  payload: 0
-  damageRange: 0
-  missileExplosion: {fileID: 0}
+  missilePrefab: {fileID: 0}
+  missileForce: 0
+  missileType: 4
+  detonationPrefab: {fileID: 0}
   shieldPrefab: {fileID: 0}
   absorption: 0
   durationSec: 0

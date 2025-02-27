@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   weaponName: Range Missile
+  weaponIndex: 1
   description: "Range Missile, launches for one second and explodes, sending a shock
     wave in all direcitons.\t"
   sprite: {fileID: 21300000, guid: cd1cb6fa613455b4c97fcb39984fc1f7, type: 3}

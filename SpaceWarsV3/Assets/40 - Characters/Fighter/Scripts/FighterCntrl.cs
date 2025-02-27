@@ -7,8 +7,9 @@ public class FighterCntrl : MonoBehaviour
 {
     [SerializeField] private GameDataSO gameData;
     [SerializeField] private GameObject firePoint;
+    [SerializeField] private int fighterId = -1;
 
-    public void EngageEnemy() => engage = true;
+    //public void EngageEnemy() => engage = true;
 
     private Transform clickingPlane;
 
@@ -17,6 +18,10 @@ public class FighterCntrl : MonoBehaviour
 
     private void OnMove(Vector2 move) => this.move = move;
     private void OnLook(Vector2 look) => this.look = look;
+
+    public int getFighterId() => fighterId;
+
+    public void StartEngage() => engage = true;
 
     // Gun Shooting Attributes
     //========================
@@ -37,8 +42,6 @@ public class FighterCntrl : MonoBehaviour
 
     private Color newColor;
     private Renderer meshRenderer;
-
-    public void StartEngage() => engage = true;
 
     private TakeDamageCntrl tdc;
 

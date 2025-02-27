@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   weaponName: Green Ammo
+  weaponIndex: 0
   description: 'Cost: 10
 
     Damage: 10

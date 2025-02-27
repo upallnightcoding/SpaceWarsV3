@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   weaponName: Star Missile
+  weaponIndex: 0
   description: Star Missile, explodes in eight directions destroying everything in
     its path.
   sprite: {fileID: 21300000, guid: 45a94e168db02d441acbca97c251a7d1, type: 3}

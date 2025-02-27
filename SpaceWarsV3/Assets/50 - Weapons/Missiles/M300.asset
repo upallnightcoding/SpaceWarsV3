@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: M300
   m_EditorClassIdentifier: 
   weaponType: 1
-  weaponName: M300
+  weaponName: Portal Missile
+  weaponIndex: 2
   description: 
   sprite: {fileID: 21300000, guid: d9ba79fc1563a9e4797078438c487251, type: 3}
   cost: 30

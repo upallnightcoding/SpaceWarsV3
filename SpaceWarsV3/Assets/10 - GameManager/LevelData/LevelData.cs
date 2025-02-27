@@ -32,20 +32,26 @@ public class LevelData
         return (this.type == LevelType.BERSERK);
     }
 
-    public void LoadState(SaveLoadManager data)
+    public void LoadState(SaveLoadManager data, GameDataSO gameData)
     {
         type = data.type;
+
+        Ammo        = gameData.ammoList[data.ammoIndex];
+        Missile     = gameData.missileList[data.missileIndex];
+        Shield      = gameData.shieldList[data.shieldIndex];
+
+        Fighter     = gameData.fighterList[data.fighter].fighterPrefab;
     }
 
     public SaveLoadManager SaveState()
     {
         SaveLoadManager data = new SaveLoadManager();
 
-        data.type       = type;
-        data.fighter    = Fighter.name;
-        data.ammo       = Ammo.name;
-        data.missile    = Missile.name;
-        data.shield     = Shield.name;
+        data.type           = type;
+        data.fighter        = Fighter.GetComponent<FighterCntrl>().getFighterId();
+        data.ammoIndex      = Ammo.weaponIndex;
+        data.missileIndex   = Missile.weaponIndex;
+        data.shieldIndex    = Shield.weaponIndex;
 
         return (data);
     }

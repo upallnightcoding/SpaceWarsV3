@@ -22,4 +22,10 @@ public class GameDataSO : ScriptableObject
     [Header("Tags ...")]
     public string TAG_ENEMY = "Enemy";
     public string TAG_FIGHTER = "Fighter";
+
+    [Header("Weapon List ...")]
+    [SerializeField] public WeaponSO[] ammoList;
+    [SerializeField] public WeaponSO[] missileList;
+    [SerializeField] public WeaponSO[] shieldList;
+
 }

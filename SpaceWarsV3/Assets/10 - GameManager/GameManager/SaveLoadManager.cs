@@ -6,9 +6,9 @@ public class SaveLoadManager
 {
     public LevelType type;
 
-    public string fighter;
+    public int fighter;
 
-    public string ammo;
-    public string missile;
-    public string shield;
+    public int ammoIndex;
+    public int missileIndex;
+    public int shieldIndex;
 }
