@@ -32,26 +32,38 @@ public class LevelData
         return (this.type == LevelType.BERSERK);
     }
 
-    public void LoadState(SaveLoadManager data, GameDataSO gameData)
+    /**
+     * LoadState() - 
+     */
+    public void LoadState(SaveLoadObject data, UICntrl uiCntrl)
     {
         type = data.type;
 
-        Ammo        = gameData.ammoList[data.ammoIndex];
-        Missile     = gameData.missileList[data.missileIndex];
-        Shield      = gameData.shieldList[data.shieldIndex];
+        Ammo        = uiCntrl.gameData.ammoList[data.ammoIndex];
+        Missile     = uiCntrl.gameData.missileList[data.missileIndex];
+        Shield      = uiCntrl.gameData.shieldList[data.shieldIndex];
 
-        Fighter     = gameData.fighterList[data.fighter].fighterPrefab;
+        uiCntrl.ammoListCntrl.SelectedButton(data.ammoIndex);
+        uiCntrl.missileListCntrl.SelectedButton(data.missileIndex);
+        uiCntrl.shieldListCntrl.SelectedButton(data.shieldIndex);
+
+        Fighter = uiCntrl.gameData.fighterList[data.fighter].fighterPrefab;
     }
 
-    public SaveLoadManager SaveState()
+    /**
+     * SaveState() - 
+     */
+    public SaveLoadObject SaveState()
     {
-        SaveLoadManager data = new SaveLoadManager();
+        SaveLoadObject data = new SaveLoadObject();
 
         data.type           = type;
-        data.fighter        = Fighter.GetComponent<FighterCntrl>().getFighterId();
+
         data.ammoIndex      = Ammo.weaponIndex;
         data.missileIndex   = Missile.weaponIndex;
         data.shieldIndex    = Shield.weaponIndex;
+
+        data.fighter        = Fighter.GetComponent<FighterCntrl>().getFighterId();
 
         return (data);
     }
@@ -63,5 +75,6 @@ public enum LevelType
     HAVOC,
     TOOEASY,
     BERSERK,
-    LEVEL
+    LEVEL,
+    UNKNOWN
 }

@@ -34,6 +34,9 @@ public class EnemyManager : MonoBehaviour
         PositionFighter(fighter);
     }
 
+    /**
+     * CreateRandomEnemies() - 
+     */
     private void CreateRandomEnemies(GameObject fighter, int nEnemies)
     {
         for (int enemyIndex = 0; enemyIndex < nEnemies; enemyIndex++)
@@ -50,11 +53,20 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    /**
+     * PositionFighter() - 
+     */
     private void PositionFighter(GameObject fighter)
     {
         fighter.transform.position = new Vector3(69.0f, 0.0f, 3.5f);
     }
 
+    /**
+     * OnDestroyEnemy() - When an enemy has been destroyed, one is subtracted
+     * from the emeny counter.  If the enemy counter has reached zero, the 
+     * player is determined as the winner and the InvokeOnPlayerWins event
+     * is invoked.
+     */
     private void OnDestroyEnemy()
     {
         if (--enemyCount == 0)
@@ -63,14 +75,25 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    /**
+     * OnPlayerLooses() - When the fighter looses, the enemy of the
+     * counter must be reset to zero.
+     */
+    private void OnPlayerLooses()
+    {
+        enemyCount = 0;
+    }
+
     private void OnEnable()
     {
         EventManager.Instance.OnDestroyEnemyShip += OnDestroyEnemy;
+        EventManager.Instance.OnPlayerLooses += OnPlayerLooses;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnDestroyEnemyShip -= OnDestroyEnemy;
+        EventManager.Instance.OnPlayerLooses -= OnPlayerLooses;
     }
 }
 

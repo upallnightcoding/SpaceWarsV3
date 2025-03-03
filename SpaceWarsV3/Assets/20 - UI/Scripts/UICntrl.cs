@@ -55,7 +55,6 @@ public class UICntrl : MonoBehaviour
 
         SetWeaponItems();
         UpdateHealthBar(100.0f, 100.0f);
-        //UpdateAmmoBar(1, 1);
     }
 
     /****************************/

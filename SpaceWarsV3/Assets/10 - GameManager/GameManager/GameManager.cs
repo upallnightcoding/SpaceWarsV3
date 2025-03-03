@@ -29,26 +29,6 @@ public class GameManager : MonoBehaviour, NewGameIf
         EventManager.Instance.InvokeOnNewGameAction();
     }
 
-    public void LoadGameBtn()
-    {
-
-    }
-
-    public void SettingsBtn()
-    {
-
-    }
-
-    public void ScoreBoardBtn()
-    {
-
-    }
-
-    public void QuitBtn()
-    {
-
-    }
-
     public void StartMainMenu()
     {
         uiCntrl.RenderMainMenu();
@@ -84,19 +64,6 @@ public class GameManager : MonoBehaviour, NewGameIf
 
         spaceCntrl.StartEnvironment();
     }
-
-    /*public void SaveGameState()
-    {
-        SaveLoadManager slm = new SaveLoadManager();
-        slm.type = LevelType.HAVOC;
-        string json = JsonUtility.ToJson(slm);
-        Debug.Log($"Save Game State: {json}");
-        File.WriteAllText(Application.dataPath + "/save.txt", json);
-
-        string loaded = File.ReadAllText(Application.dataPath + "/save.txt");
-        SaveLoadManager s = JsonUtility.FromJson<SaveLoadManager>(loaded);
-        Debug.Log($"FromJson: {s.type}");
-    }*/
 
     /**
      * OnFighterHit() - 
@@ -145,7 +112,6 @@ public class GameManager : MonoBehaviour, NewGameIf
     {
         EventManager.Instance.OnStartBattle += StartBattle;
         EventManager.Instance.OnPlayerWins += OnPlayerWins;
-
         EventManager.Instance.OnFighterHit += OnFighterHit;
         EventManager.Instance.OnPlayerLooses += OnPlayerLooses;
     }
@@ -163,4 +129,3 @@ public interface NewGameIf
 {
     public void ReStartNewGame();
 }
-

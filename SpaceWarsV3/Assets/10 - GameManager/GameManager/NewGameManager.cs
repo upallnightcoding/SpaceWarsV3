@@ -51,10 +51,10 @@ public class NewGameManager : MonoBehaviour
         uiCntrl.RenderSelectFighterPanel();
     }
 
-    public void SelectInventory()
-    {
-        uiCntrl.RenderSelectInventoryPanel();
-    }
+    //public void SelectInventory()
+    //{
+      //  uiCntrl.RenderSelectInventoryPanel();
+    //}
 
     private void OnPlayerWins()
     {
@@ -78,7 +78,7 @@ public class NewGameManager : MonoBehaviour
 
     public void SaveState()
     {
-        SaveLoadManager slm = levelData.SaveState();
+        SaveLoadObject slm = levelData.SaveState();
         string json = JsonUtility.ToJson(slm);
         File.WriteAllText(Application.dataPath + "/" + SAVE_FILE, json);
     }
@@ -86,8 +86,13 @@ public class NewGameManager : MonoBehaviour
     public void LoadState()
     {
         string loaded = File.ReadAllText(Application.dataPath + "/" + SAVE_FILE);
-        SaveLoadManager slm = JsonUtility.FromJson<SaveLoadManager>(loaded);
-        levelData.LoadState(slm, uiCntrl.gameData);
+        SaveLoadObject slm = JsonUtility.FromJson<SaveLoadObject>(loaded);
+        levelData = new LevelData(LevelType.UNKNOWN);
+        levelData.LoadState(slm, uiCntrl);
+
+        uiCntrl.GetComponent<MainMenuCntrl>().StopFighterDisplay();
+
+        uiCntrl.RenderSelectInventoryPanel();
     }
 
     public void FighterSelection(GameObject selectedFighter)
