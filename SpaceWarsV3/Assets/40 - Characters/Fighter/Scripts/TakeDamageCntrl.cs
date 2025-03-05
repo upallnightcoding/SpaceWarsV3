@@ -52,7 +52,16 @@ public class TakeDamageCntrl : MonoBehaviour
 
         if (!alreadyDead)
         {
-            health -= damage - (damage * absorb);
+            if (damage >= 0.0f)
+            {
+                health -= damage - (damage * absorb);
+            } else
+            {
+                health += -damage;
+                if (health > 100) health = 100;
+            }
+
+            Debug.Log($"Health: {health}");
 
             if (!nearDeath && (health < 30.0f))
             {

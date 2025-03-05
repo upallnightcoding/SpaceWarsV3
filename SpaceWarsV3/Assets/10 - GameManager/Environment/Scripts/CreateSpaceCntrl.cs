@@ -15,7 +15,7 @@ public class CreateSpaceCntrl : MonoBehaviour
 
     private bool startSpaceCntrl = false;
 
-    private float destroySec = 120.0f;
+    private float destroySec = 3.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -59,36 +59,13 @@ public class CreateSpaceCntrl : MonoBehaviour
     {
         while (startSpaceCntrl)
         {
-            if (Random.Range(0, 15) == 0)
+            if (Random.Range(0, 5) == 0)
             {
                 Vector2 pos = Random.insideUnitCircle * portalSpace;
                 Vector3 position = new Vector3(pos.x, 0.0f, pos.y) + clickingPlane.position;
 
                 int choice = Random.Range(0, spacePortal.Length);
                 GameObject go = Instantiate(spacePortal[choice], position, Quaternion.identity);
-                Destroy(go, destroySec);
-            }
-
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
-
-    private IEnumerator DisplayPanets()
-    {
-        while (startSpaceCntrl)
-        {
-            if (Random.Range(0, 10) == 0)
-            {
-                Vector2 Rp = Random.insideUnitCircle;
-                Vector3 R = new Vector3(Rp.x, 0.0f, Rp.y) * panetsSpace;
-                Vector3 C = clickingPlane.position;
-                Vector3 position = (R - C).normalized * panetsSpace;
-                position.y = -1000.0f;
-
-                Debug.Log($"Position: {position}");
-
-                int choice = Random.Range(0, panets.Length);
-                GameObject go = Instantiate(panets[choice], position, Quaternion.identity);
                 Destroy(go, destroySec);
             }
 

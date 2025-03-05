@@ -5,6 +5,10 @@ using System;
 
 public class EventManager
 {
+    // Disengage
+    public event Action OnDisengage = delegate { };
+    public void InvokeOnDisengage() => OnDisengage.Invoke();
+
     // Event raised
     public event Action<int> OnNearEnemyDeath = delegate { };
     public void InvokeOnNearEnemyDeath(int enemyId) => OnNearEnemyDeath.Invoke(enemyId);

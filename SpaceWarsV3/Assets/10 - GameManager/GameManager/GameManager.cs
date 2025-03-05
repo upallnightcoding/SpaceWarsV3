@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour, NewGameIf
     [SerializeField] private Transform clickingPlane;
     [SerializeField] private CreateSpaceCntrl spaceCntrl;
 
-    private float health = 100.0f;
+    //private float health = 100.0f;
     private float maxHealth = 100.0f;
 
     public void Start()
@@ -80,6 +80,15 @@ public class GameManager : MonoBehaviour, NewGameIf
     private void OnPlayerLooses()
     {
         uiCntrl.BattleBanner("You Loose", this);
+
+        spaceCntrl.EndEnvironment();
+    }
+
+    public void OnDisengage()
+    {
+        uiCntrl.BattleBanner("Disengage", this);
+
+        EventManager.Instance.InvokeOnDisengage();
 
         spaceCntrl.EndEnvironment();
     }

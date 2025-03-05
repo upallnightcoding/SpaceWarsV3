@@ -51,11 +51,6 @@ public class NewGameManager : MonoBehaviour
         uiCntrl.RenderSelectFighterPanel();
     }
 
-    //public void SelectInventory()
-    //{
-      //  uiCntrl.RenderSelectInventoryPanel();
-    //}
-
     private void OnPlayerWins()
     {
         uiCntrl.RaiseGamePlayLevel();
@@ -71,6 +66,10 @@ public class NewGameManager : MonoBehaviour
         uiCntrl.RenderEngage();
     }
 
+    /**
+     * StartEngagmentCountDown() - When the engage button is selected, this 
+     * option will start the count down to actual engagement.
+     */
     public void StartEngagmentCountDown()
     {
         uiCntrl.StartEngagementCountDown(levelData);

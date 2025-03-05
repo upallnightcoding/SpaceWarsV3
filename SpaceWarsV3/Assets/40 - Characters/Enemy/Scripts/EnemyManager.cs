@@ -88,12 +88,14 @@ public class EnemyManager : MonoBehaviour
     {
         EventManager.Instance.OnDestroyEnemyShip += OnDestroyEnemy;
         EventManager.Instance.OnPlayerLooses += OnPlayerLooses;
+        EventManager.Instance.OnDisengage += OnPlayerLooses;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnDestroyEnemyShip -= OnDestroyEnemy;
         EventManager.Instance.OnPlayerLooses -= OnPlayerLooses;
+        EventManager.Instance.OnDisengage -= OnPlayerLooses;
     }
 }
 
