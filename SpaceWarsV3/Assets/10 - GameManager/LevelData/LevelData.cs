@@ -27,6 +27,10 @@ public class LevelData
         return (type);
     }
 
+    /**
+     * IsBerserk() - Returns a true if the game play is in the "Berserk"
+     * mode.  A false is returned  otherwise.
+     */
     public bool IsBerserk()
     {
         return (this.type == LevelType.BERSERK);

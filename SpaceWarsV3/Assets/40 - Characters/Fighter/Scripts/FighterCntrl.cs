@@ -48,7 +48,7 @@ public class FighterCntrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventManager.Instance.InvokeOnUpdateAmmoBar(1, 1);
+        //EventManager.Instance.InvokeOnUpdateAmmoBar(1, 1);
     }
 
     /**
@@ -89,17 +89,6 @@ public class FighterCntrl : MonoBehaviour
     }
 
     /**
-     * OnFire() - 
-     */
-    /*private void OnFire()
-    {
-        if (!isReloading)
-        {
-            StartCoroutine(FireAmmo());
-        }
-    }*/
-
-    /**
      * OnFireKey() - 
      */
     private void OnFireKey(int key)
@@ -119,12 +108,17 @@ public class FighterCntrl : MonoBehaviour
         }
     }
 
+    /**
+     * ShieldsUp() - Turn on the filter shield for the time length of the
+     * shield duration.  At the end of the shield duration, turn the shield
+     * off and destroy the shield.
+     */
     private IEnumerator ShieldsUp()
     {
         GameObject go = Instantiate(shield.shieldPrefab, transform);
 
         float duration = shield.durationSec;
-        tdc.TurnShieldOn(shield.absorption / 100.0f);
+        tdc.TurnShieldOn(shield.absorption);
 
         while (duration >= 0.0f)
         {

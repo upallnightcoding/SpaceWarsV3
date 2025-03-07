@@ -54,12 +54,19 @@ public class UICntrl : MonoBehaviour
         shieldList = gameData.shieldList;
 
         SetWeaponItems();
-        UpdateHealthBar(100.0f, 100.0f);
+        UpdateHealthBar(100.0f);
+        UpdateShieldBar(100.0f, 100.0f);
+        UpdateAmmoBar(1, 1);
     }
 
     /****************************/
     /*** Main Menu Selections ***/
     /****************************/
+
+    public void ResetBarStatus(LevelData levelData)
+    {
+        UpdateHealthBar(100.0f);
+    }
 
     /** 
      * RenderMainMenu() - Render the Main Menu, close any other menu before
@@ -81,6 +88,9 @@ public class UICntrl : MonoBehaviour
         StartCoroutine(DisplayBattleBanner(message, callback));
     }
 
+    /**
+     * DisplayBattleBanner() - 
+     */
     private IEnumerator DisplayBattleBanner(string message, NewGameIf callback)
     {
         bannerMessage.text = message;
@@ -159,9 +169,9 @@ public class UICntrl : MonoBehaviour
      * by the enemy.  Updates are done by events as missiles trigger
      * the fighter collision box.
      */
-    public void UpdateHealthBar(float health, float maxHealth)
+    public void UpdateHealthBar(float health)
     {
-        healthBar.value = health / maxHealth;
+        healthBar.value = health / 100.0f;
         int percent = (int)(100.0f * healthBar.value);
         healthBarText.text = $"{percent}%";
     }
@@ -178,6 +188,9 @@ public class UICntrl : MonoBehaviour
         ammoBarText.text = $"{ammoCount}/{maxAmmoCount}";
     }
 
+    /**
+     * UpdateReload() -
+     */
     public void UpdateReload(float timing, float reloadTime)
     {
         ammoBar.image.color = Color.yellow;

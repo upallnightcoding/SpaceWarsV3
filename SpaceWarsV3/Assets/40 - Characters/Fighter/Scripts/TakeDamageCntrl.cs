@@ -14,6 +14,10 @@ public class TakeDamageCntrl : MonoBehaviour
         this.health = health;
     }
 
+    /**
+     * Set() - Set the enemy Id, in order to track which enemy has
+     * been destroyed.
+     */
     public void Set(int enemyId)
     {
         this.enemyId = enemyId;
@@ -26,7 +30,7 @@ public class TakeDamageCntrl : MonoBehaviour
      */
     public void TurnShieldOn(float absorb)
     {
-        this.absorb = absorb;
+        this.absorb = absorb / 100.0f;
     }
 
     /**

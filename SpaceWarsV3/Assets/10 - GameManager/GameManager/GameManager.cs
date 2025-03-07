@@ -12,9 +12,6 @@ public class GameManager : MonoBehaviour, NewGameIf
     [SerializeField] private Transform clickingPlane;
     [SerializeField] private CreateSpaceCntrl spaceCntrl;
 
-    //private float health = 100.0f;
-    private float maxHealth = 100.0f;
-
     public void Start()
     {
         StartMainMenu();
@@ -66,11 +63,12 @@ public class GameManager : MonoBehaviour, NewGameIf
     }
 
     /**
-     * OnFighterHit() - 
+     * OnFighterHit() - If the fighter has been hit, the remaining health 
+     * needs to be displayed via the UI.
      */
     private void OnFighterHit(float remainingDamage)
     {
-        uiCntrl.UpdateHealthBar(remainingDamage, maxHealth);
+        uiCntrl.UpdateHealthBar(remainingDamage);
     }
 
     /**
