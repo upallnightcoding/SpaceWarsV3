@@ -9,7 +9,7 @@ public class MissileCntrl : MonoBehaviour
 
     private GameObject parent;
 
-    private float damage = 40.0f;
+    private float damage = 10.0f;
     private float radius = 30.0f;
 
     // Start is called before the first frame update
@@ -41,7 +41,7 @@ public class MissileCntrl : MonoBehaviour
                 StartCoroutine(FireStar(missile, ammo));
                 break;
             case MissileType.PORTAL:
-                StartCoroutine(FirePortal(ammo));
+                StartCoroutine(FirePortal(missile));
                 break;
             case MissileType.SEEKING:
                 StartCoroutine(FireSeeking(missile, ammo));
@@ -57,8 +57,8 @@ public class MissileCntrl : MonoBehaviour
 
         if (missile.detonationPrefab)
         {
-            //GameObject spark = Instantiate(missile.detonationPrefab, transform.position, rotation);
-            //Destroy(spark, 0.5f);
+            GameObject spark = Instantiate(missile.detonationPrefab, transform.position, rotation);
+            Destroy(spark, 0.5f);
         }
 
         Collider[] hitList = Physics.OverlapSphere(transform.position, 100.0f);
@@ -74,7 +74,7 @@ public class MissileCntrl : MonoBehaviour
 
                     yield return null;
 
-                    /*if (tdc.TakeDamage(damage))
+                    if (tdc.TakeDamage(damage))
                     {
                         if (destroyPrefab)
                         {
@@ -85,7 +85,7 @@ public class MissileCntrl : MonoBehaviour
                         EventManager.Instance.InvokeOnDestroyEnemyShip();
 
                         Destroy(obstacle.transform.gameObject);
-                    }*/
+                    }
                 }
             }
 
@@ -98,6 +98,8 @@ public class MissileCntrl : MonoBehaviour
     private IEnumerator FirePortal(WeaponSO missile)
     {
         GameObject detonation = null;
+
+        Debug.Log($"missile.detonationPrefab: {missile.detonationPrefab}");
 
         if (missile.detonationPrefab)
         {

@@ -15,24 +15,18 @@ MonoBehaviour:
   weaponType: 0
   weaponName: Green Ammo
   weaponIndex: 0
-  description: 'Cost: 10
-
-    Damage: 10
-
-    Force: 300
-
-    Range: 1'
+  description: Green Ammo has a Damage of 10, a Force of 300 and a Range of 1.  This
+    ammo has a little punch at a short range but is quick to cause havoc.
   sprite: {fileID: 21300000, guid: 4146e39355ccb734a81c6fcf9df339fd, type: 3}
-  cost: 10
-  damage: 50
+  damage: 10
   ammoPrefab: {fileID: 682657527431606495, guid: 81beef59dfdda4d41b4c105ab0d0f4c2,
     type: 3}
   destroyPrefab: {fileID: 7673899423614434835, guid: 5da89393c42017449a2997c4df5c6647,
     type: 3}
   maxRounds: 15
   reloadSec: 2.5
-  range: 2.5
-  force: 100
+  range: 1
+  force: 300
   ammoSound: {fileID: 8300000, guid: d4e037ed0057f1b4bb2fd6d35c412b6b, type: 3}
   missilePrefab: {fileID: 0}
   missileForce: 0

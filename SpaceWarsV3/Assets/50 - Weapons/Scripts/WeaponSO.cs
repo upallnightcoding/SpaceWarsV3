@@ -17,8 +17,6 @@ public class WeaponSO : ScriptableObject
 
     public Sprite sprite;
 
-    public int cost;
-
     public int damage;
 
     [Header("Ammo Attributes ...")]

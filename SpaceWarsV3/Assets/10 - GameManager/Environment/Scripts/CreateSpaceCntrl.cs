@@ -59,7 +59,7 @@ public class CreateSpaceCntrl : MonoBehaviour
     {
         while (startSpaceCntrl)
         {
-            if (Random.Range(0, 5) == 0)
+            if (Random.Range(0, 10) == 0)
             {
                 Vector2 pos = Random.insideUnitCircle * portalSpace;
                 Vector3 position = new Vector3(pos.x, 0.0f, pos.y) + clickingPlane.position;

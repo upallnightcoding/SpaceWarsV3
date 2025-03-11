@@ -15,9 +15,9 @@ MonoBehaviour:
   weaponType: 1
   weaponName: Portal Missile
   weaponIndex: 2
-  description: 
+  description: 'Portal Missiles leave portals in its wake for enemies to fall into. 
+    Once in, the damage is done.  Do it enough and they will be destroyed.  '
   sprite: {fileID: 21300000, guid: d9ba79fc1563a9e4797078438c487251, type: 3}
-  cost: 30
   damage: 15
   ammoPrefab: {fileID: 0}
   destroyPrefab: {fileID: 0}

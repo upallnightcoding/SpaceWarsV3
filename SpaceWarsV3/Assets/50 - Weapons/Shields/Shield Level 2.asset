@@ -15,18 +15,17 @@ MonoBehaviour:
   weaponType: 2
   weaponName: Soft Shield
   weaponIndex: 1
-  description: 'Absorption: 60%
+  description: 'Absorption: <color=red>60%</color>
 
     Duration: 3 secs
 
-    Total Duration: 25 secs
+    Total
+    Duration: 25 secs
 
-    Recharge:
-    3 secs
+    Recharge: 4 secs
 
 '
   sprite: {fileID: 21300000, guid: dc6dc5fbbf34aa94c9cc191c6457c001, type: 3}
-  cost: 20
   damage: 0
   ammoPrefab: {fileID: 0}
   destroyPrefab: {fileID: 0}
@@ -44,4 +43,4 @@ MonoBehaviour:
   absorption: 60
   durationSec: 3
   totalDurationSec: 25
-  reChargeSec: 3
+  reChargeSec: 4

@@ -15,24 +15,18 @@ MonoBehaviour:
   weaponType: 0
   weaponName: Blue Ammo
   weaponIndex: 3
-  description: 'Cost: 10
-
-    Damage: 10
-
-    Force: 300
-
-    Range: 1'
+  description: Blue Ammo has a Damage of 55, a Force of 50 and a Range of 2.5.  This
+    ammo is slow but carries a powerful punch.  Use this when enemies of far away.
   sprite: {fileID: 21300000, guid: 85d6fac0ebc164445a67fe8da5127d49, type: 3}
-  cost: 10
-  damage: 20
+  damage: 55
   ammoPrefab: {fileID: 682657527431606495, guid: 2e973f7d9ec1ecb449750e77b21ca0f4,
     type: 3}
   destroyPrefab: {fileID: 7673899423614434835, guid: 5da89393c42017449a2997c4df5c6647,
     type: 3}
   maxRounds: 60
   reloadSec: 1
-  range: 1
-  force: 400
+  range: 4
+  force: 50
   ammoSound: {fileID: 8300000, guid: d4e037ed0057f1b4bb2fd6d35c412b6b, type: 3}
   missilePrefab: {fileID: 0}
   missileForce: 0

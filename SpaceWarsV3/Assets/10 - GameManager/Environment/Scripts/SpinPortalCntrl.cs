@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class SpinPortalCntrl : MonoBehaviour
 {
-    private float damage = 40.0f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private float damage = 5.0f;
 
     private void OnTriggerExit(Collider obstacle)
     {

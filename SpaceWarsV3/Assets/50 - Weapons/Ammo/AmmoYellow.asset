@@ -15,16 +15,11 @@ MonoBehaviour:
   weaponType: 0
   weaponName: Yellow Ammo
   weaponIndex: 1
-  description: 'Cost: 20
-
-    Damage: 25
-
-    Force: 200
-
-    Range: 2'
+  description: Yellow Ammo has a Damage of 25, a Force of 200 and a Range of 1.5. 
+    With a little more range than its green counterpart this is a great medium ammo
+    choice.
   sprite: {fileID: 21300000, guid: a920121dee7b1a34eb948e08863c980b, type: 3}
-  cost: 20
-  damage: 40
+  damage: 25
   ammoPrefab: {fileID: 682657527431606495, guid: 47e448861dedb9644bb997c4252182aa,
     type: 3}
   destroyPrefab: {fileID: 7673899423614434835, guid: 5da89393c42017449a2997c4df5c6647,
