@@ -114,9 +114,14 @@ public class UICntrl : MonoBehaviour
         selectLevelPanel.SetActive(true);
     }
 
-    public void RaiseGamePlayLevel()
+    public void RaiseGamePlayLevel(LevelData levelData)
     {
-        gamePlayLevel++;
+        levelData.Level = ++gamePlayLevel;
+    }
+
+    public void SetGamePlayLevel(int value)
+    {
+        gamePlayLevel = value;
     }
 
     public void RenderSelectFighterPanel()

@@ -53,7 +53,7 @@ public class NewGameManager : MonoBehaviour
 
     private void OnPlayerWins()
     {
-        uiCntrl.RaiseGamePlayLevel();
+        uiCntrl.RaiseGamePlayLevel(levelData);
     }
 
     /**
@@ -91,7 +91,8 @@ public class NewGameManager : MonoBehaviour
 
         uiCntrl.GetComponent<MainMenuCntrl>().StopFighterDisplay();
 
-        uiCntrl.RenderSelectInventoryPanel();
+        //uiCntrl.RenderSelectInventoryPanel();
+        uiCntrl.RenderSelectLevelPanel();
     }
 
     public void FighterSelection(GameObject selectedFighter)

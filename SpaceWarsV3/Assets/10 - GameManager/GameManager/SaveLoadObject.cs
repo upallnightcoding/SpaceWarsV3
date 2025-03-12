@@ -11,4 +11,6 @@ public class SaveLoadObject
     public int ammoIndex;
     public int missileIndex;
     public int shieldIndex;
+
+    public int level;
 }

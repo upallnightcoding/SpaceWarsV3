@@ -17,7 +17,7 @@ public class EnemyManager : MonoBehaviour
     public void StartEngagement(GameObject fighter, LevelData levelData)
     {
         
-        switch(levelData.GetLevel())
+        switch(levelData.GetLevelType())
         {
             case LevelType.TUTORIAL:
                 CreateRandomEnemies(fighter, 1);

@@ -9,10 +9,9 @@ public class LevelData
     public WeaponSO Ammo { get; set; }
     public WeaponSO Missile { get; set; }
     public WeaponSO Shield { get; set; }
+    public int Level { get; set; } = 1;
 
     private LevelType type = LevelType.TUTORIAL;
-
-    private int level = 1;
 
     public LevelData(LevelType type)
     {
@@ -22,7 +21,7 @@ public class LevelData
     /**
      * GetLevel() - Returns the current level of the player.
      */
-    public LevelType GetLevel()
+    public LevelType GetLevelType()
     {
         return (type);
     }
@@ -52,6 +51,10 @@ public class LevelData
         uiCntrl.shieldListCntrl.SelectedButton(data.shieldIndex);
 
         Fighter = uiCntrl.gameData.fighterList[data.fighter].fighterPrefab;
+
+        Level = data.level;
+
+        uiCntrl.SetGamePlayLevel(Level);
     }
 
     /**
@@ -68,6 +71,8 @@ public class LevelData
         data.shieldIndex    = Shield.weaponIndex;
 
         data.fighter        = Fighter.GetComponent<FighterCntrl>().getFighterId();
+
+        data.level = Level;
 
         return (data);
     }
