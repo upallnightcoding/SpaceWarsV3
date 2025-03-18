@@ -51,6 +51,8 @@ public class EnemyManager : MonoBehaviour
             enemy.GetComponentInChildren<NearDeathCntrl>().Set(enemyIndex);
             enemyCount++;
         }
+
+        EventManager.Instance.InvokeOnSetEnemyCount(nEnemies);
     }
 
     /**
@@ -69,7 +71,9 @@ public class EnemyManager : MonoBehaviour
      */
     private void OnDestroyEnemy()
     {
-        if (--enemyCount == 0)
+        EventManager.Instance.InvokeOnSetEnemyCount(--enemyCount);
+
+        if (enemyCount == 0)
         {
             EventManager.Instance.InvokeOnPlayerWins();
         }

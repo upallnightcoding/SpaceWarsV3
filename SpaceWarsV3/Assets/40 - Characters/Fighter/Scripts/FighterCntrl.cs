@@ -13,11 +13,10 @@ public class FighterCntrl : MonoBehaviour
 
     private Transform clickingPlane;
 
-    private Vector2 move = new Vector2();
-    private Vector2 look = new Vector2();
+    private Vector3 currentdirection = new Vector3();
 
-    private void OnMove(Vector2 move) => this.move = move;
-    private void OnLook(Vector2 look) => this.look = look;
+    //private void OnMove(Vector2 move) => this.move = move;
+    //private void OnLook(Vector2 look) => this.look = look;
 
     public int getFighterId() => fighterId;
 
@@ -60,7 +59,8 @@ public class FighterCntrl : MonoBehaviour
     {
         if (engage)
         {
-            MoveFighterKeyBoard(Time.deltaTime);
+            //MoveFighterKeyBoard(Time.deltaTime);
+            ConstMoveFighterController();
         }
     }
 
@@ -195,6 +195,40 @@ public class FighterCntrl : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
 
+    private void MoveFighterController(Vector2 move)
+    {
+        float speed = 50.0f;
+        float throttle = 1.0f;
+
+        Debug.Log($"MoveFighterController => {move}");
+
+        if (engage)
+        {
+            if (move.magnitude > 0.1f)
+            {
+                Vector3 direction = new Vector3(move.x, 0.0f, move.y).normalized;
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 25.0f * Time.deltaTime);
+                transform.localRotation = playerRotation;
+                currentdirection = direction;
+
+        }
+
+            //transform.Translate(transform.forward * speed * throttle * Time.deltaTime, Space.World);
+            //clickingPlane.position = transform.position;
+        }
+
+    }
+
+    private void ConstMoveFighterController()
+    {
+        float speed = 50.0f;
+        float throttle = 1.0f;
+
+        transform.Translate(transform.forward * speed * throttle * Time.deltaTime, Space.World);
+        clickingPlane.position = transform.position;
+    }
+
     /**
      * MoveFighterKeyBoard() - 
      */
@@ -217,7 +251,7 @@ public class FighterCntrl : MonoBehaviour
             }
         }
 
-        transform.Translate(transform.forward * speed * throttle * dt, Space.World);
+        transform.Translate(transform.forward * speed * throttle * Time.deltaTime, Space.World);
         clickingPlane.position = transform.position;
     }
 
@@ -255,17 +289,19 @@ public class FighterCntrl : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.Instance.OnInputLook += OnLook;
-        EventManager.Instance.OnInputMove += OnMove;
+        //EventManager.Instance.OnInputLook += OnLook;
+        //EventManager.Instance.OnInputMove += OnMove;
         EventManager.Instance.OnFireKey += OnFireKey;
         EventManager.Instance.OnDestroyAllShips += DestroyRequest;
+        EventManager.Instance.OnInputMove += MoveFighterController;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnInputLook -= OnLook;
-        EventManager.Instance.OnInputMove -= OnMove;
+        //EventManager.Instance.OnInputLook -= OnLook;
+        //EventManager.Instance.OnInputMove -= OnMove;
         EventManager.Instance.OnFireKey -= OnFireKey;
         EventManager.Instance.OnDestroyAllShips -= DestroyRequest;
+        EventManager.Instance.OnInputMove -= MoveFighterController;
     }
 }

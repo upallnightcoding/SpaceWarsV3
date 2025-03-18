@@ -6,15 +6,15 @@ using UnityEngine.UI;
 
 public class SelectLevelMenuOptionCntrl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private Image icon;
+    [SerializeField] private GameObject button;
 
     public void OnPointerEnter(PointerEventData eventData) 
     {
-        icon.enabled = true;
+        EventSystem.current.SetSelectedGameObject(button);
     }
 
     public void OnPointerExit(PointerEventData eventData) 
     {
-        icon.enabled = false;
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }

@@ -10,14 +10,16 @@ public class InputCntrl : MonoBehaviour
         if (context.performed)
         {
             Vector2 move = context.ReadValue<Vector2>();
+
             EventManager.Instance.InvokeOnInputMove(move);
         }
 
-        if (context.canceled)
+        /*if (context.canceled)
         {
             Vector3 move = Vector2.zero;
             EventManager.Instance.InvokeOnInputMove(move);
-        }
+            Debug.Log("Input Cancelled ...");
+        }*/
     }
 
     public void OnLook(InputAction.CallbackContext context)

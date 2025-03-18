@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UICntrl : MonoBehaviour
 {
     [SerializeField] public GameDataSO gameData;
+
+    [Header("Menu Starting Objects ...")]
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject selectLevel;
+    [SerializeField] private GameObject selectShip;
+    [SerializeField] private GameObject firstAmmo;
+    [SerializeField] private GameObject engagementButton;
 
     [Header("UI Controllers ...")]
     [SerializeField] private FighterSelectionCntrl fighterSelectionCntrl;
@@ -40,6 +48,7 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private GameObject banner;
     [SerializeField] private TMP_Text bannerMessage;
     [SerializeField] private TMP_Text gameLevel;
+    [SerializeField] private TMP_Text enemyCount;
 
     private WeaponSO[] ammoList;
     private WeaponSO[] missileList;
@@ -76,6 +85,14 @@ public class UICntrl : MonoBehaviour
     {
         CloseAllPanels();
         mainMenuPanel.SetActive(true);
+
+        Debug.Log($"Render Main Menu: ${mainMenu}");
+        Debug.Log($"Event System Current: ${EventSystem.current}");
+
+        if (EventSystem.current)
+        {
+            EventSystem.current.SetSelectedGameObject(mainMenu);
+        }
     }
 
     /**
@@ -112,6 +129,8 @@ public class UICntrl : MonoBehaviour
         mainMenuCntrl.StopFighterDisplay();
         gameLevel.text = $"Level ({gamePlayLevel})";
         selectLevelPanel.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(selectLevel);
     }
 
     public void RaiseGamePlayLevel(LevelData levelData)
@@ -129,12 +148,15 @@ public class UICntrl : MonoBehaviour
         CloseAllPanels();
         fighterSelectionPanel.SetActive(true);
         fighterSelectionCntrl.NewGameAction();
+
+        EventSystem.current.SetSelectedGameObject(selectShip);
     }
 
     public void RenderSelectInventoryPanel()
     {
         CloseAllPanels();
         inventorySelectionPanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(firstAmmo);
     }
 
     /**
@@ -144,6 +166,7 @@ public class UICntrl : MonoBehaviour
     {
         CloseAllPanels();
         engagementPanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(engagementButton);
     }
 
     public void RenderBattlePanel()
@@ -230,6 +253,19 @@ public class UICntrl : MonoBehaviour
         inventorySelectionPanel.SetActive(false);
         engagementPanel.SetActive(false);
         battlePanel.SetActive(false);
+
+        if (EventSystem.current)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+    }
+
+    /**
+     * UpdateEnemyCount() - 
+     */
+    private void UpdateEnemyCount(int value)
+    {
+        enemyCount.text = value.ToString();
     }
 
     /**
@@ -240,6 +276,7 @@ public class UICntrl : MonoBehaviour
         EventManager.Instance.OnUpdateAmmoBar += UpdateAmmoBar;
         EventManager.Instance.OnUpdateReload += UpdateReload;
         EventManager.Instance.OnUpdateShield += UpdateShieldBar;
+        EventManager.Instance.OnSetEnemyCount += UpdateEnemyCount;
     }
 
     /**
@@ -250,5 +287,6 @@ public class UICntrl : MonoBehaviour
         EventManager.Instance.OnUpdateAmmoBar -= UpdateAmmoBar;
         EventManager.Instance.OnUpdateReload -= UpdateReload;
         EventManager.Instance.OnUpdateShield -= UpdateShieldBar;
+        EventManager.Instance.OnSetEnemyCount -= UpdateEnemyCount;
     }
 }

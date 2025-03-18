@@ -5,6 +5,10 @@ using System;
 
 public class EventManager
 {
+    // Update the Enemy count
+    public event Action<int> OnSetEnemyCount = delegate { };
+    public void InvokeOnSetEnemyCount(int value) => OnSetEnemyCount.Invoke(value);
+
     // Disengage
     public event Action OnDisengage = delegate { };
     public void InvokeOnDisengage() => OnDisengage.Invoke();

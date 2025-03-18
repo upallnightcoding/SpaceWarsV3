@@ -11,16 +11,18 @@ public class WeaponListItemCntrl : MonoBehaviour, IPointerEnterHandler, IPointer
     [SerializeField] GameObject selected;
     [SerializeField] TMP_Text weaponName;
     [SerializeField] Image image;
-    //[SerializeField] TMP_Text descriptionText;
 
     // Properties ...
     private bool selectedSw = false;
 
+    // Weapon associated with the button
     private WeaponSO weapon = null;
 
-    public void HightLightItem() => highlight.SetActive(true);
+    // Turn-On the item image highlight
+    public void HighLightItem() => highlight.SetActive(true);
 
-    private void UnHightLightItem() => highlight.SetActive(false);
+    // Turn-Off the item image highlight
+    private void UnHighLightItem() => highlight.SetActive(false);
 
     // Return the active weapon
     public WeaponSO GetWeapon() => weapon;
@@ -51,10 +53,10 @@ public class WeaponListItemCntrl : MonoBehaviour, IPointerEnterHandler, IPointer
     public WeaponSO Get() => weapon;
 
     // Highlight the weapon when the mouse is over the weapon.
-    public void OnPointerEnter(PointerEventData eventData) => HightLightItem();
+    public void OnPointerEnter(PointerEventData eventData) => HighLightItem();
 
     // Un-Highlight the weapon when the mouse is over the weapon.
-    public void OnPointerExit(PointerEventData eventData) => UnHightLightItem();
+    public void OnPointerExit(PointerEventData eventData) => UnHighLightItem();
 
     private void Activate() => gameObject.SetActive(true);
 

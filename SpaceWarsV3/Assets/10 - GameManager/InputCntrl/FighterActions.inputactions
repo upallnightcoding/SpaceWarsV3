@@ -281,6 +281,17 @@
                 },
                 {
                     "name": "",
+                    "id": "806c649f-799d-476a-bf5e-74ead4bbd5d2",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Fire1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "9f903d18-5855-40d6-972e-bd6b5a2fb182",
                     "path": "<Keyboard>/2",
                     "interactions": "",
@@ -292,11 +303,33 @@
                 },
                 {
                     "name": "",
+                    "id": "c5b317de-53d7-4045-a8ee-96e0f7d5f863",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Fire2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3e165651-4a40-4a71-962e-93ae24117769",
                     "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Fire3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "29bc087c-7df7-46d2-ae8e-1b815a862feb",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Fire3",
                     "isComposite": false,
                     "isPartOfComposite": false
