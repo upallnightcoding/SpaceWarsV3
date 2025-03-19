@@ -344,6 +344,17 @@
                     "action": "Disengage",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "35059290-543d-48a6-acd7-c13d1437f470",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Disengage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   weaponName: White Ammo
+  weaponIndex: -1
   description: 
   sprite: {fileID: 21300000, guid: a920121dee7b1a34eb948e08863c980b, type: 3}
-  cost: 20
   damage: 10
   ammoPrefab: {fileID: 682657527431606495, guid: 71391bfeb3b7a43479de0932149787a9,
     type: 3}
@@ -25,7 +25,7 @@ MonoBehaviour:
   maxRounds: 40
   reloadSec: 2
   range: 2
-  force: 200
+  force: 300
   ammoSound: {fileID: 8300000, guid: d997f4c23427a1a4894a8485df3662b6, type: 3}
   missilePrefab: {fileID: 0}
   missileForce: 0

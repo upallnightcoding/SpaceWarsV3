@@ -211,11 +211,7 @@ public class FighterCntrl : MonoBehaviour
                 Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 25.0f * Time.deltaTime);
                 transform.localRotation = playerRotation;
                 currentdirection = direction;
-
-        }
-
-            //transform.Translate(transform.forward * speed * throttle * Time.deltaTime, Space.World);
-            //clickingPlane.position = transform.position;
+            }
         }
 
     }
