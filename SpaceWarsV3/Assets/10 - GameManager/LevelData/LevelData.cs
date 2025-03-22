@@ -13,7 +13,10 @@ public class LevelData
 
     private LevelType type = LevelType.TUTORIAL;
 
-    public LevelData(LevelType type)
+    /**
+     * SetType() - Sets the type of the current level
+     */
+    public void SetType(LevelType type)
     {
         this.type = type;
     }
@@ -24,6 +27,16 @@ public class LevelData
     public LevelType GetLevelType()
     {
         return (type);
+    }
+
+    public int RaiseGamePlayLevel()
+    {
+        if (type == LevelType.LEVEL)
+        {
+            ++Level;
+        }
+
+        return (Level);
     }
 
     /**
@@ -54,7 +67,7 @@ public class LevelData
 
         Level = data.level;
 
-        uiCntrl.SetGamePlayLevel(Level);
+        uiCntrl.SetGameLevel(Level);
     }
 
     /**

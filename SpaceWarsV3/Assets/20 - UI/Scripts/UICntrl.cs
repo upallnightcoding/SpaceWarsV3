@@ -133,12 +133,7 @@ public class UICntrl : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(selectLevel);
     }
 
-    public void RaiseGamePlayLevel(LevelData levelData)
-    {
-        levelData.Level = ++gamePlayLevel;
-    }
-
-    public void SetGamePlayLevel(int value)
+    public void SetGameLevel(int value)
     {
         gamePlayLevel = value;
     }

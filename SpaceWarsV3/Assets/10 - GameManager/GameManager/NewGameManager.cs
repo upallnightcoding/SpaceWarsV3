@@ -9,9 +9,7 @@ public class NewGameManager : MonoBehaviour
 
     [SerializeField] private UICntrl uiCntrl;
 
-    //private NewGameState state = NewGameState.IDLE;
-
-    private LevelData levelData = null;
+    private LevelData levelData = new LevelData();
 
     public void NewGameAction()
     {
@@ -20,28 +18,28 @@ public class NewGameManager : MonoBehaviour
 
     public void StartTutorialLevel()
     {
-        levelData = new LevelData(LevelType.TUTORIAL);
+        levelData.SetType(LevelType.TUTORIAL);
 
         uiCntrl.RenderSelectFighterPanel();
     }
 
     public void StartHavocLevel()
     {
-        levelData = new LevelData(LevelType.HAVOC);
+        levelData.SetType(LevelType.HAVOC);
 
         uiCntrl.RenderSelectFighterPanel();
     }
 
     public void StartBerserkLevel()
     {
-        levelData = new LevelData(LevelType.BERSERK);
+        levelData.SetType(LevelType.BERSERK);
 
         uiCntrl.RenderSelectFighterPanel();
     }
 
     public void StartGamePlayLevel()
     {
-        levelData = new LevelData(LevelType.LEVEL);
+        levelData.SetType(LevelType.LEVEL);
 
         uiCntrl.RenderSelectFighterPanel();
     }
@@ -53,7 +51,7 @@ public class NewGameManager : MonoBehaviour
 
     private void OnPlayerWins()
     {
-        uiCntrl.RaiseGamePlayLevel(levelData);
+        uiCntrl.SetGameLevel(levelData.RaiseGamePlayLevel());
     }
 
     /**
@@ -86,7 +84,7 @@ public class NewGameManager : MonoBehaviour
     {
         string loaded = File.ReadAllText(Application.dataPath + "/" + SAVE_FILE);
         SaveLoadObject slm = JsonUtility.FromJson<SaveLoadObject>(loaded);
-        levelData = new LevelData(LevelType.UNKNOWN);
+        levelData.SetType(LevelType.UNKNOWN);
         levelData.LoadState(slm, uiCntrl);
 
         uiCntrl.GetComponent<MainMenuCntrl>().StopFighterDisplay();

@@ -26,8 +26,8 @@ public class EnemyManager : MonoBehaviour
             case LevelType.BERSERK:
                 CreateRandomEnemies(fighter, 15);
                 break;
-            default:
-                CreateRandomEnemies(fighter, 2);
+            case LevelType.LEVEL:
+                CreateRandomEnemies(fighter, levelData.Level);
                 break;
         }
 

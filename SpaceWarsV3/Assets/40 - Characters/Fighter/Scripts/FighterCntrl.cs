@@ -60,6 +60,7 @@ public class FighterCntrl : MonoBehaviour
         if (engage)
         {
             //MoveFighterKeyBoard(Time.deltaTime);
+            MoveFighterController(Vector3.zero);
             ConstMoveFighterController();
         }
     }
@@ -195,23 +196,39 @@ public class FighterCntrl : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
 
-    private void MoveFighterController(Vector2 move)
+    private void MoveFighterController(Vector2 leftStick)
     {
-        float speed = 50.0f;
-        float throttle = 1.0f;
-
-        Debug.Log($"MoveFighterController => {move}");
-
         if (engage)
         {
-            if (move.magnitude > 0.1f)
+            Vector3 direction = new Vector3();
+
+            if (leftStick.magnitude > 0.1f)
             {
-                Vector3 direction = new Vector3(move.x, 0.0f, move.y).normalized;
+                direction = new Vector3(leftStick.x, 0.0f, leftStick.y).normalized;
+
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
-                Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 25.0f * Time.deltaTime);
+                Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 50.0f * Time.deltaTime);
                 transform.localRotation = playerRotation;
-                currentdirection = direction;
+
+                //currentdirection = direction;
             }
+
+            if (Mouse.current.leftButton.isPressed)
+            {
+                Debug.Log("Mouse Pressed ...");
+                Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    Debug.Log("Raycast Hit ...");
+                    Vector3 target = new Vector3(hit.point.x, 0.0f, hit.point.z);
+                    direction = (target - transform.position).normalized;
+
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 25.0f * Time.deltaTime);
+                    transform.localRotation = playerRotation;
+                }
+            }
+
         }
 
     }
@@ -247,8 +264,7 @@ public class FighterCntrl : MonoBehaviour
             }
         }
 
-        transform.Translate(transform.forward * speed * throttle * Time.deltaTime, Space.World);
-        clickingPlane.position = transform.position;
+         
     }
 
     /**
