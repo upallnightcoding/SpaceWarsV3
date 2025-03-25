@@ -38,6 +38,7 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private GameObject inventorySelectionPanel;
     [SerializeField] private GameObject engagementPanel;
     [SerializeField] private GameObject battlePanel;
+    [SerializeField] private GameObject settingPanel;
 
     [Header("Inventory List ...")]
     [SerializeField] public WeaponListCntrl ammoListCntrl;
@@ -86,9 +87,6 @@ public class UICntrl : MonoBehaviour
         CloseAllPanels();
         mainMenuPanel.SetActive(true);
 
-        Debug.Log($"Render Main Menu: ${mainMenu}");
-        Debug.Log($"Event System Current: ${EventSystem.current}");
-
         if (EventSystem.current)
         {
             EventSystem.current.SetSelectedGameObject(mainMenu);
@@ -131,6 +129,12 @@ public class UICntrl : MonoBehaviour
         selectLevelPanel.SetActive(true);
 
         EventSystem.current.SetSelectedGameObject(selectLevel);
+    }
+
+    public void RenderSettingPanel()
+    {
+        CloseAllPanels();
+        settingPanel.SetActive(true);
     }
 
     public void SetGameLevel(int value)
@@ -248,6 +252,7 @@ public class UICntrl : MonoBehaviour
         inventorySelectionPanel.SetActive(false);
         engagementPanel.SetActive(false);
         battlePanel.SetActive(false);
+        settingPanel.SetActive(false);
 
         if (EventSystem.current)
         {

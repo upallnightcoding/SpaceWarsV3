@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour, NewGameIf
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private Transform clickingPlane;
     [SerializeField] private CreateSpaceCntrl spaceCntrl;
+    [SerializeField] private AudioSource audioSource;
+
+    private float volume = 0.5f;
 
     public void Start()
     {
@@ -115,20 +118,44 @@ public class GameManager : MonoBehaviour, NewGameIf
         NewGameAction();
     }
 
+    public void ShowSettingsMenu()
+    {
+        uiCntrl.RenderSettingPanel();
+    }
+
+    public void ShowSettingMenuDone()
+    {
+        uiCntrl.RenderMainMenu();
+    }
+
+    public void VolumeUp()
+    {
+        volume += 0.1f;
+        if (volume > 1.0f) volume = 1.0f;
+        audioSource.volume = volume;
+    }
+
+    public void VolumeDown()
+    {
+        volume -= 0.1f;
+        if (volume < 0.0f) volume = 0.0f;
+        audioSource.volume = volume;
+    }
+
     private void OnEnable()
     {
-        EventManager.Instance.OnStartBattle += StartBattle;
-        EventManager.Instance.OnPlayerWins += OnPlayerWins;
-        EventManager.Instance.OnFighterHit += OnFighterHit;
-        EventManager.Instance.OnPlayerLooses += OnPlayerLooses;
+        EventManager.Instance.OnStartBattle     += StartBattle;
+        EventManager.Instance.OnPlayerWins      += OnPlayerWins;
+        EventManager.Instance.OnFighterHit      += OnFighterHit;
+        EventManager.Instance.OnPlayerLooses    += OnPlayerLooses;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnStartBattle -= StartBattle;
-        EventManager.Instance.OnPlayerWins -= OnPlayerWins;
-        EventManager.Instance.OnFighterHit -= OnFighterHit;
-        EventManager.Instance.OnPlayerLooses -= OnPlayerLooses;
+        EventManager.Instance.OnStartBattle     -= StartBattle;
+        EventManager.Instance.OnPlayerWins      -= OnPlayerWins;
+        EventManager.Instance.OnFighterHit      -= OnFighterHit;
+        EventManager.Instance.OnPlayerLooses    -= OnPlayerLooses;
     }
 }
 
