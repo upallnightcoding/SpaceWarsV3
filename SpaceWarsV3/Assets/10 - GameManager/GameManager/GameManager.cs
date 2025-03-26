@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour, NewGameIf
 
     /**
      * OnPlayerLooses() - Starts the process if a fighter has been 
-     * destroyed.
+     * destroyed.  A "You Loose" banner is displayed across the screen
      */
     private void OnPlayerLooses()
     {
@@ -85,6 +85,9 @@ public class GameManager : MonoBehaviour, NewGameIf
         spaceCntrl.EndEnvironment();
     }
 
+    /**
+     * OnDisengage() - 
+     */
     public void OnDisengage()
     {
         uiCntrl.BattleBanner("Disengage", this);
@@ -95,7 +98,9 @@ public class GameManager : MonoBehaviour, NewGameIf
     }
 
     /**
-     * OnPlayerWins() -
+     * OnPlayerWins() - Start the process if a player wins and all
+     * enemies have been destroyed.  The "Congratulations" banner is displayed
+     * across the screne.
      */
     private void OnPlayerWins()
     {
@@ -133,6 +138,7 @@ public class GameManager : MonoBehaviour, NewGameIf
         volume += 0.1f;
         if (volume > 1.0f) volume = 1.0f;
         audioSource.volume = volume;
+        uiCntrl.SetVolume(volume);
     }
 
     public void VolumeDown()
@@ -140,6 +146,7 @@ public class GameManager : MonoBehaviour, NewGameIf
         volume -= 0.1f;
         if (volume < 0.0f) volume = 0.0f;
         audioSource.volume = volume;
+        uiCntrl.SetVolume(volume);
     }
 
     private void OnEnable()

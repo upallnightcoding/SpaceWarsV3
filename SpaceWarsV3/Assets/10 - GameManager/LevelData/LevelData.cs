@@ -95,7 +95,6 @@ public enum LevelType
 {
     TUTORIAL = 0,
     HAVOC,
-    TOOEASY,
     BERSERK,
     LEVEL,
     UNKNOWN

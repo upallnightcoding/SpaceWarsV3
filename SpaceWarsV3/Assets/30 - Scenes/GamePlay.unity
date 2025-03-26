@@ -2222,6 +2222,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2701927015531931690, guid: 92f8188f3293a3b4799729bd3404f4f3,
+        type: 3}
+      propertyPath: m_Name
+      value: MissileSlider
+      objectReference: {fileID: 0}
     - target: {fileID: 4165071353670116795, guid: 92f8188f3293a3b4799729bd3404f4f3,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3404,6 +3409,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &397679411 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1819015288477377953, guid: 92f8188f3293a3b4799729bd3404f4f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 232714604}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &410694245
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5001,7 +5018,7 @@ GameObject:
   - component: {fileID: 484684589}
   - component: {fileID: 484684588}
   m_Layer: 5
-  m_Name: HealthDisplay
+  m_Name: MissileDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5405,6 +5422,8 @@ MonoBehaviour:
   ammoBarText: {fileID: 417661201}
   shieldsBar: {fileID: 1899822511}
   shieldsBarText: {fileID: 77868105}
+  missileBar: {fileID: 397679411}
+  missileBarText: {fileID: 484684588}
   mainMenuPanel: {fileID: 1777347122}
   fighterSelectionPanel: {fileID: 633744421}
   selectLevelPanel: {fileID: 862063094}
@@ -5419,6 +5438,7 @@ MonoBehaviour:
   bannerMessage: {fileID: 1178536989}
   gameLevel: {fileID: 1984060101}
   enemyCount: {fileID: 1618349551}
+  volumeText: {fileID: 544197076}
 --- !u!114 &504630907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5501,6 +5521,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701927015531931690, guid: 92f8188f3293a3b4799729bd3404f4f3,
+        type: 3}
+      propertyPath: m_Name
+      value: ShieldSlider
       objectReference: {fileID: 0}
     - target: {fileID: 4165071353670116795, guid: 92f8188f3293a3b4799729bd3404f4f3,
         type: 3}
@@ -5738,7 +5763,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0.0
+  m_text: 0.5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8090,7 +8115,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9e788916aefb7854f86b540e82ee3d59, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -15795,6 +15820,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7622556485446502583, guid: 1fc2b0390907f904d8e8d1de8d0b1bcd,
+        type: 3}
+      propertyPath: m_Name
+      value: AmmoSlider
+      objectReference: {fileID: 0}
     - target: {fileID: 7692599374385410637, guid: 1fc2b0390907f904d8e8d1de8d0b1bcd,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -15814,6 +15844,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7976045104374740343, guid: 1fc2b0390907f904d8e8d1de8d0b1bcd,
+        type: 3}
+      propertyPath: m_Name
+      value: HealthSlider
       objectReference: {fileID: 0}
     - target: {fileID: 8773744228597247406, guid: 1fc2b0390907f904d8e8d1de8d0b1bcd,
         type: 3}

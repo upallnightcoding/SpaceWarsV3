@@ -30,6 +30,8 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private TMP_Text ammoBarText;
     [SerializeField] private Slider shieldsBar;
     [SerializeField] private TMP_Text shieldsBarText;
+    [SerializeField] private Slider missileBar;
+    [SerializeField] private TMP_Text missileBarText;
 
     [Header("UI Panels ...")]
     [SerializeField] private GameObject mainMenuPanel;
@@ -51,6 +53,9 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private TMP_Text gameLevel;
     [SerializeField] private TMP_Text enemyCount;
 
+    [Header("Settings ...")]
+    [SerializeField] private TMP_Text volumeText;
+
     private WeaponSO[] ammoList;
     private WeaponSO[] missileList;
     private WeaponSO[] shieldList;
@@ -65,8 +70,8 @@ public class UICntrl : MonoBehaviour
 
         SetWeaponItems();
         UpdateHealthBar(100.0f);
-        UpdateShieldBar(100.0f, 100.0f);
-        UpdateAmmoBar(1, 1);
+        UpdateShieldBar(0.0f, 0.0f);
+        UpdateAmmoBar(0, 0);
     }
 
     /****************************/
@@ -91,6 +96,15 @@ public class UICntrl : MonoBehaviour
         {
             EventSystem.current.SetSelectedGameObject(mainMenu);
         }
+    }
+
+    /**
+     * SetVolume() - Sets the text volumn display.  This attribute is only
+     * available on the settings menu.
+     */
+    public void SetVolume(float volume)
+    {
+        volumeText.text = $"{volume:F1}";
     }
 
     /**
@@ -184,10 +198,21 @@ public class UICntrl : MonoBehaviour
     /*** Health & Status Bars ***/
     /****************************/
 
+    public void UpdateMissileBar(int delta)
+    {
+
+    }
+
     public void UpdateShieldBar(float shield, float maxShield)
     {
-        shieldsBar.value = shield / maxShield;
-        int percent = (int)(100.0f * shieldsBar.value);
+        int percent = 0;
+
+        if (maxShield > 0.0f)
+        {
+            shieldsBar.value = shield / maxShield;
+            percent = (int)(100.0f * shieldsBar.value);
+        } 
+
         shieldsBarText.text = $"{percent}%";
     }
 
@@ -210,9 +235,16 @@ public class UICntrl : MonoBehaviour
      */
     public void UpdateAmmoBar(int ammoCount, int maxAmmoCount)
     {
+        float percentage = 0.0f;
+
+        if (maxAmmoCount > 0)
+        {
+            percentage = (float)ammoCount / maxAmmoCount;
+        }
+
         ammoBar.image.color = Color.green;
-        ammoBar.value = (float)ammoCount / maxAmmoCount;
-        ammoBarText.text = $"{ammoCount}/{maxAmmoCount}";
+        ammoBar.value = percentage;
+        ammoBarText.text = $"{percentage}%";
     }
 
     /**
