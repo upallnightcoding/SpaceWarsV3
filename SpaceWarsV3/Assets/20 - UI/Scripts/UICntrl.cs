@@ -78,10 +78,24 @@ public class UICntrl : MonoBehaviour
     /*** Main Menu Selections ***/
     /****************************/
 
-    public void ResetBarStatus(LevelData levelData)
+    public void ResetAttributes(LevelData levelData)
     {
         UpdateHealthBar(100.0f);
+
+        float shieldDur = levelData.Shield.totalDurationSec;
+        UpdateShieldBar(shieldDur, shieldDur);
+
+        int maxAmmoCount = levelData.Ammo.maxRounds;
+        UpdateAmmoBar(maxAmmoCount, maxAmmoCount);
+
+        int maxMissiles = levelData.Missile.maxMissiles;
+        UpdateMissileBar(maxMissiles, maxMissiles);
     }
+
+    /*public void ResetBarStatus(LevelData levelData)
+    {
+        UpdateHealthBar(100.0f);
+    }*/
 
     /** 
      * RenderMainMenu() - Render the Main Menu, close any other menu before
@@ -198,9 +212,11 @@ public class UICntrl : MonoBehaviour
     /*** Health & Status Bars ***/
     /****************************/
 
-    public void UpdateMissileBar(int delta)
+    public void UpdateMissileBar(int count, int maxMissiles)
     {
-
+        float percent = count / (float) maxMissiles;
+        missileBar.value = percent;
+        missileBarText.text = $"{(100.0f * missileBar.value):F0}%";
     }
 
     public void UpdateShieldBar(float shield, float maxShield)
@@ -225,7 +241,7 @@ public class UICntrl : MonoBehaviour
     {
         healthBar.value = health / 100.0f;
         int percent = (int)(100.0f * healthBar.value);
-        healthBarText.text = $"{percent}%";
+        healthBarText.text = $"{percent:F0}%";
     }
 
     /**
@@ -244,7 +260,7 @@ public class UICntrl : MonoBehaviour
 
         ammoBar.image.color = Color.green;
         ammoBar.value = percentage;
-        ammoBarText.text = $"{percentage}%";
+        ammoBarText.text = $"{(int)(percentage * 100.0f):F0}%";
     }
 
     /**
@@ -309,6 +325,7 @@ public class UICntrl : MonoBehaviour
         EventManager.Instance.OnUpdateReload += UpdateReload;
         EventManager.Instance.OnUpdateShield += UpdateShieldBar;
         EventManager.Instance.OnSetEnemyCount += UpdateEnemyCount;
+        EventManager.Instance.OnUpdateMissile += UpdateMissileBar;
     }
 
     /**
@@ -320,5 +337,6 @@ public class UICntrl : MonoBehaviour
         EventManager.Instance.OnUpdateReload -= UpdateReload;
         EventManager.Instance.OnUpdateShield -= UpdateShieldBar;
         EventManager.Instance.OnSetEnemyCount -= UpdateEnemyCount;
+        EventManager.Instance.OnUpdateMissile -= UpdateMissileBar;
     }
 }

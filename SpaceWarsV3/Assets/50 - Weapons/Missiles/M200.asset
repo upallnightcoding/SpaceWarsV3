@@ -18,7 +18,6 @@ MonoBehaviour:
   description: "Range Missile, launches for one second and explodes, sending a shock
     wave in all direcitons.\t"
   sprite: {fileID: 21300000, guid: cd1cb6fa613455b4c97fcb39984fc1f7, type: 3}
-  cost: 20
   damage: 10
   ammoPrefab: {fileID: 0}
   destroyPrefab: {fileID: 0}
@@ -33,6 +32,7 @@ MonoBehaviour:
   missileType: 1
   detonationPrefab: {fileID: 8104649566931167219, guid: 01ad1ea72b0edfb4e8a077084538a2f3,
     type: 3}
+  maxMissiles: 20
   shieldPrefab: {fileID: 0}
   absorption: 0
   durationSec: 0

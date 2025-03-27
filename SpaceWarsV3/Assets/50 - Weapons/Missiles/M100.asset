@@ -18,7 +18,6 @@ MonoBehaviour:
   description: Star Missile, explodes in eight directions destroying everything in
     its path.
   sprite: {fileID: 21300000, guid: 45a94e168db02d441acbca97c251a7d1, type: 3}
-  cost: 10
   damage: 10
   ammoPrefab: {fileID: 0}
   destroyPrefab: {fileID: 0}
@@ -33,6 +32,7 @@ MonoBehaviour:
   missileType: 0
   detonationPrefab: {fileID: 7259939279390390408, guid: adf4bcf3bc47a8547b753baef780d983,
     type: 3}
+  maxMissiles: 20
   shieldPrefab: {fileID: 0}
   absorption: 0
   durationSec: 0

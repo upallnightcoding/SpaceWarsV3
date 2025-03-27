@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour, NewGameIf
         levelData.Missile = uiCntrl.missileListCntrl.GetCurrentWeapon();
         levelData.Shield = uiCntrl.shieldListCntrl.GetCurrentWeapon();
 
+        uiCntrl.ResetAttributes(levelData);
+
         GameObject fighter = Instantiate(levelData.Fighter, new Vector3(), Quaternion.identity);
         fighter.GetComponent<FighterCntrl>().SetLevel(levelData, clickingPlane);
         fighter.SetActive(true);

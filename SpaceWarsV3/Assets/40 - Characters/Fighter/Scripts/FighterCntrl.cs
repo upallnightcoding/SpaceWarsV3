@@ -26,6 +26,8 @@ public class FighterCntrl : MonoBehaviour
     //========================
     private int ammoCount = 0;
     private int maxAmmoCount = 0;
+    private int maxMissiles = 0;
+    private int missileCount = 0;
     private float reloadTime = 3.0f;
     private bool isReloading = false;
 
@@ -83,6 +85,9 @@ public class FighterCntrl : MonoBehaviour
         ammoCount = ammo.maxRounds;
         maxAmmoCount = ammo.maxRounds;
 
+        maxMissiles = missile.maxMissiles;
+        missileCount = missile.maxMissiles;
+
         float initialHealth = levelData.IsBerserk() ? 1000.0f : 100.0f;
         GetComponent<TakeDamageCntrl>().Init(initialHealth);
 
@@ -100,7 +105,7 @@ public class FighterCntrl : MonoBehaviour
                 if (!isReloading) StartCoroutine(FireAmmo());
                 break;
             case 2:
-                StartCoroutine(FireMissile());
+                if (maxMissiles > 0) StartCoroutine(FireMissile());
                 break;
             case 3:
                 if (totalShieldSec > 0.0f) StartCoroutine(ShieldsUp());
@@ -170,6 +175,8 @@ public class FighterCntrl : MonoBehaviour
         go.GetComponent<MissileCntrl>().Initialize(missile, ammo, firePoint);
 
         yield return new WaitForSeconds(0.1f);
+
+        EventManager.Instance.InvokeOnUpdateMissile(--missileCount, maxMissiles);
     }
 
     /**
@@ -184,9 +191,7 @@ public class FighterCntrl : MonoBehaviour
         go.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, ammo.ammoSound);
         Destroy(go, ammo.range);
 
-        ammoCount -= 1;
-
-        EventManager.Instance.InvokeOnUpdateAmmoBar(ammoCount, maxAmmoCount);
+        EventManager.Instance.InvokeOnUpdateAmmoBar(--ammoCount, maxAmmoCount);
 
         if (ammoCount == 0)
         {
@@ -209,17 +214,13 @@ public class FighterCntrl : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 50.0f * Time.deltaTime);
                 transform.localRotation = playerRotation;
-
-                //currentdirection = direction;
             }
 
             if (Mouse.current.leftButton.isPressed)
             {
-                Debug.Log("Mouse Pressed ...");
                 Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    Debug.Log("Raycast Hit ...");
                     Vector3 target = new Vector3(hit.point.x, 0.0f, hit.point.z);
                     direction = (target - transform.position).normalized;
 

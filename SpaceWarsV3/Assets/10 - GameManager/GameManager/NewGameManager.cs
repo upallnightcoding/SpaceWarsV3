@@ -21,8 +21,6 @@ public class NewGameManager : MonoBehaviour
         levelData.SetType(LevelType.TUTORIAL);
 
         uiCntrl.RenderSelectFighterPanel();
-
-        ResetAttributes();
     }
 
     public void StartHavocLevel()
@@ -30,8 +28,6 @@ public class NewGameManager : MonoBehaviour
         levelData.SetType(LevelType.HAVOC);
 
         uiCntrl.RenderSelectFighterPanel();
-
-        ResetAttributes();
     }
 
     public void StartBerserkLevel()
@@ -39,8 +35,6 @@ public class NewGameManager : MonoBehaviour
         levelData.SetType(LevelType.BERSERK);
 
         uiCntrl.RenderSelectFighterPanel();
-
-        ResetAttributes();
     }
 
     public void StartGamePlayLevel()
@@ -48,8 +42,6 @@ public class NewGameManager : MonoBehaviour
         levelData.SetType(LevelType.LEVEL);
 
         uiCntrl.RenderSelectFighterPanel();
-
-        ResetAttributes();
     }
 
     public void SelectFighter()
@@ -57,10 +49,7 @@ public class NewGameManager : MonoBehaviour
         uiCntrl.RenderSelectFighterPanel();
     }
 
-    private void ResetAttributes()
-    {
-        uiCntrl.UpdateHealthBar(100.0f);
-    }
+   
 
     private void OnPlayerWins()
     {

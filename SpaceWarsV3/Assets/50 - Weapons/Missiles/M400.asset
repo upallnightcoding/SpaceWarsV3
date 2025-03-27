@@ -17,7 +17,6 @@ MonoBehaviour:
   weaponIndex: 3
   description: 
   sprite: {fileID: 21300000, guid: 3f709e1650710004f814136e277d4c8f, type: 3}
-  cost: 40
   damage: 20
   ammoPrefab: {fileID: 0}
   destroyPrefab: {fileID: 0}
@@ -32,6 +31,7 @@ MonoBehaviour:
   missileType: 3
   detonationPrefab: {fileID: 7259939279390390408, guid: adf4bcf3bc47a8547b753baef780d983,
     type: 3}
+  maxMissiles: 20
   shieldPrefab: {fileID: 0}
   absorption: 0
   durationSec: 0

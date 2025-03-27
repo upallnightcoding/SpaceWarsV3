@@ -32,6 +32,7 @@ MonoBehaviour:
   missileType: 2
   detonationPrefab: {fileID: 7307340448404331104, guid: 10d1f41db1d30794eb7c7ab9a10b1a7c,
     type: 3}
+  maxMissiles: 20
   shieldPrefab: {fileID: 0}
   absorption: 0
   durationSec: 0
