@@ -51,6 +51,7 @@ MonoBehaviour:
   gameData: {fileID: 11400000, guid: fa3e569a7ff8ee8488b0e097dae41cd2, type: 2}
   firePoint: {fileID: 9041812419035560634}
   fighterId: 0
+  deltaLimit: 1
 --- !u!65 &3108123395211378949
 BoxCollider:
   m_ObjectHideFlags: 0

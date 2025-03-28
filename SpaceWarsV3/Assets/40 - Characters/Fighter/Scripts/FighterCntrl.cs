@@ -8,6 +8,7 @@ public class FighterCntrl : MonoBehaviour
     [SerializeField] private GameDataSO gameData;
     [SerializeField] private GameObject firePoint;
     [SerializeField] private int fighterId = -1;
+    [SerializeField] private float deltaLimit;
 
     //public void EngageEnemy() => engage = true;
 
@@ -38,6 +39,8 @@ public class FighterCntrl : MonoBehaviour
     private WeaponSO missile;
 
     private bool engage = false;
+
+    private Vector3 lastClickPoint = new Vector3();
 
     private float totalShieldSec;
 
@@ -221,12 +224,17 @@ public class FighterCntrl : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    Vector3 target = new Vector3(hit.point.x, 0.0f, hit.point.z);
-                    direction = (target - transform.position).normalized;
+                    Vector3 clickPoint = new Vector3(hit.point.x, 0.0f, hit.point.z);
+                    float delta = Vector3.Distance(clickPoint, lastClickPoint);
 
-                    Quaternion targetRotation = Quaternion.LookRotation(direction);
-                    Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 25.0f * Time.deltaTime);
-                    transform.localRotation = playerRotation;
+                    if (delta > deltaLimit)
+                    {
+                        direction = (clickPoint - transform.position).normalized;
+                        Quaternion targetRotation = Quaternion.LookRotation(direction);
+                        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 25.0f * Time.deltaTime);
+                        transform.localRotation = playerRotation;
+                        lastClickPoint = clickPoint;
+                    } 
                 }
             }
 

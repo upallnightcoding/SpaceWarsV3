@@ -34,8 +34,6 @@ public class EngagementCntrl : MonoBehaviour
             transitionTime -= Time.deltaTime;
         }
 
-        Debug.Log("IEnumerator StartFighterEngagement");
-
         EventManager.Instance.InvokeOnStartBattle(levelData);
 
         DisplayEngageCountDown(5);

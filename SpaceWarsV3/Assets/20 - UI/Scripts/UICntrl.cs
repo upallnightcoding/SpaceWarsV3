@@ -92,11 +92,6 @@ public class UICntrl : MonoBehaviour
         UpdateMissileBar(maxMissiles, maxMissiles);
     }
 
-    /*public void ResetBarStatus(LevelData levelData)
-    {
-        UpdateHealthBar(100.0f);
-    }*/
-
     /** 
      * RenderMainMenu() - Render the Main Menu, close any other menu before
      * displaying main menu.

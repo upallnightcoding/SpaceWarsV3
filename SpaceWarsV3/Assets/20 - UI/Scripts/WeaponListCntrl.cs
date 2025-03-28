@@ -28,6 +28,9 @@ public class WeaponListCntrl : MonoBehaviour
         {
             weaponListItem[nWeapons++].Set(weapon);
         }
+
+        // Select the first button as default
+        SelectedButton(0);
     }
 
     /**
