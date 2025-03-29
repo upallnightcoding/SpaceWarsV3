@@ -13,8 +13,8 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject selectLevel;
     [SerializeField] private GameObject selectShip;
-    [SerializeField] private GameObject firstAmmo;
     [SerializeField] private GameObject engagementButton;
+    [SerializeField] private GameObject inventoryDone;
 
     [Header("UI Controllers ...")]
     [SerializeField] private FighterSelectionCntrl fighterSelectionCntrl;
@@ -178,7 +178,7 @@ public class UICntrl : MonoBehaviour
     {
         CloseAllPanels();
         inventorySelectionPanel.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(firstAmmo);
+        EventSystem.current.SetSelectedGameObject(inventoryDone);
     }
 
     /**
