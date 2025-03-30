@@ -42,19 +42,19 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private GameObject battlePanel;
     [SerializeField] private GameObject settingPanel;
 
+    [Header("Settings ...")]
+    [SerializeField] private TMP_Text volumeText;
+
     [Header("Inventory List ...")]
-    [SerializeField] public WeaponListCntrl ammoListCntrl;
-    [SerializeField] public WeaponListCntrl missileListCntrl;
-    [SerializeField] public WeaponListCntrl shieldListCntrl;
+    [SerializeField] public WeaponsSelectionListCntrl ammoListCntrl;
+    [SerializeField] public WeaponsSelectionListCntrl missileListCntrl;
+    [SerializeField] public WeaponsSelectionListCntrl shieldListCntrl;
 
     [Header("Battle Attributes ...")]
     [SerializeField] private GameObject banner;
     [SerializeField] private TMP_Text bannerMessage;
     [SerializeField] private TMP_Text gameLevel;
     [SerializeField] private TMP_Text enemyCount;
-
-    [Header("Settings ...")]
-    [SerializeField] private TMP_Text volumeText;
 
     private WeaponSO[] ammoList;
     private WeaponSO[] missileList;

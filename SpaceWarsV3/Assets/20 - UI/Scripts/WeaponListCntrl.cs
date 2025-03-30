@@ -20,9 +20,9 @@ public class WeaponListCntrl : MonoBehaviour
     /**
      * SetItem() - 
      */
-    public void SetItem(WeaponSO[] weaponList)
+    public void xxSetItem(WeaponSO[] weaponList)
     {
-        InitializeWeaponsDisplay();
+        xxInitializeWeaponsDisplay();
 
         foreach (WeaponSO weapon in weaponList)
         {
@@ -30,13 +30,13 @@ public class WeaponListCntrl : MonoBehaviour
         }
 
         // Select the first button as default
-        SelectedButton(0);
+        xxSelectedButton(0);
     }
 
     /**
      * SelectedButton() - 
      */
-    public void SelectedButton(int index)
+    public void xxSelectedButton(int index)
     {
        
         if (currentWeapon != -1)
@@ -56,7 +56,7 @@ public class WeaponListCntrl : MonoBehaviour
      * required to be seen.  This means that a weapon must be available
      * to be displayed.
      */
-    private void InitializeWeaponsDisplay()
+    private void xxInitializeWeaponsDisplay()
     {
         foreach (WeaponListItemCntrl item in weaponListItem)
         {
