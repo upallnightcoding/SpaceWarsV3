@@ -191,7 +191,7 @@ public class FighterCntrl : MonoBehaviour
     {
         GameObject go = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
         go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
-        go.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, ammo.ammoSound);
+        go.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, ammo.ammoSound, gameData.sparksPrefab);
         Destroy(go, ammo.range);
 
         EventManager.Instance.InvokeOnUpdateAmmoBar(--ammoCount, maxAmmoCount);
@@ -215,7 +215,7 @@ public class FighterCntrl : MonoBehaviour
                 direction = new Vector3(leftStick.x, 0.0f, leftStick.y).normalized;
 
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
-                Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 50.0f * Time.deltaTime);
+                Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
                 transform.localRotation = playerRotation;
             }
 
@@ -231,7 +231,7 @@ public class FighterCntrl : MonoBehaviour
                     {
                         direction = (clickPoint - transform.position).normalized;
                         Quaternion targetRotation = Quaternion.LookRotation(direction);
-                        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 25.0f * Time.deltaTime);
+                        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
                         transform.localRotation = playerRotation;
                         lastClickPoint = clickPoint;
                     } 

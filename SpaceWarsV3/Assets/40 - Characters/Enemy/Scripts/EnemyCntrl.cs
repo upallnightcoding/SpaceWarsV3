@@ -17,7 +17,7 @@ public class EnemyCntrl : MonoBehaviour
     private bool readyToFire = false;
 
     private float speed = 0.0f;
-    private float minDistance = 50.0f;
+    private float minDistance = 150.0f;
     private EnemyState currentState = EnemyState.IDLE;
     private Vector3 avoidDirection;
     //private float disengageTimer;
@@ -92,25 +92,53 @@ public class EnemyCntrl : MonoBehaviour
         Vector3 playerPos = fighter.transform.position;
         Vector3 target = new Vector3(playerPos.x, 0.0f, playerPos.z);
 
-        if (Vector3.Distance(target, transform.position) > minDistance)
+        if (Random.Range(0, 250) == 0)
         {
-            Vector3 direction = (target - transform.position).normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 2.0f * Time.deltaTime);
+            AttackRange(transform.position, transform.forward, playerPos);
+        }
 
-            transform.localRotation = playerRotation;
-            transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
-        } else
+        Vector3 direction = (target - transform.position).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 30.0f * Time.deltaTime);
+
+        transform.localRotation = playerRotation;
+        transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
+
+        if (Vector3.Distance(target, transform.position) < minDistance)
         {
             if (readyToFire)
             {
-                FireMissle();
+                FireMissle(transform.forward);
             }
 
             state = EnemyState.AVOID;
         }
 
         return (state);
+    }
+
+    /**
+     * AttackRange() - 
+     */
+    private void AttackRange(Vector3 enemyPos, Vector3 enemyForward, Vector3 fighterPos)
+    {
+        float minAttackRange = 90.0f;
+        float maxAttackAngle = 0.5f;
+
+        Vector3 targetVector = fighterPos - enemyPos;
+
+        Debug.Log($"AttackRange ... {targetVector.magnitude}/{minAttackRange}");
+
+        if (targetVector.magnitude < minAttackRange)
+        {
+            float angle = Vector3.Dot(targetVector.normalized, enemyForward.normalized);
+            Debug.Log($"Attack ... {angle}/{maxAttackAngle}");
+
+            if (Vector3.Dot(targetVector, enemyForward) > maxAttackAngle)
+            {
+                FireMissle(targetVector);
+            }
+        }
     }
 
     private EnemyState State_Avoid()
@@ -160,11 +188,11 @@ public class EnemyCntrl : MonoBehaviour
         currentState = EnemyState.COMBAT;
     }
 
-    private void FireMissle()
+    private void FireMissle(Vector3 direction)
     {
         GameObject missile = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
-        missile.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
-        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_ENEMY, ammo.destroyPrefab, ammo.damage, ammo.ammoSound);
+        missile.GetComponentInChildren<Rigidbody>().AddForce(direction * ammo.force, ForceMode.Impulse);
+        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_ENEMY, ammo.destroyPrefab, ammo.damage, ammo.ammoSound, gameData.sparksPrefab);
         Destroy(missile, ammo.range);
 
         ammoCount -= 1;

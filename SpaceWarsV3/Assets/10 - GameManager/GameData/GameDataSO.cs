@@ -11,6 +11,7 @@ public class GameDataSO : ScriptableObject
 
     [Header("Fighters ...")]
     public FighterSO[] fighterList;
+    public GameObject sparksPrefab;
 
     [Header("Camera Positions ...")]
     public Vector3 cameraEngagementPosition;

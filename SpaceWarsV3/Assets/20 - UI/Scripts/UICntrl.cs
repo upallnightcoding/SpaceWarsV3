@@ -15,6 +15,7 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private GameObject selectShip;
     [SerializeField] private GameObject engagementButton;
     [SerializeField] private GameObject inventoryDone;
+    [SerializeField] private GameObject settingDone;
 
     [Header("UI Controllers ...")]
     [SerializeField] private FighterSelectionCntrl fighterSelectionCntrl;
@@ -158,6 +159,8 @@ public class UICntrl : MonoBehaviour
     {
         CloseAllPanels();
         settingPanel.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(settingDone);
     }
 
     public void SetGameLevel(int value)

@@ -5930,6 +5930,7 @@ MonoBehaviour:
   selectShip: {fileID: 259640984}
   engagementButton: {fileID: 584931589}
   inventoryDone: {fileID: 1428945353}
+  settingDone: {fileID: 555525191}
   fighterSelectionCntrl: {fileID: 504630907}
   uIAnimationCntrl: {fileID: 129994710}
   mainMenuCntrl: {fileID: 504630909}
@@ -6714,6 +6715,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 551270237}
   m_CullTransparentMesh: 1
+--- !u!1 &555525191 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5221719105524973036, guid: fa9d5d2d351bb524980442abd79b14db,
+    type: 3}
+  m_PrefabInstance: {fileID: 1624274669}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &584931589 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5221719105524973036, guid: fa9d5d2d351bb524980442abd79b14db,

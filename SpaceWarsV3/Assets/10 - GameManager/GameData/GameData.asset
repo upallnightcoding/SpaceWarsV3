@@ -20,6 +20,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 97f32984cdbf83d4f9e827a92e8fb264, type: 2}
   - {fileID: 11400000, guid: d79953be5aec03547b981730b4d1c105, type: 2}
   - {fileID: 11400000, guid: f342b90c2453c954ba20254686a0e5b8, type: 2}
+  sparksPrefab: {fileID: 3610321968655362792, guid: 64201e56c02bc454f876b03ef72b060b,
+    type: 3}
   cameraEngagementPosition: {x: 0, y: 150, z: 0}
   cameraEngagementRotation: {x: 90, y: 0, z: 0}
   cameraIdlePosition: {x: 0, y: 1, z: -10}

@@ -8,14 +8,22 @@ public class AmmoCntrl : MonoBehaviour
     private string originator = "";
     private bool active;
     private float damage;
+    private GameObject sparksPrefab = null;
 
-    public void Initialize(string originator, GameObject destroyPrefab, float damage, AudioClip audioClip)
+    public void Initialize(
+        string originator, 
+        GameObject destroyPrefab, 
+        float damage, 
+        AudioClip audioClip, 
+        GameObject sparksPrefab = null
+    )
     {
         GetComponent<AudioSource>().PlayOneShot(audioClip);
 
         this.destroyPrefab  = destroyPrefab;
         this.originator     = originator;
         this.damage         = damage;
+        this.sparksPrefab   = sparksPrefab;
 
         active = true;
     }
@@ -23,7 +31,7 @@ public class AmmoCntrl : MonoBehaviour
     /**
      * OnTriggerExit() - 
      */
-    private void OnTriggerExit(Collider obstacle)
+    private void OnTriggerEnter(Collider obstacle)
     {
         if (!obstacle.CompareTag(originator) && active)
         {
@@ -31,6 +39,7 @@ public class AmmoCntrl : MonoBehaviour
 
             if (obstacle.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc))
             {
+               
                 if (tdc.TakeDamage(damage))
                 {
                     if (destroyPrefab)
@@ -53,7 +62,14 @@ public class AmmoCntrl : MonoBehaviour
                     Destroy(obstacle.transform.gameObject);
                 } else
                 {
-                    switch(obstacle.tag)
+                    if (sparksPrefab)
+                    {
+                        GameObject prefab = Instantiate(sparksPrefab, transform.position, Quaternion.identity);
+                        prefab.transform.localScale = new Vector3(15.0f, 15.0f, 15.0f);
+                        Destroy(prefab, 0.5f);
+                    }
+
+                    switch (obstacle.tag)
                     {
                         case "Fighter":
                             EventManager.Instance.InvokeOnFighterHit(tdc.RemainingHealth());
