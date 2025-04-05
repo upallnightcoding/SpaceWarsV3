@@ -14,8 +14,6 @@ public class WavePortalCntrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider obstacle)
     {
-        Debug.Log($"On Trigger Exit WavePortalCntrl: {obstacle.gameObject.tag}");
-
         if (obstacle.CompareTag("Fighter"))
         {
             if (obstacle.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc))

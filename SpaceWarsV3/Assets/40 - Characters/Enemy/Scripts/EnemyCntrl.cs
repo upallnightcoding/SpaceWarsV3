@@ -92,14 +92,15 @@ public class EnemyCntrl : MonoBehaviour
         Vector3 playerPos = fighter.transform.position;
         Vector3 target = new Vector3(playerPos.x, 0.0f, playerPos.z);
 
-        if (Random.Range(0, 250) == 0)
+        if (Random.Range(0, 200) == 0)
         {
-            AttackRange(transform.position, transform.forward, playerPos);
+            StartCoroutine(AttackRange(transform.position, transform.forward, playerPos));
         }
 
         Vector3 direction = (target - transform.position).normalized;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 30.0f * Time.deltaTime);
+        //Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 70.0f * Time.deltaTime);
+        Quaternion playerRotation = targetRotation;
 
         transform.localRotation = playerRotation;
         transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
@@ -120,19 +121,18 @@ public class EnemyCntrl : MonoBehaviour
     /**
      * AttackRange() - 
      */
-    private void AttackRange(Vector3 enemyPos, Vector3 enemyForward, Vector3 fighterPos)
+    private IEnumerator AttackRange(Vector3 enemyPos, Vector3 enemyForward, Vector3 fighterPos)
     {
         float minAttackRange = 90.0f;
         float maxAttackAngle = 0.5f;
 
         Vector3 targetVector = fighterPos - enemyPos;
 
-        Debug.Log($"AttackRange ... {targetVector.magnitude}/{minAttackRange}");
+        yield return null;
 
         if (targetVector.magnitude < minAttackRange)
         {
             float angle = Vector3.Dot(targetVector.normalized, enemyForward.normalized);
-            Debug.Log($"Attack ... {angle}/{maxAttackAngle}");
 
             if (Vector3.Dot(targetVector, enemyForward) > maxAttackAngle)
             {

@@ -215,8 +215,8 @@ public class FighterCntrl : MonoBehaviour
                 direction = new Vector3(leftStick.x, 0.0f, leftStick.y).normalized;
 
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
-                Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
-                transform.localRotation = playerRotation;
+                //Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
+                transform.localRotation = targetRotation;
             }
 
             if (Mouse.current.leftButton.isPressed)
@@ -231,8 +231,8 @@ public class FighterCntrl : MonoBehaviour
                     {
                         direction = (clickPoint - transform.position).normalized;
                         Quaternion targetRotation = Quaternion.LookRotation(direction);
-                        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
-                        transform.localRotation = playerRotation;
+                        //Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
+                        transform.localRotation = targetRotation;
                         lastClickPoint = clickPoint;
                     } 
                 }
