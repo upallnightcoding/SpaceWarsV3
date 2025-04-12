@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5785174332849104456}
   - component: {fileID: 3108123395211378949}
   - component: {fileID: -1459134744853802035}
+  - component: {fileID: -5603163903268074472}
   m_Layer: 0
   m_Name: Fighter_01
   m_TagString: Fighter
@@ -83,6 +84,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59483bf092b409d49a5d0a43d5d65327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-5603163903268074472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340255076175430690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec281d10289b5341b94d7c80f44309d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &9041812419035560634

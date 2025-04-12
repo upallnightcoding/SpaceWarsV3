@@ -46,7 +46,7 @@ public class EnemyManager : MonoBehaviour
 
             int choose = Random.Range(0, enemyList.Length);
             GameObject enemy = Instantiate(enemyList[choose], enemyPos, Quaternion.identity);
-            enemy.GetComponent<EnemyCntrl>().Set(fighter);
+            enemy.GetComponent<EnemyCntrl>().Set(fighter, enemyIndex);
             enemy.GetComponent<TakeDamageCntrl>().Set(enemyIndex);
             enemy.GetComponentInChildren<NearDeathCntrl>().Set(enemyIndex);
             enemyCount++;

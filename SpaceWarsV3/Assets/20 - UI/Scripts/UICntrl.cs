@@ -57,9 +57,14 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private TMP_Text gameLevel;
     [SerializeField] private TMP_Text enemyCount;
 
+    [Header("Mini Radar ...")]
+    [SerializeField] private RectTransform[] enemyRadar;
+
     private WeaponSO[] ammoList;
     private WeaponSO[] missileList;
     private WeaponSO[] shieldList;
+
+    private Dictionary<int, RectTransform> miniRadar = null;
 
     private int gamePlayLevel = 1;
 
@@ -68,6 +73,8 @@ public class UICntrl : MonoBehaviour
         ammoList = gameData.ammoList;
         missileList = gameData.missileList;
         shieldList = gameData.shieldList;
+
+        miniRadar = new Dictionary<int, RectTransform>();
 
         SetWeaponItems();
         UpdateHealthBar(100.0f);
@@ -78,6 +85,22 @@ public class UICntrl : MonoBehaviour
     /****************************/
     /*** Main Menu Selections ***/
     /****************************/
+
+    public void OnRadarUpdate(bool action, int enemy, Vector3 position)
+    {
+        if (action)
+        {
+            enemyRadar[enemy].gameObject.SetActive(true);
+
+            float x = (float)((80.0f * position.x) / 500.0f);
+            float y = (float)((80.0f * position.z) / 500.0f);
+
+            enemyRadar[enemy].localPosition = new Vector3(x, y, 0.0f);
+        } else
+        {
+            enemyRadar[enemy].gameObject.SetActive(false);
+        }
+    }
 
     public void ResetAttributes(LevelData levelData)
     {
@@ -324,6 +347,7 @@ public class UICntrl : MonoBehaviour
         EventManager.Instance.OnUpdateShield += UpdateShieldBar;
         EventManager.Instance.OnSetEnemyCount += UpdateEnemyCount;
         EventManager.Instance.OnUpdateMissile += UpdateMissileBar;
+        EventManager.Instance.OnRadarUpdate += OnRadarUpdate;
     }
 
     /**
@@ -336,5 +360,6 @@ public class UICntrl : MonoBehaviour
         EventManager.Instance.OnUpdateShield -= UpdateShieldBar;
         EventManager.Instance.OnSetEnemyCount -= UpdateEnemyCount;
         EventManager.Instance.OnUpdateMissile -= UpdateMissileBar;
+        EventManager.Instance.OnRadarUpdate -= OnRadarUpdate;
     }
 }

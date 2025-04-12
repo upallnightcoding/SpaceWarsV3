@@ -9,13 +9,13 @@ public class CreateSpaceCntrl : MonoBehaviour
     [SerializeField] private GameObject[] spacePortal;
     [SerializeField] private GameObject[] panets;
 
-    private float cloudSpace = 500.0f;
+    private float cloudSpace = 50.0f;
     private float portalSpace = 200.0f;
     private float panetsSpace = 100.0f;
 
     private bool startSpaceCntrl = false;
 
-    private float destroySec = 3.0f;
+    private float destroySec = 60.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +41,7 @@ public class CreateSpaceCntrl : MonoBehaviour
     {
         while (startSpaceCntrl)
         {
-            if (Random.Range(0, 10) == 0)
+            if (Random.Range(0, 20) == 0)
             {
                 Vector2 pos = Random.insideUnitCircle * cloudSpace;
                 Vector3 position = new Vector3(pos.x, 0.0f, pos.y) + clickingPlane.position;

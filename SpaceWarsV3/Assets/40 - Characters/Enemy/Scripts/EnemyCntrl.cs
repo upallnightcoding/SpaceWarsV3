@@ -16,18 +16,16 @@ public class EnemyCntrl : MonoBehaviour
     // Keep the enemy from firing until game play is ready
     private bool readyToFire = false;
 
-    private float speed = 0.0f;
+    private float speed = 25.0f;
     private float minDistance = 150.0f;
     private EnemyState currentState = EnemyState.IDLE;
     private Vector3 avoidDirection;
-    //private float disengageTimer;
-    private EnemyState oldState = EnemyState.COMBAT;
+    private int enemyIndex;
+    private bool runRadar = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        speed = 25.0f;
-
         ammoCount = ammo.maxRounds;
 
         GetComponent<TakeDamageCntrl>().Init(100.0f);
@@ -35,9 +33,12 @@ public class EnemyCntrl : MonoBehaviour
         StartCoroutine(PauseFiringDuringStartup());
     }
 
-    public void Set(GameObject fighter)
+    public void Set(GameObject fighter, int enemyIndex)
     {
-        this.fighter = fighter;
+        this.fighter        = fighter;
+        this.enemyIndex     = enemyIndex;
+
+        StartCoroutine(UpdateRadar());
     }
 
     private void Update()
@@ -62,6 +63,17 @@ public class EnemyCntrl : MonoBehaviour
                     DestroyRequest();
                     break;
             }
+        }
+    }
+
+    private IEnumerator UpdateRadar()
+    {
+        while(runRadar)
+        {
+            Debug.Log($"Update Radar: {enemyIndex}/{transform.position}");
+            Vector3 normalizedPos = new Vector3(transform.position.x - fighter.transform.position.x, 0.0f, transform.position.z - fighter.transform.position.z);
+            EventManager.Instance.InvokeOnRadarUpdate(true, enemyIndex, normalizedPos);
+            yield return new WaitForSeconds(1.0f);
         }
     }
 
@@ -103,16 +115,16 @@ public class EnemyCntrl : MonoBehaviour
         Quaternion playerRotation = targetRotation;
 
         transform.localRotation = playerRotation;
-        transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
+        transform.Translate(transform.forward * speed * Time.deltaTime, Space.Self);
 
         if (Vector3.Distance(target, transform.position) < minDistance)
         {
             if (readyToFire)
             {
-                FireMissle(transform.forward);
+                //FireMissle(transform.forward);
             }
 
-            state = EnemyState.AVOID;
+            //state = EnemyState.AVOID;
         }
 
         return (state);
@@ -173,6 +185,8 @@ public class EnemyCntrl : MonoBehaviour
      */
     private void DestroyRequest()
     {
+        runRadar = false;
+        Debug.Log($"Enemy Destroyed: {enemyIndex}");
         Destroy(gameObject);
     }
 
@@ -206,6 +220,12 @@ public class EnemyCntrl : MonoBehaviour
     private void OnDisable()
     {
         EventManager.Instance.OnDestroyAllShips -= DestroyRequest;
+    }
+
+    private void OnDestroy()
+    {
+        runRadar = false;
+        EventManager.Instance.InvokeOnRadarUpdate(false, enemyIndex, Vector3.zero);
     }
 
     private enum EnemyState

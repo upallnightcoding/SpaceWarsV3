@@ -9,6 +9,10 @@ public class EventManager
     public event Action<int> OnSetEnemyCount = delegate { };
     public void InvokeOnSetEnemyCount(int value) => OnSetEnemyCount.Invoke(value);
 
+    public event Action<bool, int, Vector3> OnRadarUpdate = delegate { };
+    public void InvokeOnRadarUpdate(bool action, int enemy, Vector3 position)
+        => OnRadarUpdate(action, enemy, position);
+
     // Disengage
     public event Action OnDisengage = delegate { };
     public void InvokeOnDisengage() => OnDisengage.Invoke();
