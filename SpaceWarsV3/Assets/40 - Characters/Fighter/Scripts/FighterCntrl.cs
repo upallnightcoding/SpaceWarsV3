@@ -173,13 +173,16 @@ public class FighterCntrl : MonoBehaviour
      */
     private IEnumerator FireMissile()
     {
-        GameObject go = Instantiate(missile.missilePrefab, firePoint.transform.position, transform.rotation);
-        go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * missile.missileForce, ForceMode.Impulse);
-        go.GetComponent<MissileCntrl>().Initialize(missile, ammo, firePoint);
+        if (missileCount > 0)
+        {
+            GameObject go = Instantiate(missile.missilePrefab, firePoint.transform.position, transform.rotation);
+            go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * missile.missileForce, ForceMode.Impulse);
+            go.GetComponent<MissileCntrl>().Initialize(missile, ammo, firePoint);
 
-        yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.1f);
 
-        EventManager.Instance.InvokeOnUpdateMissile(--missileCount, maxMissiles);
+            EventManager.Instance.InvokeOnUpdateMissile(--missileCount, maxMissiles);
+        }
     }
 
     /**

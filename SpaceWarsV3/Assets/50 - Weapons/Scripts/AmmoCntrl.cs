@@ -52,6 +52,7 @@ public class AmmoCntrl : MonoBehaviour
                     {
                         case "Enemy":
                             EventManager.Instance.InvokeOnDestroyEnemyShip();
+                            Destroy(obstacle.transform.gameObject);
                             break;
                         case "Fighter":
                             EventManager.Instance.InvokeOnFighterHit(tdc.RemainingHealth());
@@ -59,7 +60,7 @@ public class AmmoCntrl : MonoBehaviour
                             break;
                     }
 
-                    Destroy(obstacle.transform.gameObject);
+                    
                 } else
                 {
                     if (sparksPrefab)

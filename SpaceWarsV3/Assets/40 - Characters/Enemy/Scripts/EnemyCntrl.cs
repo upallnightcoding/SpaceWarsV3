@@ -11,6 +11,8 @@ public class EnemyCntrl : MonoBehaviour
     // Get the player reference from the hierarchy
     private GameObject fighter = null;
 
+    private IEnumerator destoryRequestFunc;
+
     private int ammoCount = 0;
 
     // Keep the enemy from firing until game play is ready
@@ -38,7 +40,9 @@ public class EnemyCntrl : MonoBehaviour
         this.fighter        = fighter;
         this.enemyIndex     = enemyIndex;
 
-        StartCoroutine(UpdateRadar());
+        destoryRequestFunc = UpdateRadar();
+
+        StartCoroutine(destoryRequestFunc);
     }
 
     private void Update()
@@ -75,6 +79,8 @@ public class EnemyCntrl : MonoBehaviour
             EventManager.Instance.InvokeOnRadarUpdate(true, enemyIndex, normalizedPos);
             yield return new WaitForSeconds(1.0f);
         }
+
+        
     }
 
     /**
@@ -186,6 +192,7 @@ public class EnemyCntrl : MonoBehaviour
     private void DestroyRequest()
     {
         runRadar = false;
+        StopCoroutine(destoryRequestFunc);
         Debug.Log($"Enemy Destroyed: {enemyIndex}");
         Destroy(gameObject);
     }

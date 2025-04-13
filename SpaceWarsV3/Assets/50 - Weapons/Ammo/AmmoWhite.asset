@@ -25,12 +25,13 @@ MonoBehaviour:
   maxRounds: 40
   reloadSec: 2
   range: 2
-  force: 300
+  force: 200
   ammoSound: {fileID: 8300000, guid: d997f4c23427a1a4894a8485df3662b6, type: 3}
   missilePrefab: {fileID: 0}
   missileForce: 0
   missileType: 4
   detonationPrefab: {fileID: 0}
+  maxMissiles: 0
   shieldPrefab: {fileID: 0}
   absorption: 0
   durationSec: 0

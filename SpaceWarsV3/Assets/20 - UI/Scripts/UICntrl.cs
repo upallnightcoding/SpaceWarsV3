@@ -58,7 +58,8 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private TMP_Text enemyCount;
 
     [Header("Mini Radar ...")]
-    [SerializeField] private RectTransform[] enemyRadar;
+    [SerializeField] private GameObject enemyRadar;
+    [SerializeField] private Transform radarComponent;
 
     private WeaponSO[] ammoList;
     private WeaponSO[] missileList;
@@ -90,15 +91,26 @@ public class UICntrl : MonoBehaviour
     {
         if (action)
         {
-            enemyRadar[enemy].gameObject.SetActive(true);
-
             float x = (float)((80.0f * position.x) / 500.0f);
             float y = (float)((80.0f * position.z) / 500.0f);
 
-            enemyRadar[enemy].localPosition = new Vector3(x, y, 0.0f);
+            if (miniRadar.TryGetValue(enemy, out RectTransform radarElement))
+            {
+                radarElement.transform.localPosition = new Vector3(x, y, 0.0f);
+            } else
+            {
+                GameObject element = Instantiate(enemyRadar, radarComponent);
+                miniRadar.Add(enemy, element.GetComponent<RectTransform>());
+
+                element.transform.localPosition = new Vector3(x, y, 0.0f);
+            }
         } else
         {
-            enemyRadar[enemy].gameObject.SetActive(false);
+            if (miniRadar.TryGetValue(enemy, out RectTransform radarElement))
+            {
+                radarElement.gameObject.SetActive(false);
+                miniRadar.Remove(enemy);
+            }
         }
     }
 
