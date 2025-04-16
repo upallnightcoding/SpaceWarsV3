@@ -7,6 +7,7 @@ public class EnemyCntrl : MonoBehaviour
     [SerializeField] private WeaponSO ammo;
     [SerializeField] private GameObject firePoint;
     [SerializeField] private GameDataSO gameData;
+    
 
     // Get the player reference from the hierarchy
     private GameObject fighter = null;
@@ -25,6 +26,8 @@ public class EnemyCntrl : MonoBehaviour
     private int enemyIndex;
     private bool runRadar = true;
 
+    private Vector3 flankPosVec;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,15 +40,68 @@ public class EnemyCntrl : MonoBehaviour
 
     public void Set(GameObject fighter, int enemyIndex)
     {
-        this.fighter        = fighter;
-        this.enemyIndex     = enemyIndex;
+        this.fighter = fighter;
+        this.enemyIndex = enemyIndex;
+
+        this.flankPosVec = transform.position - fighter.transform.position;
 
         destoryRequestFunc = UpdateRadar();
 
         StartCoroutine(destoryRequestFunc);
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Vector3 flankPos = flankPosVec + fighter.transform.position;
+
+        Gizmos.DrawWireSphere(flankPos, 10.0f);
+
+        Gizmos.DrawWireSphere(fighter.transform.position, 10.0f);
+    }
+
     private void Update()
+    {
+        if (fighter != null)
+        {
+            switch (currentState)
+            {
+                case EnemyState.IDLE:
+                    currentState = State_Idle();
+                    break;
+            }
+        }
+    }
+
+    /**
+    * State_Idle() - In this state the enemy will remain in an idle state
+    * until a fighter has been introduced.  At this point, the enemy will
+    * move into the combat state.
+    */
+    private EnemyState State_Idle()
+    {
+        EnemyState state = EnemyState.IDLE;
+
+        return (state);
+    }
+
+    private IEnumerator UpdateRadar()
+    {
+        while (runRadar)
+        {
+            float xDiff = transform.position.x - fighter.transform.position.x;
+            float zDiff = transform.position.z - fighter.transform.position.z;
+            Vector3 normalizedPos = new Vector3(xDiff, 0.0f, zDiff);
+
+            EventManager.Instance.InvokeOnRadarUpdate(true, enemyIndex, normalizedPos);
+            yield return new WaitForSeconds(1.0f);
+        }
+    }
+
+    //=========================================================================
+
+    private void xxxUpdate()
     {
         if (fighter != null)
         {
@@ -70,35 +126,9 @@ public class EnemyCntrl : MonoBehaviour
         }
     }
 
-    private IEnumerator UpdateRadar()
-    {
-        while(runRadar)
-        {
-            Debug.Log($"Update Radar: {enemyIndex}/{transform.position}");
-            Vector3 normalizedPos = new Vector3(transform.position.x - fighter.transform.position.x, 0.0f, transform.position.z - fighter.transform.position.z);
-            EventManager.Instance.InvokeOnRadarUpdate(true, enemyIndex, normalizedPos);
-            yield return new WaitForSeconds(1.0f);
-        }
+    
 
-        
-    }
-
-    /**
-     * State_Idle() - In this state the enemy will remain in an idle state
-     * until a fighter has been introduced.  At this point, the enemy will
-     * move into the combat state.
-     */
-    private EnemyState State_Idle()
-    {
-        EnemyState state = EnemyState.IDLE;
-
-        if (fighter != null)
-        {
-            state = EnemyState.COMBAT;
-        }
-
-        return (state);
-    }
+   
 
     /**
      * State_Combat() - 

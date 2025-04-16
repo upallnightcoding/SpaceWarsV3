@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour, NewGameIf
 
         enemyManager.StartEngagement(fighter, levelData);
 
-        spaceCntrl.StartEnvironment();
+        spaceCntrl.StartEnvironment(fighter);
     }
 
     /**

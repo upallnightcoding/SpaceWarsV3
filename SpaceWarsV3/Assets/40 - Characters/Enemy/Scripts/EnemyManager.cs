@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    [SerializeField] private GameDataSO gameData;
     [SerializeField] private GameObject[] enemyList;
 
     private int enemyCount = 0;
 
+    private float combatRadius;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        combatRadius = gameData.combatRadius;
     }
 
     public void StartEngagement(GameObject fighter, LevelData levelData)
@@ -20,7 +23,7 @@ public class EnemyManager : MonoBehaviour
         switch(levelData.GetLevelType())
         {
             case LevelType.TUTORIAL:
-                CreateRandomEnemies(fighter, 1);
+                CreateRandomEnemies(fighter, 5);
                 break;
             case LevelType.HAVOC:
             case LevelType.BERSERK:
@@ -39,18 +42,26 @@ public class EnemyManager : MonoBehaviour
      */
     private void CreateRandomEnemies(GameObject fighter, int nEnemies)
     {
+        float flankingDeg = 360.0f / nEnemies;
+        float posDeg = 0.0f;
+
         for (int enemyIndex = 0; enemyIndex < nEnemies; enemyIndex++)
         {
-            Vector2 randomPoint = Random.insideUnitCircle * 70.0f;
-            Vector3 enemyPos = new Vector3(69.0f + randomPoint.x, 0.0f, 3.5f + randomPoint.y);
+            float x = combatRadius * Mathf.Cos(posDeg * Mathf.Deg2Rad);
+            float z = combatRadius * Mathf.Sin(posDeg * Mathf.Deg2Rad);
+
+            Vector3 enemyPos = new Vector3(x, 0.0f, z);
 
             int choose = Random.Range(0, enemyList.Length);
             GameObject enemy = Instantiate(enemyList[choose], enemyPos, Quaternion.identity);
             enemy.GetComponent<EnemyCntrl>().Set(fighter, enemyIndex);
             enemy.GetComponent<TakeDamageCntrl>().Set(enemyIndex);
             enemy.GetComponentInChildren<NearDeathCntrl>().Set(enemyIndex);
-            enemyCount++;
+
+            posDeg += flankingDeg;
         }
+
+        enemyCount = nEnemies;
 
         EventManager.Instance.InvokeOnSetEnemyCount(nEnemies);
     }

@@ -14,6 +14,8 @@ public class FighterCntrl : MonoBehaviour
 
     private Transform clickingPlane;
 
+    private float combatRadius;
+
     private Vector3 currentdirection = new Vector3();
 
     //private void OnMove(Vector2 move) => this.move = move;
@@ -52,7 +54,7 @@ public class FighterCntrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //EventManager.Instance.InvokeOnUpdateAmmoBar(1, 1);
+        combatRadius = gameData.combatRadius;
     }
 
     /**
@@ -68,6 +70,13 @@ public class FighterCntrl : MonoBehaviour
             MoveFighterController(Vector3.zero);
             ConstMoveFighterController();
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(transform.position, combatRadius);
     }
 
     /**

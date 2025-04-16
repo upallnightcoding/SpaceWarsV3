@@ -12,6 +12,7 @@ public class GameDataSO : ScriptableObject
     [Header("Fighters ...")]
     public FighterSO[] fighterList;
     public GameObject sparksPrefab;
+    public Vector3 fighterOffset;
 
     [Header("Camera Positions ...")]
     public Vector3 cameraEngagementPosition;
@@ -28,5 +29,8 @@ public class GameDataSO : ScriptableObject
     [SerializeField] public WeaponSO[] ammoList;
     [SerializeField] public WeaponSO[] missileList;
     [SerializeField] public WeaponSO[] shieldList;
+
+    [Header("Enemy AI ...")]
+    public float combatRadius = 75.0f;
 
 }

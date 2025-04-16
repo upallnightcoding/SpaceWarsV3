@@ -22,7 +22,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f342b90c2453c954ba20254686a0e5b8, type: 2}
   sparksPrefab: {fileID: 3610321968655362792, guid: 64201e56c02bc454f876b03ef72b060b,
     type: 3}
-  cameraEngagementPosition: {x: 0, y: 150, z: 0}
+  fighterOffset: {x: 69, y: 0, z: 3.5}
+  cameraEngagementPosition: {x: 0, y: 200, z: 0}
   cameraEngagementRotation: {x: 90, y: 0, z: 0}
   cameraIdlePosition: {x: 0, y: 1, z: -10}
   cameraIdleRotation: {x: 0, y: 0, z: 0}
@@ -43,3 +44,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9ae0cb2b3bb0e44498430aa461b0a34d, type: 2}
   - {fileID: 11400000, guid: 352d475900c1057499abaac8a02fc97d, type: 2}
   - {fileID: 11400000, guid: 40f4986049aed5a4b82e58eb59df4763, type: 2}
+  combatRadius: 100
