@@ -7,7 +7,6 @@ public class EnemyCntrl : MonoBehaviour
     [SerializeField] private WeaponSO ammo;
     [SerializeField] private GameObject firePoint;
     [SerializeField] private GameDataSO gameData;
-    
 
     // Get the player reference from the hierarchy
     private GameObject fighter = null;
@@ -19,7 +18,9 @@ public class EnemyCntrl : MonoBehaviour
     // Keep the enemy from firing until game play is ready
     private bool readyToFire = false;
 
-    private float speed = 25.0f;
+    private float speed = 100.0f;
+    private float combatRing = 40.0f;
+
     private float minDistance = 150.0f;
     private EnemyState currentState = EnemyState.IDLE;
     private Vector3 avoidDirection;
@@ -38,6 +39,9 @@ public class EnemyCntrl : MonoBehaviour
         StartCoroutine(PauseFiringDuringStartup());
     }
 
+    /**
+     * Set() - 
+     */
     public void Set(GameObject fighter, int enemyIndex)
     {
         this.fighter = fighter;
@@ -54,11 +58,25 @@ public class EnemyCntrl : MonoBehaviour
     {
         Gizmos.color = Color.red;
 
-        Vector3 flankPos = flankPosVec + fighter.transform.position;
+        Vector3 flankPos = FlankPos();
 
         Gizmos.DrawWireSphere(flankPos, 10.0f);
 
         Gizmos.DrawWireSphere(fighter.transform.position, 10.0f);
+
+        Gizmos.color = Color.white;
+
+        Gizmos.DrawWireSphere(flankPos, combatRing);
+
+        if (Vector3.Distance(transform.position, flankPos) > combatRing)
+        {
+            Gizmos.color = Color.blue;
+        } else
+        {
+            Gizmos.color = Color.green;
+        }
+
+        Gizmos.DrawLine(FlankPos(), transform.position);
     }
 
     private void Update()
@@ -70,7 +88,16 @@ public class EnemyCntrl : MonoBehaviour
                 case EnemyState.IDLE:
                     currentState = State_Idle();
                     break;
+                case EnemyState.MOVE:
+                    currentState = State_Move();
+                    break;
+                case EnemyState.COMBAT:
+                    currentState = State_Combat();
+                    break;
             }
+
+            float d = Vector3.Distance(transform.position, FlankPos());
+            Debug.Log($"State: {currentState}/{d}");
         }
     }
 
@@ -83,7 +110,61 @@ public class EnemyCntrl : MonoBehaviour
     {
         EnemyState state = EnemyState.IDLE;
 
+        if (Vector3.Distance(transform.position, FlankPos()) > combatRing)
+        {
+            state = EnemyState.MOVE;
+        } else 
+        {
+            state = EnemyState.COMBAT;
+        }
+
         return (state);
+    }
+
+    private EnemyState State_Combat()
+    {
+
+        EnemyState state = EnemyState.IDLE;
+
+        if (Vector3.Distance(transform.position, FlankPos()) > combatRing)
+        {
+            state = EnemyState.MOVE;
+        }
+        else
+        {
+            state = EnemyState.COMBAT;
+        }
+
+        return (state);
+    }
+
+    private EnemyState State_Move()
+    {
+        MoveTurn(FlankPos(), fighter.transform.position);
+
+        EnemyState state = EnemyState.IDLE;
+
+        if (Vector3.Distance(transform.position, FlankPos()) > combatRing)
+        {
+            state = EnemyState.MOVE;
+        }
+        else
+        {
+            state = EnemyState.COMBAT;
+        }
+
+        return (state);
+    }
+
+    private void MoveTurn(Vector3 movePoint, Vector3 turnPoint)
+    {
+        if (Vector3.Distance(movePoint, transform.position) > 1.0f)
+        {
+            Vector3 direction = (movePoint - transform.position).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.localRotation = targetRotation;
+            transform.Translate(direction * speed * Time.deltaTime, Space.Self);
+        }
     }
 
     private IEnumerator UpdateRadar()
@@ -97,6 +178,11 @@ public class EnemyCntrl : MonoBehaviour
             EventManager.Instance.InvokeOnRadarUpdate(true, enemyIndex, normalizedPos);
             yield return new WaitForSeconds(1.0f);
         }
+    }
+    
+    private Vector3 FlankPos()
+    {
+        return (flankPosVec + fighter.transform.position);
     }
 
     //=========================================================================
@@ -126,14 +212,14 @@ public class EnemyCntrl : MonoBehaviour
         }
     }
 
-    
 
    
+
 
     /**
      * State_Combat() - 
      */
-    private EnemyState State_Combat()
+    private EnemyState xxxState_Combat()
     {
         EnemyState state = EnemyState.COMBAT;
 
@@ -270,6 +356,7 @@ public class EnemyCntrl : MonoBehaviour
         IDLE,
         COMBAT,
         AVOID,
+        MOVE,
         DISENGAGE,
         DESTROY_REQUEST
     }

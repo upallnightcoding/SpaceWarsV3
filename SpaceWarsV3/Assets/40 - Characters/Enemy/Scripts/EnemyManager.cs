@@ -23,7 +23,7 @@ public class EnemyManager : MonoBehaviour
         switch(levelData.GetLevelType())
         {
             case LevelType.TUTORIAL:
-                CreateRandomEnemies(fighter, 5);
+                CreateRandomEnemies(fighter, 1);
                 break;
             case LevelType.HAVOC:
             case LevelType.BERSERK:
