@@ -13,13 +13,6 @@ public class InputCntrl : MonoBehaviour
 
             EventManager.Instance.InvokeOnInputMove(move);
         }
-
-        /*if (context.canceled)
-        {
-            Vector3 move = Vector2.zero;
-            EventManager.Instance.InvokeOnInputMove(move);
-            Debug.Log("Input Cancelled ...");
-        }*/
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -30,8 +23,6 @@ public class InputCntrl : MonoBehaviour
         {
             look = Mouse.current.position.ReadValue();
         } 
-
-        //EventManager.Instance.InvokeOnInputLook(look);
     }
 
     public void OnQuitEngagement(InputAction.CallbackContext context)
