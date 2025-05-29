@@ -234,7 +234,7 @@ Transform:
   m_GameObject: {fileID: 203844586}
   serializedVersion: 2
   m_LocalRotation: {x: 0.6871021, y: 0.16700538, z: 0.16700538, w: 0.6871021}
-  m_LocalPosition: {x: 0, y: 33.52, z: 0}
+  m_LocalPosition: {x: 0, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -475,8 +475,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 60, z: 0}
+  m_LocalRotation: {x: -0.6862409, y: 0.0015227912, z: -0.0014418241, w: -0.72737134}
+  m_LocalPosition: {x: 0.081204906, y: 58.83298, z: -2.4415126}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -649,7 +649,7 @@ GameObject:
   - component: {fileID: 1328676053}
   - component: {fileID: 1328676052}
   - component: {fileID: 1328676051}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -783,11 +783,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439533503}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6381a44d34c3aa84ca319be5546f7721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewRadius: 7
+  boidMask:
+    serializedVersion: 2
+    m_Bits: 64
+  speed: 10
+  throttle: 1
+  viewAngle: 10
 --- !u!114 &1439533506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,7 +984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1885101107527273806, guid: 7acbe937ea801084b885170107598f94,
     type: 3}
-  nEnemies: 5
+  nEnemies: 75
   combatRadius: 20
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

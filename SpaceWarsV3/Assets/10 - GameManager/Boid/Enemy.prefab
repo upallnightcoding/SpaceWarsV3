@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8457268280814062468}
-  - component: {fileID: 3722467014022846080}
+  - component: {fileID: 5495679300456486233}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 2551701079736340860}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3722467014022846080
+--- !u!114 &5495679300456486233
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,9 +43,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1885101107527273806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14329626fbab3b449b6b873043ab6207, type: 3}
+  m_Script: {fileID: 11500000, guid: 6381a44d34c3aa84ca319be5546f7721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewRadius: 1
+  boidMask:
+    serializedVersion: 2
+    m_Bits: 64
+  speed: 5
+  throttle: 1
+  viewAngle: 10
 --- !u!1 &2957027139108095599
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +170,7 @@ GameObject:
   - component: {fileID: 7315226694109160485}
   - component: {fileID: 9040199280312199282}
   - component: {fileID: 8338742497639533952}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

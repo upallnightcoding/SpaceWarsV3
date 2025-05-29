@@ -8,6 +8,8 @@ public class EnemyBoidMngr : MonoBehaviour
     [SerializeField] private int nEnemies;
     [SerializeField] private float combatRadius;
 
+    private float viewRadius = 7.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class EnemyBoidMngr : MonoBehaviour
             Vector3 enemyPos = new Vector3(x, 0.0f, z);
 
             GameObject enemy = Instantiate(enemyPrefab, enemyPos, Quaternion.identity);
+            enemy.GetComponent<BoidCntrl>().Set(viewRadius);
 
             posDeg += flankingDeg;
         }
