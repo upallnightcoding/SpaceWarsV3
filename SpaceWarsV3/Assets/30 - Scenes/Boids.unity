@@ -754,7 +754,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1439533507}
   - component: {fileID: 1439533506}
-  - component: {fileID: 1439533505}
   - component: {fileID: 1439533504}
   - component: {fileID: 1439533508}
   m_Layer: 0
@@ -776,25 +775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae2985cefb3098e4db3475cc88e6e1b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1439533505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439533503}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6381a44d34c3aa84ca319be5546f7721, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRadius: 7
-  boidMask:
-    serializedVersion: 2
-    m_Bits: 64
-  speed: 10
-  throttle: 1
-  viewAngle: 10
 --- !u!114 &1439533506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -984,8 +964,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1885101107527273806, guid: 7acbe937ea801084b885170107598f94,
     type: 3}
-  nEnemies: 75
+  nEnemies: 4
   combatRadius: 20
+  hero: {fileID: 1439533503}
+  viewRadius: 7
+  boidSpeed: 15
+  viewAngle: 360
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

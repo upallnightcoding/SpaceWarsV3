@@ -7,8 +7,10 @@ public class EnemyBoidMngr : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private int nEnemies;
     [SerializeField] private float combatRadius;
-
-    private float viewRadius = 7.0f;
+    [SerializeField] private GameObject hero;
+    [SerializeField] private float viewRadius = 7.0f;
+    [SerializeField] private float boidSpeed = 10.0f;
+    [SerializeField] private float viewAngle = 10.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +26,8 @@ public class EnemyBoidMngr : MonoBehaviour
             Vector3 enemyPos = new Vector3(x, 0.0f, z);
 
             GameObject enemy = Instantiate(enemyPrefab, enemyPos, Quaternion.identity);
-            enemy.GetComponent<BoidCntrl>().Set(viewRadius);
+            enemy.GetComponent<BoidCntrl>().Set(viewRadius, hero, boidSpeed, viewAngle);
+            //Destroy(enemy, 3.0f * (i+1));
 
             posDeg += flankingDeg;
         }
