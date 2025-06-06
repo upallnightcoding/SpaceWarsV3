@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2457385176076301161}
   - component: {fileID: 5110645296933932729}
   - component: {fileID: 4578763899761755537}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy_01
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -45,10 +45,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6111658333703604293}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d428c9fb1225c04abfc9494ee6b5077, type: 3}
+  m_Script: {fileID: 11500000, guid: 589d21e30d8ddd74f8b9d61245585559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammo: {fileID: 11400000, guid: 5677d2154d8808e408752b3cc220328e, type: 2}
+  ammo: {fileID: 11400000, guid: 21bca8a19390236498332a7fab9df6b4, type: 2}
   firePoint: {fileID: 9034748595579275000}
   gameData: {fileID: 11400000, guid: fa3e569a7ff8ee8488b0e097dae41cd2, type: 2}
 --- !u!65 &5110645296933932729
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2175717528501452791}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -127,6 +127,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SM_Ship_Stealth_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2527953622702833712, guid: 2046fdc6214a7b14caad3f9e236561c7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2855946732350254583, guid: 2046fdc6214a7b14caad3f9e236561c7,
         type: 3}

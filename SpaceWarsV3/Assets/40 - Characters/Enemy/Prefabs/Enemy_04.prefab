@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2348957619144668482}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114121258993321558}
   - component: {fileID: 1241607453996447181}
   - component: {fileID: 547210678960943988}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy_04
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1452266909387775665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d428c9fb1225c04abfc9494ee6b5077, type: 3}
+  m_Script: {fileID: 11500000, guid: 589d21e30d8ddd74f8b9d61245585559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: {fileID: 11400000, guid: 5677d2154d8808e408752b3cc220328e, type: 2}
@@ -177,6 +177,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SM_Ship_Stealth_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 7094881220156237154, guid: 73a6eb0d7ba28f04ba38d02aac7b3b51,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

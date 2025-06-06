@@ -6,6 +6,7 @@ public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private GameDataSO gameData;
     [SerializeField] private GameObject[] enemyList;
+    [SerializeField] private LayerMask boidMask;
 
     private int enemyCount = 0;
 
@@ -23,7 +24,7 @@ public class EnemyManager : MonoBehaviour
         switch(levelData.GetLevelType())
         {
             case LevelType.TUTORIAL:
-                CreateRandomEnemies(fighter, 1);
+                CreateRandomEnemies(fighter, 4);
                 break;
             case LevelType.HAVOC:
             case LevelType.BERSERK:
@@ -54,7 +55,7 @@ public class EnemyManager : MonoBehaviour
 
             int choose = Random.Range(0, enemyList.Length);
             GameObject enemy = Instantiate(enemyList[choose], enemyPos, Quaternion.identity);
-            enemy.GetComponent<EnemyCntrl>().Set(fighter, enemyIndex);
+            enemy.GetComponent<EnemyCntrl>().Set(fighter, enemyIndex, boidMask);
             enemy.GetComponent<TakeDamageCntrl>().Set(enemyIndex);
             enemy.GetComponentInChildren<NearDeathCntrl>().Set(enemyIndex);
 

@@ -44,4 +44,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9ae0cb2b3bb0e44498430aa461b0a34d, type: 2}
   - {fileID: 11400000, guid: 352d475900c1057499abaac8a02fc97d, type: 2}
   - {fileID: 11400000, guid: 40f4986049aed5a4b82e58eb59df4763, type: 2}
-  combatRadius: 100
+  combatRadius: 25

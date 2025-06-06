@@ -24,10 +24,19 @@ public class EnemyCntrl : MonoBehaviour
     private float minDistance = 150.0f;
     private EnemyState currentState = EnemyState.IDLE;
     private Vector3 avoidDirection;
-    private int enemyIndex;
+    public int enemyIndex;
     private bool runRadar = true;
 
+    private float neighborRadius = 25.0f;
+    private float boidSpeed = 20.0f;
+    private float viewAngle = 180.0f;
+    private LayerMask boidMask;
+
+    private Collider[] colliders = null;
+
     private Vector3 flankPosVec;
+
+    private Vector3 direction = new Vector3();
 
     // Start is called before the first frame update
     void Start()
@@ -39,30 +48,160 @@ public class EnemyCntrl : MonoBehaviour
         StartCoroutine(PauseFiringDuringStartup());
     }
 
+    private void Update()
+    {
+        Collider[] boids = CalculateNeighbors();
+
+        UpdateBoid(boids);
+    }
+
+    public void UpdateBoid(Collider[] boids)
+    {
+        Vector3 direction = Vector3.zero;
+
+        direction += Separation(boids);
+        direction += Alignment(boids);
+        direction += Cohesion(boids);
+
+        direction = direction.normalized;
+
+        UpdatePosition(direction);
+    }
+
+    private Collider[] CalculateNeighbors()
+    {
+        Collider[] overlapBoids = Physics.OverlapSphere(transform.position, neighborRadius);
+        //Collider[] overlapBoids = Physics.OverlapSphere(transform.position, neighborRadius, boidMask);
+
+        List<Collider> boid = new List<Collider>();
+
+        if ((overlapBoids != null) && (overlapBoids.Length > 0))
+        {
+            foreach (Collider element in overlapBoids)
+            {
+                EnemyCntrl ec = element.gameObject.GetComponent<EnemyCntrl>();
+                FighterCntrl fc = element.gameObject.GetComponent<FighterCntrl>();
+
+                if (((ec != null) && (ec.enemyIndex != this.enemyIndex)) || (fc != null))
+                {
+                    float angle = Vector3.Angle(transform.forward, element.transform.position - transform.position);
+
+                    if (Mathf.Abs(angle) < viewAngle) boid.Add(element);
+                    //boid.Add(element);
+                }
+            }
+        }
+
+        Debug.Log($"boid: {boid.Count}/overlapBoids: {overlapBoids.Length}");
+
+        return ((boid.Count == 0) ? new Collider[0] : boid.ToArray());
+    }
+
+    private void UpdatePosition(Vector3 direction)
+    {
+        if (direction.magnitude < 0.1f)
+        {
+            Vector3 follow = (fighter.transform.position - transform.position).normalized;
+            transform.Translate(follow * (2.0f * boidSpeed) * Time.deltaTime, Space.World);
+            UpdateRotation(follow);
+        } else
+        {
+            transform.Translate(direction * boidSpeed * Time.deltaTime, Space.World);
+            UpdateRotation(direction);
+        }
+    }
+
+    private void UpdateRotation(Vector3 direction)
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 5.0f * Time.deltaTime);
+        transform.localRotation = playerRotation;
+
+        //Quaternion targetRotation = Quaternion.LookRotation(direction);
+        //transform.localRotation = targetRotation;
+    }
+
+    private Vector3 Separation(Collider[] boids)
+    {
+        Vector3 separationVelocity = Vector3.zero;
+        int numOfBoidsToAvoid = 0;
+
+        foreach(Collider otherBoid in boids)
+        {
+
+            EnemyCntrl ec = otherBoid.gameObject.GetComponent<EnemyCntrl>();
+            FighterCntrl fc = otherBoid.gameObject.GetComponent<FighterCntrl>();
+
+            if (((ec != null) && (ec.enemyIndex != this.enemyIndex)) || (fc != null))
+            {
+                Vector3 otherBoidPosition = otherBoid.transform.position;
+                Vector3 currBoidPosition = transform.position;
+
+                float dist = Vector3.Distance(currBoidPosition, otherBoidPosition);
+                if (dist < neighborRadius)
+                {
+                    Vector3 otherBoidToCurrBoid = currBoidPosition - otherBoidPosition;
+                    Vector3 dirToTravel = otherBoidToCurrBoid.normalized;
+                    Vector3 weightedVelocity = dirToTravel / dist;
+
+                    separationVelocity += weightedVelocity;
+                    numOfBoidsToAvoid++;
+                }
+            }
+        }
+
+        if (numOfBoidsToAvoid > 0)
+        {
+            separationVelocity /= (float)numOfBoidsToAvoid;
+            separationVelocity *= 10.0f;
+        }
+
+        return (separationVelocity);
+    }
+
+    private Vector3 Alignment(Collider[] boids)
+    {
+        return (Vector3.zero);
+    }
+
+    private Vector3 Cohesion(Collider[] boids)
+    {
+        return (Vector3.zero);
+    }
+
     /**
      * Set() - 
      */
-    public void Set(GameObject fighter, int enemyIndex)
+    public void Set(GameObject fighter, int enemyIndex, LayerMask boidMask)
     {
-        this.fighter = fighter;
-        this.enemyIndex = enemyIndex;
+        this.fighter        = fighter;
+        this.enemyIndex     = enemyIndex;
+        this.boidMask       = boidMask;
 
         this.flankPosVec = transform.position - fighter.transform.position;
 
         destoryRequestFunc = UpdateRadar();
-
         StartCoroutine(destoryRequestFunc);
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.green;
 
-        Vector3 flankPos = FlankPos();
+        Gizmos.DrawWireSphere(transform.position, neighborRadius);
 
-        Gizmos.DrawWireSphere(flankPos, 10.0f);
+        Gizmos.color = Color.white;
 
-        Gizmos.DrawWireSphere(fighter.transform.position, 10.0f);
+        if ((colliders != null) && (colliders.Length > 0))
+        {
+            foreach (Collider collider in colliders)
+            {
+                Gizmos.DrawLine(collider.transform.position, transform.position);
+                Debug.Log($"OnDrawGizmos: {Vector3.Distance(collider.transform.position, transform.position)}");
+            }
+        }
+
+        /*Gizmos.DrawWireSphere(fighter.transform.position, 10.0f);
 
         Gizmos.color = Color.white;
 
@@ -71,101 +210,16 @@ public class EnemyCntrl : MonoBehaviour
         if (Vector3.Distance(transform.position, flankPos) > combatRing)
         {
             Gizmos.color = Color.blue;
-        } else
+        }
+        else
         {
             Gizmos.color = Color.green;
         }
 
-        Gizmos.DrawLine(FlankPos(), transform.position);
+        Gizmos.DrawLine(FlankPos(), transform.position);*/
     }
 
-    private void Update()
-    {
-        if (fighter != null)
-        {
-            switch (currentState)
-            {
-                case EnemyState.IDLE:
-                    currentState = State_Idle();
-                    break;
-                case EnemyState.MOVE:
-                    currentState = State_Move();
-                    break;
-                case EnemyState.COMBAT:
-                    currentState = State_Combat();
-                    break;
-            }
-
-            float d = Vector3.Distance(transform.position, FlankPos());
-            Debug.Log($"State: {currentState}/{d}");
-        }
-    }
-
-    /**
-    * State_Idle() - In this state the enemy will remain in an idle state
-    * until a fighter has been introduced.  At this point, the enemy will
-    * move into the combat state.
-    */
-    private EnemyState State_Idle()
-    {
-        EnemyState state = EnemyState.IDLE;
-
-        if (Vector3.Distance(transform.position, FlankPos()) > combatRing)
-        {
-            state = EnemyState.MOVE;
-        } else 
-        {
-            state = EnemyState.COMBAT;
-        }
-
-        return (state);
-    }
-
-    private EnemyState State_Combat()
-    {
-
-        EnemyState state = EnemyState.IDLE;
-
-        if (Vector3.Distance(transform.position, FlankPos()) > combatRing)
-        {
-            state = EnemyState.MOVE;
-        }
-        else
-        {
-            state = EnemyState.COMBAT;
-        }
-
-        return (state);
-    }
-
-    private EnemyState State_Move()
-    {
-        MoveTurn(FlankPos(), fighter.transform.position);
-
-        EnemyState state = EnemyState.IDLE;
-
-        if (Vector3.Distance(transform.position, FlankPos()) > combatRing)
-        {
-            state = EnemyState.MOVE;
-        }
-        else
-        {
-            state = EnemyState.COMBAT;
-        }
-
-        return (state);
-    }
-
-    private void MoveTurn(Vector3 movePoint, Vector3 turnPoint)
-    {
-        if (Vector3.Distance(movePoint, transform.position) > 1.0f)
-        {
-            Vector3 direction = (movePoint - transform.position).normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.localRotation = targetRotation;
-            transform.Translate(direction * speed * Time.deltaTime, Space.Self);
-        }
-    }
+   
 
     private IEnumerator UpdateRadar()
     {
@@ -179,126 +233,7 @@ public class EnemyCntrl : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
         }
     }
-    
-    private Vector3 FlankPos()
-    {
-        return (flankPosVec + fighter.transform.position);
-    }
-
-    //=========================================================================
-
-    private void xxxUpdate()
-    {
-        if (fighter != null)
-        {
-            switch (currentState)
-            {
-                case EnemyState.IDLE:
-                    currentState = State_Idle();
-                    break;
-                case EnemyState.COMBAT:
-                    currentState = State_Combat();
-                    break;
-                case EnemyState.AVOID:
-                    currentState = State_Avoid();
-                    break;
-                case EnemyState.DISENGAGE:
-                    currentState = State_Disengage();
-                    break;
-                case EnemyState.DESTROY_REQUEST:
-                    DestroyRequest();
-                    break;
-            }
-        }
-    }
-
-
    
-
-
-    /**
-     * State_Combat() - 
-     */
-    private EnemyState xxxState_Combat()
-    {
-        EnemyState state = EnemyState.COMBAT;
-
-        Vector3 playerPos = fighter.transform.position;
-        Vector3 target = new Vector3(playerPos.x, 0.0f, playerPos.z);
-
-        if (Random.Range(0, 200) == 0)
-        {
-            StartCoroutine(AttackRange(transform.position, transform.forward, playerPos));
-        }
-
-        Vector3 direction = (target - transform.position).normalized;
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        //Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 70.0f * Time.deltaTime);
-        Quaternion playerRotation = targetRotation;
-
-        transform.localRotation = playerRotation;
-        transform.Translate(transform.forward * speed * Time.deltaTime, Space.Self);
-
-        if (Vector3.Distance(target, transform.position) < minDistance)
-        {
-            if (readyToFire)
-            {
-                //FireMissle(transform.forward);
-            }
-
-            //state = EnemyState.AVOID;
-        }
-
-        return (state);
-    }
-
-    /**
-     * AttackRange() - 
-     */
-    private IEnumerator AttackRange(Vector3 enemyPos, Vector3 enemyForward, Vector3 fighterPos)
-    {
-        float minAttackRange = 90.0f;
-        float maxAttackAngle = 0.5f;
-
-        Vector3 targetVector = fighterPos - enemyPos;
-
-        yield return null;
-
-        if (targetVector.magnitude < minAttackRange)
-        {
-            float angle = Vector3.Dot(targetVector.normalized, enemyForward.normalized);
-
-            if (Vector3.Dot(targetVector, enemyForward) > maxAttackAngle)
-            {
-                FireMissle(targetVector);
-            }
-        }
-    }
-
-    private EnemyState State_Avoid()
-    {
-        Vector3 playerPos = fighter.transform.position;
-        Vector3 target = new Vector3(playerPos.x, 0.0f, playerPos.z);
-
-        avoidDirection = -(transform.forward + fighter.transform.forward).normalized;
-
-        StartCoroutine(DisengageTimer());
-
-        return (EnemyState.DISENGAGE);
-    }
-
-    private EnemyState State_Disengage()
-    {
-        EnemyState state = EnemyState.DISENGAGE;
-
-        Quaternion targetRotation = Quaternion.LookRotation(avoidDirection);
-        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 2.0f * Time.deltaTime);
-
-        transform.localRotation = playerRotation;
-        //transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
-
-        return (state);
-    }
 
     /**
      * DestroyRequest() - The system may ask for the enemies to be destroyed.

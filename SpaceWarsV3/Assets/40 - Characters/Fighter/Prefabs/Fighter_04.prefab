@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3771887499527636138}
   - component: {fileID: -7705866711472686606}
   - component: {fileID: -5812916073384969273}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fighter_04
   m_TagString: Fighter
   m_Icon: {fileID: 0}
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec281d10289b5341b94d7c80f44309d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  miniCamera: {fileID: 0}
 --- !u!1 &1622321475875704220
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +108,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4752663291656163853}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
@@ -141,6 +142,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SM_Ship_Fighter_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 3867667837563107920, guid: 5b5e3188bd57aac408eca35e6cbb9eff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5609850921303848185, guid: 5b5e3188bd57aac408eca35e6cbb9eff,
         type: 3}
