@@ -68,10 +68,12 @@ public class EnemyCntrl : MonoBehaviour
         UpdatePosition(direction);
     }
 
+    /**
+     * CalculateNeighbors() - 
+     */
     private Collider[] CalculateNeighbors()
     {
-        Collider[] overlapBoids = Physics.OverlapSphere(transform.position, neighborRadius);
-        //Collider[] overlapBoids = Physics.OverlapSphere(transform.position, neighborRadius, boidMask);
+        Collider[] overlapBoids = Physics.OverlapSphere(transform.position, neighborRadius, boidMask);
 
         List<Collider> boid = new List<Collider>();
 
@@ -87,40 +89,47 @@ public class EnemyCntrl : MonoBehaviour
                     float angle = Vector3.Angle(transform.forward, element.transform.position - transform.position);
 
                     if (Mathf.Abs(angle) < viewAngle) boid.Add(element);
-                    //boid.Add(element);
                 }
             }
         }
 
-        Debug.Log($"boid: {boid.Count}/overlapBoids: {overlapBoids.Length}");
-
         return ((boid.Count == 0) ? new Collider[0] : boid.ToArray());
     }
 
+    /**
+     * UpdatePosition() - The rotation of the enemy will always follow the 
+     * fighter.  But the directional movement of the enemy is based on the
+     * position of the other enemies so that all ememies can keep a 
+     * distance from one another.
+     */
     private void UpdatePosition(Vector3 direction)
     {
-        if (direction.magnitude < 0.1f)
+        Vector3 follow = (fighter.transform.position - transform.position).normalized;
+        UpdateRotation(follow);
+
+        if (direction.magnitude < 0.001f)
         {
-            Vector3 follow = (fighter.transform.position - transform.position).normalized;
-            transform.Translate(follow * (2.0f * boidSpeed) * Time.deltaTime, Space.World);
-            UpdateRotation(follow);
+            transform.Translate(follow * (1.0f * boidSpeed) * Time.deltaTime, Space.World);
         } else
         {
             transform.Translate(direction * boidSpeed * Time.deltaTime, Space.World);
-            UpdateRotation(direction);
         }
     }
 
+    /**
+     * UpdateRotation() - Rotate the enemy based on the direction vector.  
+     * This function should not be called if the diretion vector is zero.
+     */
     private void UpdateRotation(Vector3 direction)
     {
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, 5.0f * Time.deltaTime);
         transform.localRotation = playerRotation;
-
-        //Quaternion targetRotation = Quaternion.LookRotation(direction);
-        //transform.localRotation = targetRotation;
     }
 
+    /**
+     * Separation() - 
+     */
     private Vector3 Separation(Collider[] boids)
     {
         Vector3 separationVelocity = Vector3.zero;
@@ -128,7 +137,6 @@ public class EnemyCntrl : MonoBehaviour
 
         foreach(Collider otherBoid in boids)
         {
-
             EnemyCntrl ec = otherBoid.gameObject.GetComponent<EnemyCntrl>();
             FighterCntrl fc = otherBoid.gameObject.GetComponent<FighterCntrl>();
 

@@ -18,13 +18,15 @@ public class EnemyManager : MonoBehaviour
         combatRadius = gameData.combatRadius;
     }
 
+    /**
+     * StartEngagement() - 
+     */
     public void StartEngagement(GameObject fighter, LevelData levelData)
     {
-        
         switch(levelData.GetLevelType())
         {
             case LevelType.TUTORIAL:
-                CreateRandomEnemies(fighter, 4);
+                CreateRandomEnemies(fighter, 2);
                 break;
             case LevelType.HAVOC:
             case LevelType.BERSERK:
