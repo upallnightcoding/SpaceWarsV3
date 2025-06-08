@@ -38,6 +38,12 @@ public class CreateSpaceCntrl : MonoBehaviour
         startSpaceCntrl = false;
     }
 
+    /**
+     * DisplayClouds() - The clouds are created as the fighter traverses 
+     * through space.  Based on a frequency a cloud is created and then
+     * distroyed after a predetermined length of time.  A pause period
+     * is set, since the coroutine requires a yield return statement.
+     */
     private IEnumerator DisplayClouds()
     {
         while (startSpaceCntrl)
