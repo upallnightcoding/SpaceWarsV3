@@ -14,12 +14,9 @@ public class AmmoCntrl : MonoBehaviour
         string originator, 
         GameObject destroyPrefab, 
         float damage, 
-        AudioClip audioClip, 
         GameObject sparksPrefab = null
     )
     {
-        GetComponent<AudioSource>().PlayOneShot(audioClip);
-
         this.destroyPrefab  = destroyPrefab;
         this.originator     = originator;
         this.damage         = damage;
@@ -59,8 +56,6 @@ public class AmmoCntrl : MonoBehaviour
                             EventManager.Instance.InvokeOnDestroyFighter();
                             break;
                     }
-
-                    
                 } else
                 {
                     if (sparksPrefab)

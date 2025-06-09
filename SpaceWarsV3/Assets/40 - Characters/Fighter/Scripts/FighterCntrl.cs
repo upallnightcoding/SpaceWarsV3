@@ -203,10 +203,12 @@ public class FighterCntrl : MonoBehaviour
     {
         GameObject go = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
         go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
-        go.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, ammo.ammoSound, gameData.sparksPrefab);
+        go.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, gameData.sparksPrefab);
         Destroy(go, ammo.range);
 
         EventManager.Instance.InvokeOnUpdateAmmoBar(--ammoCount, maxAmmoCount);
+
+        GetComponent<AudioSource>().PlayOneShot(ammo.ammoSound);
 
         if (ammoCount == 0)
         {

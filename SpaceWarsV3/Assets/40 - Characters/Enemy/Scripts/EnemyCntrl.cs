@@ -272,8 +272,10 @@ public class EnemyCntrl : MonoBehaviour
     {
         GameObject missile = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
         missile.GetComponentInChildren<Rigidbody>().AddForce(direction * ammo.force, ForceMode.Impulse);
-        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_ENEMY, ammo.destroyPrefab, ammo.damage, ammo.ammoSound, gameData.sparksPrefab);
+        missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_ENEMY, ammo.destroyPrefab, ammo.damage, gameData.sparksPrefab);
         Destroy(missile, ammo.range);
+
+        GetComponent<AudioSource>().PlayOneShot(ammo.ammoSound);
 
         ammoCount -= 1;
     }

@@ -221,8 +221,12 @@ public class MissileCntrl : MonoBehaviour
     {
         GameObject weapon = Instantiate(ammo.ammoPrefab, transform.position + direction * offset, Quaternion.identity);
         weapon.GetComponentInChildren<Rigidbody>().AddForce(direction * ammo.force, ForceMode.Impulse);
-        weapon.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, ammo.ammoSound, gameData.sparksPrefab);
+        weapon.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, gameData.sparksPrefab);
         Destroy(weapon, ammo.range);
+
+        Debug.Log($"gameObject: ${gameObject}/${gameObject.name}/${GetComponent<AudioSource>()}");
+
+        //GetComponent<AudioSource>().Play();
     }
 }
 
