@@ -208,7 +208,7 @@ public class FighterCntrl : MonoBehaviour
 
         EventManager.Instance.InvokeOnUpdateAmmoBar(--ammoCount, maxAmmoCount);
 
-        GetComponent<AudioSource>().PlayOneShot(ammo.ammoSound);
+        EventManager.Instance.InvokeOnSound(ammo.ammoSound);
 
         if (ammoCount == 0)
         {

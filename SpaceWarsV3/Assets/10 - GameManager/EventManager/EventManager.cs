@@ -5,6 +5,9 @@ using System;
 
 public class EventManager
 {
+    public event Action<AudioClip> OnSound = delegate { };
+    public void InvokeOnSound(AudioClip andioClip) => OnSound.Invoke(andioClip);
+
     // Update the Enemy count
     public event Action<int> OnSetEnemyCount = delegate { };
     public void InvokeOnSetEnemyCount(int value) => OnSetEnemyCount.Invoke(value);

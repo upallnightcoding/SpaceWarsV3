@@ -198,6 +198,8 @@ public class MissileCntrl : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
+        EventManager.Instance.InvokeOnSound(ammo.ammoSound);
+
         GameObject spark = Instantiate(missile.detonationPrefab, transform.position, Quaternion.identity);
         Destroy(spark, 0.5f);
 
@@ -224,9 +226,7 @@ public class MissileCntrl : MonoBehaviour
         weapon.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, gameData.sparksPrefab);
         Destroy(weapon, ammo.range);
 
-        Debug.Log($"gameObject: ${gameObject}/${gameObject.name}/${GetComponent<AudioSource>()}");
-
-        //GetComponent<AudioSource>().Play();
+        EventManager.Instance.InvokeOnSound(ammo.ammoSound);
     }
 }
 
