@@ -104,16 +104,21 @@ public class EnemyCntrl : MonoBehaviour
      */
     private void UpdatePosition(Vector3 direction)
     {
+        Vector3 movement;
         Vector3 follow = (fighter.transform.position - transform.position).normalized;
         UpdateRotation(follow);
 
         if (direction.magnitude < 0.001f)
         {
             transform.Translate(follow * (1.0f * boidSpeed) * Time.deltaTime, Space.World);
+            movement = follow;
         } else
         {
             transform.Translate(direction * boidSpeed * Time.deltaTime, Space.World);
+            movement = direction;
         }
+
+        if (Random.Range(0, 600) == 0)  FireMissle(movement);
     }
 
     /**
@@ -208,26 +213,7 @@ public class EnemyCntrl : MonoBehaviour
                 Debug.Log($"OnDrawGizmos: {Vector3.Distance(collider.transform.position, transform.position)}");
             }
         }
-
-        /*Gizmos.DrawWireSphere(fighter.transform.position, 10.0f);
-
-        Gizmos.color = Color.white;
-
-        Gizmos.DrawWireSphere(flankPos, combatRing);
-
-        if (Vector3.Distance(transform.position, flankPos) > combatRing)
-        {
-            Gizmos.color = Color.blue;
-        }
-        else
-        {
-            Gizmos.color = Color.green;
-        }
-
-        Gizmos.DrawLine(FlankPos(), transform.position);*/
     }
-
-   
 
     private IEnumerator UpdateRadar()
     {
@@ -271,11 +257,13 @@ public class EnemyCntrl : MonoBehaviour
     private void FireMissle(Vector3 direction)
     {
         GameObject missile = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
-        missile.GetComponentInChildren<Rigidbody>().AddForce(direction * ammo.force, ForceMode.Impulse);
+        missile.GetComponentInChildren<Rigidbody>().AddForce(gameObject.transform.forward * ammo.force, ForceMode.Impulse);
         missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_ENEMY, ammo.destroyPrefab, ammo.damage, gameData.sparksPrefab);
         Destroy(missile, ammo.range);
 
-        GetComponent<AudioSource>().PlayOneShot(ammo.ammoSound);
+        Debug.Log($"ammo: {ammo}");
+
+        EventManager.Instance.InvokeOnSound(ammo.ammoSound);
 
         ammoCount -= 1;
     }

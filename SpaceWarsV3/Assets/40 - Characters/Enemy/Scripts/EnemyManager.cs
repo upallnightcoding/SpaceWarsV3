@@ -26,7 +26,7 @@ public class EnemyManager : MonoBehaviour
         switch(levelData.GetLevelType())
         {
             case LevelType.TUTORIAL:
-                CreateRandomEnemies(fighter, 2);
+                CreateRandomEnemies(fighter, 1);
                 break;
             case LevelType.HAVOC:
             case LevelType.BERSERK:
@@ -41,7 +41,10 @@ public class EnemyManager : MonoBehaviour
     }
 
     /**
-     * CreateRandomEnemies() - 
+     * CreateRandomEnemies() - Randomly create enemies in a attack circle.
+     * Each enemy is equally spaced apart using a basic sin/cos equation
+     * for a circle.  Any number of enemies can be placed around the
+     * circle.  The type of enemy is choosen at randome.
      */
     private void CreateRandomEnemies(GameObject fighter, int nEnemies)
     {
