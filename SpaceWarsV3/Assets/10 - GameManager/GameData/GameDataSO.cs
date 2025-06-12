@@ -18,6 +18,12 @@ public class GameDataSO : ScriptableObject
     public Vector3 cameraEngagementPosition;
     public Vector3 cameraEngagementRotation;
 
+    [Header("Enemy Attack ...")]
+    public int lowAttack;
+    public int medAttack;
+    public int hghAttack;
+
+    [Header("Camera Id ...")]
     public Vector3 cameraIdlePosition;
     public Vector3 cameraIdleRotation;
 

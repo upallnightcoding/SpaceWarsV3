@@ -12,10 +12,13 @@ public class EnemyManager : MonoBehaviour
 
     private float combatRadius;
 
+    private int enemyAttack;
+
     // Start is called before the first frame update
     void Start()
     {
         combatRadius = gameData.combatRadius;
+        enemyAttack = gameData.medAttack;
     }
 
     /**
@@ -30,7 +33,7 @@ public class EnemyManager : MonoBehaviour
                 break;
             case LevelType.HAVOC:
             case LevelType.BERSERK:
-                CreateRandomEnemies(fighter, 15);
+                CreateRandomEnemies(fighter, 12);
                 break;
             case LevelType.LEVEL:
                 CreateRandomEnemies(fighter, levelData.Level);
@@ -38,6 +41,21 @@ public class EnemyManager : MonoBehaviour
         }
 
         PositionFighter(fighter);
+    }
+
+    public void SetLowEnemyAttack()
+    {
+        enemyAttack = gameData.lowAttack;
+    }
+
+    public void SetMedEnemyAttack()
+    {
+        enemyAttack = gameData.medAttack;
+    }
+
+    public void SetHghEnemyAttack()
+    {
+        enemyAttack = gameData.hghAttack;
     }
 
     /**
@@ -60,7 +78,7 @@ public class EnemyManager : MonoBehaviour
 
             int choose = Random.Range(0, enemyList.Length);
             GameObject enemy = Instantiate(enemyList[choose], enemyPos, Quaternion.identity);
-            enemy.GetComponent<EnemyCntrl>().Set(fighter, enemyIndex, boidMask);
+            enemy.GetComponent<EnemyCntrl>().Set(fighter, enemyIndex, boidMask, enemyAttack);
             enemy.GetComponent<TakeDamageCntrl>().Set(enemyIndex);
             enemy.GetComponentInChildren<NearDeathCntrl>().Set(enemyIndex);
 

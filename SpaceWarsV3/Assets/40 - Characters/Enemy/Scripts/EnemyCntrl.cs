@@ -38,10 +38,13 @@ public class EnemyCntrl : MonoBehaviour
 
     private Vector3 direction = new Vector3();
 
+    private int enemyAttack;
+
     // Start is called before the first frame update
     void Start()
     {
         ammoCount = ammo.maxRounds;
+        enemyAttack = gameData.medAttack;
 
         GetComponent<TakeDamageCntrl>().Init(100.0f);
 
@@ -118,7 +121,7 @@ public class EnemyCntrl : MonoBehaviour
             movement = direction;
         }
 
-        if (Random.Range(0, 600) == 0)  FireMissle(movement);
+        if (Random.Range(0, enemyAttack) == 0)  FireMissle(movement);
     }
 
     /**
@@ -185,11 +188,12 @@ public class EnemyCntrl : MonoBehaviour
     /**
      * Set() - 
      */
-    public void Set(GameObject fighter, int enemyIndex, LayerMask boidMask)
+    public void Set(GameObject fighter, int enemyIndex, LayerMask boidMask, int enemyAttack)
     {
         this.fighter        = fighter;
         this.enemyIndex     = enemyIndex;
         this.boidMask       = boidMask;
+        this.enemyAttack    = enemyAttack;
 
         this.flankPosVec = transform.position - fighter.transform.position;
 
@@ -260,8 +264,6 @@ public class EnemyCntrl : MonoBehaviour
         missile.GetComponentInChildren<Rigidbody>().AddForce(gameObject.transform.forward * ammo.force, ForceMode.Impulse);
         missile.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_ENEMY, ammo.destroyPrefab, ammo.damage, gameData.sparksPrefab);
         Destroy(missile, ammo.range);
-
-        Debug.Log($"ammo: {ammo}");
 
         EventManager.Instance.InvokeOnSound(ammo.ammoSound);
 

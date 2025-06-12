@@ -25,6 +25,9 @@ MonoBehaviour:
   fighterOffset: {x: 69, y: 0, z: 3.5}
   cameraEngagementPosition: {x: 0, y: 200, z: 0}
   cameraEngagementRotation: {x: 90, y: 0, z: 0}
+  lowAttack: 800
+  medAttack: 550
+  hghAttack: 300
   cameraIdlePosition: {x: 0, y: 1, z: -10}
   cameraIdleRotation: {x: 0, y: 0, z: 0}
   TAG_ENEMY: Enemy
