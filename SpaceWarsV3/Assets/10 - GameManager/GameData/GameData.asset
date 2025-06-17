@@ -28,6 +28,7 @@ MonoBehaviour:
   lowAttack: 800
   medAttack: 550
   hghAttack: 300
+  enemyAttackLevel: 20030000260200002c010000
   cameraIdlePosition: {x: 0, y: 1, z: -10}
   cameraIdleRotation: {x: 0, y: 0, z: 0}
   TAG_ENEMY: Enemy

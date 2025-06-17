@@ -22,6 +22,7 @@ public class GameDataSO : ScriptableObject
     public int lowAttack;
     public int medAttack;
     public int hghAttack;
+    public int[] enemyAttackLevel;
 
     [Header("Camera Id ...")]
     public Vector3 cameraIdlePosition;

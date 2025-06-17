@@ -5,6 +5,9 @@ using System;
 
 public class EventManager
 {
+    public event Action<int> OnHavocEnemyUpdate = delegate { };
+    public void InvokeOnHavocEnemyUpdate(int value) => OnHavocEnemyUpdate.Invoke(value);
+
     public event Action<AudioClip> OnSound = delegate { };
     public void InvokeOnSound(AudioClip andioClip) => OnSound.Invoke(andioClip);
 

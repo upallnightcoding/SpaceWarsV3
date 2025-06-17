@@ -14,6 +14,8 @@ public class EnemyManager : MonoBehaviour
 
     private int enemyAttack;
 
+    private int havocEnemyAttack = 12;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +35,7 @@ public class EnemyManager : MonoBehaviour
                 break;
             case LevelType.HAVOC:
             case LevelType.BERSERK:
-                CreateRandomEnemies(fighter, 12);
+                CreateRandomEnemies(fighter, havocEnemyAttack);
                 break;
             case LevelType.LEVEL:
                 CreateRandomEnemies(fighter, levelData.Level);
@@ -83,6 +85,8 @@ public class EnemyManager : MonoBehaviour
             enemy.GetComponentInChildren<NearDeathCntrl>().Set(enemyIndex);
 
             posDeg += flankingDeg;
+
+            Debug.Log($"enemyAttack: {enemyAttack}");
         }
 
         enemyCount = nEnemies;
@@ -123,11 +127,17 @@ public class EnemyManager : MonoBehaviour
         enemyCount = 0;
     }
 
+    private void OnHavocEnemyUpdate(int value)
+    {
+        havocEnemyAttack = value;
+    }
+
     private void OnEnable()
     {
         EventManager.Instance.OnDestroyEnemyShip += OnDestroyEnemy;
         EventManager.Instance.OnPlayerLooses += OnPlayerLooses;
         EventManager.Instance.OnDisengage += OnPlayerLooses;
+        EventManager.Instance.OnHavocEnemyUpdate += OnHavocEnemyUpdate;
     }
 
     private void OnDisable()
@@ -135,6 +145,7 @@ public class EnemyManager : MonoBehaviour
         EventManager.Instance.OnDestroyEnemyShip -= OnDestroyEnemy;
         EventManager.Instance.OnPlayerLooses -= OnPlayerLooses;
         EventManager.Instance.OnDisengage -= OnPlayerLooses;
+        EventManager.Instance.OnHavocEnemyUpdate -= OnHavocEnemyUpdate;
     }
 }
 

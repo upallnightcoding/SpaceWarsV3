@@ -61,6 +61,9 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private GameObject enemyRadar;
     [SerializeField] private Transform radarComponent;
 
+    [Header("Enemy Controls ...")]
+    [SerializeField] private TMP_Text havocEnemyCount;
+
     private WeaponSO[] ammoList;
     private WeaponSO[] missileList;
     private WeaponSO[] shieldList;
@@ -86,6 +89,26 @@ public class UICntrl : MonoBehaviour
     /****************************/
     /*** Main Menu Selections ***/
     /****************************/
+
+    public void HavocEnemyCountAdd()
+    {
+        int count = int.Parse(havocEnemyCount.text);
+        if (count < 20)
+        {
+            havocEnemyCount.text = (++count).ToString();
+            EventManager.Instance.InvokeOnHavocEnemyUpdate(count);
+        }
+    }
+
+    public void HavocEnemyCountSub()
+    {
+        int count = int.Parse(havocEnemyCount.text);
+        if (count > 1)
+        {
+            havocEnemyCount.text = (--count).ToString();
+            EventManager.Instance.InvokeOnHavocEnemyUpdate(count);
+        }
+    }
 
     public void OnRadarUpdate(bool action, int enemy, Vector3 position)
     {

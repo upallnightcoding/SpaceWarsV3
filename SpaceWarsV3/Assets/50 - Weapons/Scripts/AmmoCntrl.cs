@@ -23,8 +23,6 @@ public class AmmoCntrl : MonoBehaviour
         this.sparksPrefab   = sparksPrefab;
 
         active = true;
-
-        Debug.Log($"Initialize: {originator}");
     }
 
     /**
@@ -32,14 +30,12 @@ public class AmmoCntrl : MonoBehaviour
      */
     private void OnTriggerEnter(Collider obstacle)
     {
-        Debug.Log($"OnTriggerEnter: {originator}/{obstacle.tag}");
         if (!obstacle.CompareTag(originator) && active && !obstacle.CompareTag("Untagged"))
         {
             active = false;
 
             if (obstacle.TryGetComponent<TakeDamageCntrl>(out TakeDamageCntrl tdc))
             {
-                Debug.Log($"obstacle.TryGetComponent: {obstacle.tag}");
                 if (tdc.TakeDamage(damage))
                 {
                     if (destroyPrefab)
@@ -78,7 +74,6 @@ public class AmmoCntrl : MonoBehaviour
             }
 
             Destroy(gameObject);
-            //Debug.Log($"Destroy Game Object");
         }
     }
 }
