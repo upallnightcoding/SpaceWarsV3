@@ -45,6 +45,7 @@ public class UICntrl : MonoBehaviour
 
     [Header("Settings ...")]
     [SerializeField] private TMP_Text volumeText;
+    [SerializeField] private TMP_Text attackText;
 
     [Header("Inventory List ...")]
     [SerializeField] public WeaponsSelectionListCntrl ammoListCntrl;
@@ -86,9 +87,20 @@ public class UICntrl : MonoBehaviour
         UpdateAmmoBar(0, 0);
     }
 
-    /****************************/
-    /*** Main Menu Selections ***/
-    /****************************/
+    public void SetLowEnemyAttack()
+    {
+        attackText.text = "Low";
+    }
+
+    public void SetMedEnemyAttack()
+    {
+        attackText.text = "Med";
+    }
+
+    public void SetHghEnemyAttack()
+    {
+        attackText.text = "Hgh";
+    }
 
     public void HavocEnemyCountAdd()
     {

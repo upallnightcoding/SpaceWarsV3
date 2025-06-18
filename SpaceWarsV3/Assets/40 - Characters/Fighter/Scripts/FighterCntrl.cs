@@ -201,18 +201,21 @@ public class FighterCntrl : MonoBehaviour
      */
     private IEnumerator FireAmmo()
     {
-        GameObject go = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
-        go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
-        go.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, gameData.sparksPrefab);
-        Destroy(go, ammo.range);
-
-        EventManager.Instance.InvokeOnUpdateAmmoBar(--ammoCount, maxAmmoCount);
-
-        EventManager.Instance.InvokeOnSound(ammo.ammoSound);
-
-        if (ammoCount == 0)
+        if (ammo)
         {
-            StartCoroutine(ReLoad());
+            GameObject go = Instantiate(ammo.ammoPrefab, firePoint.transform.position, transform.rotation);
+            go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * ammo.force, ForceMode.Impulse);
+            go.GetComponent<AmmoCntrl>().Initialize(gameData.TAG_FIGHTER, ammo.destroyPrefab, ammo.damage, gameData.sparksPrefab);
+            Destroy(go, ammo.range);
+
+            EventManager.Instance.InvokeOnUpdateAmmoBar(--ammoCount, maxAmmoCount);
+
+            EventManager.Instance.InvokeOnSound(ammo.ammoSound);
+
+            if (ammoCount == 0)
+            {
+                StartCoroutine(ReLoad());
+            }
         }
 
         yield return new WaitForSeconds(0.1f);
