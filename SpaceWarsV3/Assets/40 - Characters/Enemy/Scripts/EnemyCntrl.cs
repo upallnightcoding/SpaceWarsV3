@@ -242,7 +242,6 @@ public class EnemyCntrl : MonoBehaviour
     {
         runRadar = false;
         StopCoroutine(destoryRequestFunc);
-        Debug.Log($"Enemy Destroyed: {enemyIndex}");
         Destroy(gameObject);
     }
 

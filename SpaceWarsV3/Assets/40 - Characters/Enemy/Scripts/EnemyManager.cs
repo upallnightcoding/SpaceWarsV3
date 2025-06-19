@@ -45,16 +45,25 @@ public class EnemyManager : MonoBehaviour
         PositionFighter(fighter);
     }
 
+    /**
+     * SetLowEnemyAttack() - Set the emeny attack level to low.
+     */
     public void SetLowEnemyAttack()
     {
         enemyAttack = gameData.lowAttack;
     }
 
+    /**
+     * SetMedEnemyAttack() - Set the enemy attack level to Medium.
+     */
     public void SetMedEnemyAttack()
     {
         enemyAttack = gameData.medAttack;
     }
 
+    /**
+     * SetHghEnemyAttack() - Set the enemy attack level to High.
+     */
     public void SetHghEnemyAttack()
     {
         enemyAttack = gameData.hghAttack;
@@ -85,8 +94,6 @@ public class EnemyManager : MonoBehaviour
             enemy.GetComponentInChildren<NearDeathCntrl>().Set(enemyIndex);
 
             posDeg += flankingDeg;
-
-            Debug.Log($"enemyAttack: {enemyAttack}");
         }
 
         enemyCount = nEnemies;
